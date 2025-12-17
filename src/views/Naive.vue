@@ -1,3 +1,10 @@
+<script setup>
+import { ref } from 'vue'
+
+const date = ref(Date.now())
+
+</script>
+
 <template>
   <div>
     <h1>Naive</h1>
@@ -31,13 +38,3 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-
-const date = ref(Date.now())
-
-</script>
-
-<style scoped>
-
-</style>
