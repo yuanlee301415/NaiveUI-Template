@@ -4,7 +4,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { createHtmlPlugin } from "vite-plugin-html";
-
+import UnoCSS from 'unocss/vite'
 import pkg from "./package.json";
 
 // https://vite.dev/config/
@@ -28,6 +28,7 @@ export default defineConfig(({mode}) => {
     plugins: [
       vue(),
       vueDevTools(),
+      UnoCSS(),
       createHtmlPlugin({
         entry: "src/main.js",
         minify: true,
