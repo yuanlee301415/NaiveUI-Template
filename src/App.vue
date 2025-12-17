@@ -1,6 +1,10 @@
 <script setup>
-import { onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { onMounted, computed } from 'vue'
+import { RouterView } from 'vue-router'
+import { darkTheme, useOsTheme } from 'naive-ui'
+
+const osTheme = useOsTheme()
+const theme = computed(() => osTheme.value === 'dark' ? darkTheme : null)
 
 onMounted(() => {
   const leftStyle =
@@ -16,17 +20,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/naive">Naive</RouterLink>
-    </nav>
-  </header>
-
-  <RouterView />
+  <n-config-provider :theme="theme" class="h-full">
+    <RouterView />
+  </n-config-provider>
 </template>
 
 <style scoped lang="less">

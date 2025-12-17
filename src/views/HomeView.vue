@@ -10,5 +10,8 @@
         <p class="text-gray-500">You have a new message!</p>
       </div>
     </div>
+
+    <hr>
+    <router-link :to="{name: 'About'}">About</router-link>
   </div>
 </template>
