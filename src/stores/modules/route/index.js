@@ -1,6 +1,10 @@
-import {defineStore} from 'pinia'
+/*
+* 路由 Store
+* */
+
+import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import {routes} from '@/router/modules'
+import { basic } from '@/router/routes'
 
 export const useRouteStore = defineStore('routeStore', () => {
   const menus = ref([])
@@ -12,13 +16,13 @@ export const useRouteStore = defineStore('routeStore', () => {
   }
 
   function init() {
-    menus.value = getMenus(routes)
+    menus.value = getMenus(basic)
   }
 
   function getMenus(routes, path, depth = 1, result = []) {
     for (const route of routes) {
       if (!route.name || !(route.meta && route.meta.title)) continue
-      const menu =  {
+      const menu = {
         name: route.name,
         path: path ? path + '/' + route.path : route.path,
         meta: route.meta,
@@ -28,7 +32,7 @@ export const useRouteStore = defineStore('routeStore', () => {
 
       if (!route.children) continue
       const children = getMenus(route.children, menu.path, depth + 1)
-      menu.children = children.length ? children: null
+      menu.children = children.length ? children : null
     }
     return result
   }
