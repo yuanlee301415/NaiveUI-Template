@@ -5,13 +5,14 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import { setupRouter } from './router'
-import {setupStore} from '@/stores/index.js'
+import { setupNaiveDiscreteApi } from './plugins'
+import { setupStore } from '@/stores/index.js'
 
 bootstrap()
 
 async function bootstrap() {
   const app = createApp(App)
-
+  setupNaiveDiscreteApi()
   await setupRouter(app)
   setupStore(app)
   app.mount('#app')
