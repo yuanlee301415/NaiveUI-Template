@@ -1,5 +1,5 @@
 <script setup>
-defineOptions({ name: 'MenuItem '})
+defineOptions({ name: 'MenuItem ' })
 
 defineProps({
   menu: {
@@ -27,10 +27,19 @@ dl {
       border-radius: 5px;
       padding: 5px 0;
       margin: 5px 0;
-      opacity: 0.8;
+      opacity: 0.9;
+
       &:hover {
         opacity: 1;
         background-color: hsla(160, 100%, 37%, 0.2);
+      }
+
+      &.router-link-exact-active {
+        color: var(--color-text);
+
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
   }
