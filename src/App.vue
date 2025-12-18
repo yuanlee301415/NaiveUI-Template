@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, computed } from 'vue'
 import { RouterView } from 'vue-router'
-import { darkTheme, useOsTheme } from 'naive-ui'
+import { darkTheme, useOsTheme, zhCN, dateZhCN } from 'naive-ui'
 
 const osTheme = useOsTheme()
 const theme = computed(() => osTheme.value === 'dark' ? darkTheme : null)
@@ -20,21 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-config-provider :theme="theme" class="h-full">
+  <n-config-provider :theme="theme" :locale="zhCN" :date-locale="dateZhCN" class="h-full">
     <RouterView />
   </n-config-provider>
 </template>
-
-<style scoped lang="less">
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-  }
-
-
-}
-</style>
