@@ -2,8 +2,8 @@
 * 用户权限
 * */
 
-import {useUserStore} from '@/stores/modules/user'
-import {LOGIN_ROUTE_NAME} from '@/router/constants.js'
+import { useAuthUserStore } from '@/stores/modules/authUser'
+import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
 export function createPermissionGuard(router) {
   router.beforeEach(async (to, form, next) => {
@@ -16,7 +16,7 @@ export function createPermissionGuard(router) {
     }
 
     // 未授权
-    const userStore = useUserStore()
+    const userStore = useAuthUserStore()
     if (!userStore.user) {
       console.warn('未授权')
       return next({ name: LOGIN_ROUTE_NAME })

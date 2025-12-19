@@ -1,4 +1,4 @@
-import { Layout, ROOT_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
+import { Layout, HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import HomeView from '@/views/HomeView.vue'
 import { nested } from '@/router/routes/modules/nested.js'
 import { exception } from '@/router/routes/modules/exception.js'
@@ -9,12 +9,12 @@ import { exception } from '@/router/routes/modules/exception.js'
 export const basic = [
   {
     path: '/',
-    name: ROOT_ROUTE_NAME,
     meta: { title: '首页' },
     component: Layout,
     children: [
       {
         path: '',
+        name: HOME_ROUTE_NAME,
         component: HomeView
       }
     ]
@@ -45,12 +45,11 @@ export const basic = [
   },
   {
     path: '/login',
-    component: Layout,
     children: [
       {
         path: '',
         name: LOGIN_ROUTE_NAME,
-        component: () => import('@/views/Login.vue')
+        component: () => import('@/views/login/index.vue')
       }
     ]
   },
