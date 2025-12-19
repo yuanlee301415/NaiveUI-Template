@@ -1,0 +1,36 @@
+{
+  "login": [
+    {
+      "id": "admin",
+      "name": "管理员",
+      "password": "123",
+      "roles": [
+        "Admin"
+      ]
+    },
+    {
+      "id": "zhangsan",
+      "name": "张三",
+      "password": "123",
+      "roles": [
+        "User"
+      ]
+    },
+    {
+      "id": "lisi",
+      "name": "李四",
+      "password": "123",
+      "roles": [
+        "User"
+      ]
+    },
+    {
+      "id": "wangwu",
+      "name": "王五",
+      "password": "123",
+      "roles": [
+        "User"
+      ]
+    }
+  ]
+}

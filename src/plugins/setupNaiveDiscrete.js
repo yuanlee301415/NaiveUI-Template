@@ -11,7 +11,7 @@ export function setupNaiveDiscreteApi() {
     const osTheme = useOsTheme()
     const theme = computed(() => osTheme.value === 'dark' ? darkTheme : null)
     return {
-      theme
+      theme: theme.value
     }
   })
 
