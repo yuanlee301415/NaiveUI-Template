@@ -21,6 +21,8 @@ onMounted(() => {
 
 <template>
   <n-config-provider :theme="theme" :locale="zhCN" :date-locale="dateZhCN" class="h-full">
-    <RouterView />
+    <n-notification-provider>
+      <RouterView />
+    </n-notification-provider>
   </n-config-provider>
 </template>

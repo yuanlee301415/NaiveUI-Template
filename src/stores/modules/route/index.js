@@ -21,9 +21,8 @@ export const useRouteStore = defineStore('routeStore', () => {
 
   function getMenus(routes, path, depth = 1, result = []) {
     for (const route of routes) {
-      if (!route.name || !(route.meta && route.meta.title)) continue
+      if (!(route.meta && route.meta.title)) continue
       const menu = {
-        name: route.name,
         path: path ? path + '/' + route.path : route.path,
         meta: route.meta,
         depth

@@ -14,7 +14,7 @@ defineProps({
       <router-link :to="menu.path">{{ menu.meta.title }}</router-link>
     </dt>
     <dd v-if="menu.children">
-      <MenuItem v-for="child of menu.children" :key="child.name" :menu="child" />
+      <MenuItem v-for="child of menu.children" :key="child.path" :menu="child" />
     </dd>
   </dl>
 </template>

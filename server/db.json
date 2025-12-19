@@ -2,32 +2,46 @@
   "login": [
     {
       "id": "admin",
+      "token": "5d5c3646-5b59-447c-86ff-56e9f3b66850"
+    },
+    {
+      "id": "zhangsan",
+      "token": "987d5269-2056-4c6a-9b71-d2a9eb0d2350"
+    },
+    {
+      "id": "lisi",
+      "token": "12688699-b400-4884-89d3-5a22c3d774af"
+    },
+    {
+      "id": "wangwu",
+      "token": "96dce8f3-9790-42d0-960b-70f723fbdcf1"
+    }
+  ],
+  "authUser": [
+    {
+      "id": "5d5c3646-5b59-447c-86ff-56e9f3b66850",
       "name": "管理员",
-      "password": "123",
       "roles": [
         "Admin"
       ]
     },
     {
-      "id": "zhangsan",
+      "id": "987d5269-2056-4c6a-9b71-d2a9eb0d2350",
       "name": "张三",
-      "password": "123",
       "roles": [
         "User"
       ]
     },
     {
-      "id": "lisi",
+      "id": "12688699-b400-4884-89d3-5a22c3d774af",
       "name": "李四",
-      "password": "123",
       "roles": [
         "User"
       ]
     },
     {
-      "id": "wangwu",
+      "id": "96dce8f3-9790-42d0-960b-70f723fbdcf1",
       "name": "王五",
-      "password": "123",
       "roles": [
         "User"
       ]

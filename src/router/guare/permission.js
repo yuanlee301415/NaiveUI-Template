@@ -2,7 +2,7 @@
 * 用户权限
 * */
 
-import { useAuthUserStore } from '@/stores/modules/authUser'
+import {useAuthUserStore} from '@/stores/modules/authUser/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
 export function createPermissionGuard(router) {
@@ -15,11 +15,17 @@ export function createPermissionGuard(router) {
       return next()
     }
 
+    const token = sessionStorage.getItem('token')
+    const authUserStore = useAuthUserStore()
+
     // 未授权
-    const userStore = useAuthUserStore()
-    if (!userStore.user) {
+    if (!token) {
       console.warn('未授权')
       return next({ name: LOGIN_ROUTE_NAME })
+    }
+
+    if (!authUserStore.user.id) {
+      await authUserStore.getAuthUser()
     }
 
     console.warn('已授权')

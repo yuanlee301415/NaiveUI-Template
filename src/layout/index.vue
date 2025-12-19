@@ -1,4 +1,5 @@
 <script setup>
+import Header from './modules/Header/index.vue'
 import Menus from './modules/Menus/index.vue'
 
 </script>
@@ -6,7 +7,7 @@ import Menus from './modules/Menus/index.vue'
 <template>
   <n-layout style="height: 100%">
     <n-layout-header style="height: 80px; padding: 10px" bordered>
-      <n-h2>Header</n-h2>
+      <Header />
     </n-layout-header>
 
     <n-layout position="absolute" style="top: 80px; bottom: 60px" has-sider>
@@ -16,7 +17,7 @@ import Menus from './modules/Menus/index.vue'
         content-style="padding: 20px;"
         bordered
       >
-        <Menus/>
+        <Menus />
       </n-layout-sider>
       <n-layout content-style="padding: 20px;" :native-scrollbar="false">
         <RouterView v-slot="{ Component, route }">

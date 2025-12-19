@@ -29,6 +29,7 @@ service.interceptors.response.use(
   },
   (error) => {
     console.error('[axios] response error:\n', error)
+
     if (error.response) {
       const res = error.response
       // 用户会话已失效
@@ -60,11 +61,13 @@ service.interceptors.response.use(
       title: '错误',
       content: (error.response.data && error.response.data.message) || '系统繁忙，请稍后再试！'
     })
+
     return Promise.reject(error)
   }
 )
 
 // 重新登录
-function reLogin() {}
+function reLogin() {
+}
 
 export default service

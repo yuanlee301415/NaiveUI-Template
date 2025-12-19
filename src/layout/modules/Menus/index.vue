@@ -12,6 +12,6 @@ menus.value = routeStore.menus
 
 <template>
   <nav>
-    <MenuItem v-for="menu of menus" :key="menu.name" :menu="menu"/>
+    <MenuItem v-for="menu of menus" :key="menu.path" :menu="menu"/>
   </nav>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
+import { HOME_ROUTE_NAME } from '@/router/constants.js'
 
 const router = useRouter()
 </script>
@@ -8,7 +9,7 @@ const router = useRouter()
   <n-result status="404" title="404" description="资源不存在">
     <template #footer>
       <n-flex justify="center" :size="20">
-        <n-button @click="router.replace('/')">返回首页</n-button>
+        <n-button @click="router.replace({name: HOME_ROUTE_NAME})">返回首页</n-button>
         <n-button @click="router.go(-1)">返回上一页</n-button>
       </n-flex>
     </template>

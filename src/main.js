@@ -13,7 +13,7 @@ bootstrap()
 async function bootstrap() {
   const app = createApp(App)
   setupNaiveDiscreteApi()
-  await setupRouter(app)
   setupStore(app)
+  await setupRouter(app)
   app.mount('#app')
 }
