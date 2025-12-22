@@ -5,13 +5,24 @@ import {LOGIN_ROUTE_NAME} from '@/router/constants.js'
 
 const authUserStore = useAuthUserStore()
 const router = useRouter()
+const options = [
+  { label: '退出登录', key: 'logout'}
+]
 </script>
 
 <template>
   <header class="flex justify-between">
     <n-h2>Header</n-h2>
     <n-flex size="medium">
-      <n-button v-if="authUserStore.user.name">{{ authUserStore.user.name }}</n-button>
+      <template v-if="authUserStore.user.name">
+        <n-dropdown :options="options" trigger="click">
+          <n-button>
+            <template #icon>
+              <i class="i-uil-user-circle"></i>
+            </template>
+            {{ authUserStore.user.name }}</n-button>
+        </n-dropdown>
+      </template>
       <n-button v-else text @click="router.push({name: LOGIN_ROUTE_NAME})">[登录]</n-button>
     </n-flex>
   </header>
