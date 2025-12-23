@@ -1,4 +1,6 @@
 <script setup>
+import SvgIcon from '@/components/SvgIcon/index.vue'
+
 defineOptions({ name: 'MenuItem ' })
 
 defineProps({
@@ -9,9 +11,9 @@ defineProps({
 </script>
 
 <template>
-  <dl :style="{textIndent: menu.depth + 'em'}">
+  <dl >
     <dt>
-      <router-link :to="menu.path">{{ menu.meta.title }}</router-link>
+      <router-link :to="menu.path" :style="{paddingLeft: menu.depth + 'em'}"><SvgIcon v-if="menu.meta.icon" :icon="menu.meta.icon" class="text-2xl"/><span>{{ menu.meta.title }}</span></router-link>
     </dt>
     <dd v-if="menu.children">
       <MenuItem v-for="child of menu.children" :key="child.path" :menu="child" />
@@ -23,9 +25,10 @@ defineProps({
 dl {
   dt {
     a {
-      display: block;
+      display: flex;
+      gap: 0 10px;
       border-radius: 5px;
-      padding: 5px 0;
+      padding: 5px;
       margin: 5px 0;
       opacity: 0.9;
 

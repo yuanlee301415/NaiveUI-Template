@@ -20,7 +20,8 @@ export const nested = {
           name: 'NestedA1',
           component: () => import('@/views/nested/a/a1/index.vue'),
           meta: {
-            title: 'NestedA1'
+            title: 'NestedA1',
+            icon: 'i-mdi:timer-sand-complete'
           }
         },
         {
@@ -28,7 +29,8 @@ export const nested = {
           name: 'NestedA2',
           component: () => import('@/views/nested/a/a2/index.vue'),
           meta: {
-            title: 'NestedA2'
+            title: 'NestedA2',
+            icon: 'i-mdi:timer-sand-complete'
           }
         }
       ]

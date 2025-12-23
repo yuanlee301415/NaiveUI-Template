@@ -9,7 +9,7 @@ import { exception } from '@/router/routes/modules/exception.js'
 export const basic = [
   {
     path: '/',
-    meta: { title: '首页' },
+    meta: { title: '首页', icon: 'i-mdi:home-outline' },
     component: Layout,
     children: [
       {
@@ -22,7 +22,7 @@ export const basic = [
   {
     path: '/about',
     name: 'About',
-    meta: { title: '关于' },
+    meta: { title: '关于', icon: 'i-mdi:information-slab-circle-outline' },
     component: Layout,
     children: [
       {
@@ -34,7 +34,10 @@ export const basic = [
   {
     path: '/naive',
     name: 'Naive',
-    meta: { title: 'Naive' },
+    meta: {
+      title: 'Naive',
+      icon: 'i-mdi:alpha-n-box-outline'
+    },
     component: Layout,
     children: [
       {
@@ -56,7 +59,7 @@ export const basic = [
   {
     path: '/user',
     name: 'User',
-    meta: { title: '用户中心', roles: ['User'] },
+    meta: { title: '用户中心', roles: ['User'], icon: 'i-mdi:account-outline' },
     component: Layout,
     children: [
       {
@@ -68,10 +71,10 @@ export const basic = [
 
   nested,
 
-  exception,
+  exception
 ]
 
-const notFound =   {
+const notFound = {
   path: '/:path(.*)*',
   name: 'NotFound',
   redirect: '/exception/404'
