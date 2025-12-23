@@ -10,7 +10,7 @@ const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
 
 const options = [
-  { label: '退出登录', key: 'logout', icon: SvgIconVNode({ icon: 'i-uil:exit', size: 18 }) }
+  { label: '退出登录', key: 'logout', icon: SvgIconVNode({ icon: 'i-mdi:exit-to-app', size: 18 }) }
 ]
 </script>
 
@@ -22,7 +22,7 @@ const options = [
         <n-dropdown :options="options" trigger="click">
           <n-button>
             <template #icon>
-              <SvgIcon icon="i-uil:user-circle" />
+              <SvgIcon icon="i-mdi:account-circle-outline" />
             </template>
             {{ authUserStore.user.name }}
           </n-button>

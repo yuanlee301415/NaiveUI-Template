@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@iconify-json/uil": "^1.2.3",
+    "@iconify-json/mdi": "^1.2.3",
     "@unocss/preset-icons": "^66.5.10",
     "@unocss/preset-wind4": "^66.5.10",
     "@vitejs/plugin-vue": "^6.0.2",
