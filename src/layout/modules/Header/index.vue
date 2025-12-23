@@ -2,6 +2,7 @@
 import {useRouter} from 'vue-router'
 import {useAuthUserStore} from '@/stores/modules/authUser/index.js'
 import {LOGIN_ROUTE_NAME} from '@/router/constants.js'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 const authUserStore = useAuthUserStore()
 const router = useRouter()
@@ -18,7 +19,7 @@ const options = [
         <n-dropdown :options="options" trigger="click">
           <n-button>
             <template #icon>
-              <i class="i-uil-user-circle"></i>
+              <SvgIcon icon="i-uil-user-circle"/>
             </template>
             {{ authUserStore.user.name }}</n-button>
         </n-dropdown>

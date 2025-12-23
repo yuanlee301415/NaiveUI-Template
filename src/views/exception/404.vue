@@ -6,7 +6,10 @@ const router = useRouter()
 </script>
 
 <template>
-  <n-result status="404" title="404" description="资源不存在">
+  <n-result title="404" description="资源不存在">
+    <template #icon>
+      <SvgIcon local-icon="not-found" class="text-500px" />
+    </template>
     <template #footer>
       <n-flex justify="center" :size="20">
         <n-button @click="router.replace({name: HOME_ROUTE_NAME})">返回首页</n-button>

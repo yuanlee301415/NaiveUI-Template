@@ -6,7 +6,10 @@ const router = useRouter()
 </script>
 
 <template>
-  <n-result status="403" title="403" description="无权限">
+  <n-result title="403" description="无权限">
+    <template #icon>
+      <SvgIcon local-icon="no-permission" class="text-500px" />
+    </template>
     <template #footer>
       <n-flex justify="center" :size="20">
         <n-button @click="router.replace({name: HOME_ROUTE_NAME })">返回首页</n-button>
