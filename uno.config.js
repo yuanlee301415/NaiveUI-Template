@@ -7,7 +7,12 @@ export default defineConfig({
   presets: [
     presetWind4(),
 
-    presetIcons()
+    presetIcons({
+      extraProperties: {
+        display: 'inline-block',
+        'vertical-align': 'middle'
+      }
+    })
   ],
 
   /*
