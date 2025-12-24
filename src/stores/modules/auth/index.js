@@ -14,6 +14,7 @@ export const useAuthStore = defineStore('authStore', () => {
     roles: []
   })
 
+  const authStore = useAuthStore()
   const routeStore = useRouteStore()
 
   async function login({ name }) {
@@ -23,7 +24,6 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
   async function logout() {
-    console.warn('logout')
     sessionStorage.removeItem('token')
     resetStore()
     routeStore.toLogin()
@@ -37,7 +37,7 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
   function resetStore() {
-    Object.assign(user, { id: '', name: '', roles: [] })
+    authStore.$reset()
   }
 
   return {
