@@ -1,13 +1,12 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useNotification } from 'naive-ui'
 import { useAuthUserStore } from '@/stores/modules/authUser/index.js'
-import { HOME_ROUTE_NAME } from '@/router/constants.js'
+import { useRouteStore } from '@/stores/modules/route/index.js'
 
 const authUserStore = useAuthUserStore()
+const routeStore = useRouteStore()
 const notification = useNotification()
-const router = useRouter()
 const NAME_REG = /^[a-z\d]{3,20}$/
 
 const RULES = {
@@ -51,7 +50,7 @@ async function handleSubmit() {
       content: `欢迎回来，${user.name}！`,
       duration: 1000
     })
-    router.replace({ name: HOME_ROUTE_NAME })
+    routeStore.redirectFormLogin()
   } catch (e) {
     console.error(e)
     notification.error({
