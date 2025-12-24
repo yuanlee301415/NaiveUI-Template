@@ -19,7 +19,7 @@ export const useAuthUserStore = defineStore('authUserStore', () => {
   async function login({ name }) {
     const res = await loginApi(name)
     sessionStorage.setItem('token', res.token)
-    await getAuthUser()
+    return await getAuthUser()
   }
 
   async function logout() {
@@ -33,6 +33,7 @@ export const useAuthUserStore = defineStore('authUserStore', () => {
     const token = sessionStorage.getItem('token')
     const { id, name, roles } = await getAuthUserApi(token)
     Object.assign(user, { id, name, roles })
+    return user
   }
 
   function resetStore() {

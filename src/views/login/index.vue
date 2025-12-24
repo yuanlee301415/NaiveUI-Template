@@ -46,11 +46,12 @@ async function handleSubmit() {
   loading.value = true
   try {
     const user = await authUserStore.login(formData)
-    console.log(user)
-    router.replace({ name: HOME_ROUTE_NAME })
     notification.success({
-      content: '登录成功！'
+      title: '登录成功',
+      content: `欢迎回来，${user.name}！`,
+      duration: 1000
     })
+    router.replace({ name: HOME_ROUTE_NAME })
   } catch (e) {
     console.error(e)
     notification.error({
@@ -63,8 +64,8 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="login w-full h-full flex-center">
-    <div class="form">
+  <div class="w-full h-full flex-center bg-gray-500">
+    <div class="min-w-600px bg-black rounded-20px p-20px">
 
       <n-h2 class="text-center">
         <n-text type="success">登录</n-text>
@@ -86,19 +87,7 @@ async function handleSubmit() {
       <n-flex :size="50" justify="right">
         <n-button :loading="loading" @click="handleSubmit">登录</n-button>
       </n-flex>
+
     </div>
   </div>
 </template>
-
-<style scoped lang="less">
-.login {
-  background-color: rgb(187, 179, 255);
-
-  .form {
-    min-width: 600px;
-    background-color: black;
-    border-radius: 20px;
-    padding: 20px;
-  }
-}
-</style>
