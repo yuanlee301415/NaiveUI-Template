@@ -1,14 +1,14 @@
 <script setup>
-import { useAuthUserStore } from '@/stores/modules/authUser/index.js'
+import { useAuthStore } from '@/stores/modules/auth/index.js'
 
-const authUserStore = useAuthUserStore()
+const authStore = useAuthStore()
 
 </script>
 
 <template>
   <div class="user-view">
     <h1>User</h1>
-    <n-h1 v-if="authUserStore.user.name">Hello, {{ authUserStore.user.name }}</n-h1>
+    <n-h1 v-if="authStore.user.name">Hello, {{ authStore.user.name }}</n-h1>
   </div>
 </template>
 

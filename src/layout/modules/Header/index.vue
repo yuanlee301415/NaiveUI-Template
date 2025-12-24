@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { useAuthUserStore } from '@/stores/modules/authUser/index.js'
+import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
@@ -8,7 +8,7 @@ import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 const KEYS = {
   LOGOUT: 'logout'
 }
-const authUserStore = useAuthUserStore()
+const authStore = useAuthStore()
 const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
 
@@ -24,7 +24,7 @@ function logout() {
     positiveText: '确认',
     negativeText: '取消',
     onPositiveClick() {
-      authUserStore.logout()
+      authStore.logout()
     }
   })
 }
@@ -43,13 +43,13 @@ function handleSelect(key) {
   <header class="flex justify-between">
     <n-h2>Header</n-h2>
     <n-flex size="medium">
-      <template v-if="authUserStore.user.name">
+      <template v-if="authStore.user.name">
         <n-dropdown :options="options" trigger="click" @select="handleSelect">
           <n-button>
             <template #icon>
               <SvgIcon icon="i-mdi:account-circle-outline" />
             </template>
-            {{ authUserStore.user.name }}
+            {{ authStore.user.name }}
           </n-button>
         </n-dropdown>
       </template>

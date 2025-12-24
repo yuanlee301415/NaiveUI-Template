@@ -1,10 +1,10 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useNotification } from 'naive-ui'
-import { useAuthUserStore } from '@/stores/modules/authUser/index.js'
+import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 
-const authUserStore = useAuthUserStore()
+const authStore = useAuthStore()
 const routeStore = useRouteStore()
 const notification = useNotification()
 const NAME_REG = /^[a-z\d]{3,20}$/
@@ -44,7 +44,7 @@ async function handleSubmit() {
   await formRef.value.validate()
   loading.value = true
   try {
-    const user = await authUserStore.login(formData)
+    const user = await authStore.login(formData)
     notification.success({
       title: '登录成功',
       content: `欢迎回来，${user.name}！`,

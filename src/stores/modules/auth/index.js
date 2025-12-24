@@ -7,7 +7,7 @@ import { reactive } from 'vue'
 import { loginApi, getAuthUserApi } from '@/api/rights.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 
-export const useAuthUserStore = defineStore('authUserStore', () => {
+export const useAuthStore = defineStore('authStore', () => {
   const user = reactive({
     id: '',
     name: '',
