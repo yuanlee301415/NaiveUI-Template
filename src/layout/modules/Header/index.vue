@@ -5,13 +5,38 @@ import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 
+const KEYS = {
+  LOGOUT: 'logout'
+}
 const authUserStore = useAuthUserStore()
 const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
 
+
 const options = [
-  { label: '退出登录', key: 'logout', icon: SvgIconVNode({ icon: 'i-mdi:exit-to-app', size: 18 }) }
+  { label: '退出登录', key: KEYS.LOGOUT, icon: SvgIconVNode({ icon: 'i-mdi:exit-to-app', size: 18 }) }
 ]
+
+function logout() {
+  window.$dialog.info({
+    title: '提示',
+    content: '确定退出登录吗？',
+    positiveText: '确认',
+    negativeText: '取消',
+    onPositiveClick() {
+      authUserStore.logout()
+    }
+  })
+}
+
+function handleSelect(key) {
+  console.log(key)
+  switch (key) {
+    case KEYS.LOGOUT:
+      logout()
+      break
+  }
+}
 </script>
 
 <template>
@@ -19,7 +44,7 @@ const options = [
     <n-h2>Header</n-h2>
     <n-flex size="medium">
       <template v-if="authUserStore.user.name">
-        <n-dropdown :options="options" trigger="click">
+        <n-dropdown :options="options" trigger="click" @select="handleSelect">
           <n-button>
             <template #icon>
               <SvgIcon icon="i-mdi:account-circle-outline" />

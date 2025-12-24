@@ -4,16 +4,17 @@
 
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import { basic } from '@/router/routes'
+import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
 export const useRouteStore = defineStore('routeStore', () => {
+  const route = useRoute()
+  const router = useRouter()
   const menus = ref([])
 
   init()
-
-  return {
-    menus
-  }
 
   function init() {
     menus.value = getMenus(basic)
@@ -34,5 +35,15 @@ export const useRouteStore = defineStore('routeStore', () => {
       menu.children = children.length ? children : null
     }
     return result
+  }
+
+  function toLogin() {
+    if (!(route.meta && route.meta.roles)) return
+    router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
+  }
+
+  return {
+    menus,
+    toLogin
   }
 })

@@ -1,16 +1,14 @@
 <script setup>
+import { useAuthUserStore } from '@/stores/modules/authUser/index.js'
 
-import SvgIcon from '@/components/SvgIcon/index.vue'
+const authUserStore = useAuthUserStore()
+
 </script>
 
 <template>
   <div class="user-view">
     <h1>User</h1>
-    <hr>
-    <SvgIcon class="text-5xl" icon="i-mdi:information-slab-circle-outline"/>
-    <SvgIcon class="text-5xl" icon="i-mdi:alpha-n-box-outline"/>
-    <SvgIcon class="text-5xl" icon="i-mdi:account-outline"/>
-    <SvgIcon class="text-5xl" icon="i-mdi:timer-sand-complete"/>
+    <n-h1 v-if="authUserStore.user.name">Hello, {{ authUserStore.user.name }}</n-h1>
   </div>
 </template>
 
