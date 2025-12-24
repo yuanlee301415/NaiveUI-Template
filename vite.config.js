@@ -103,6 +103,18 @@ export default defineConfig(({mode}) => {
           : undefined,
     },
 
+    preview: {
+      proxy:
+        VITE_PROXY ? {
+            [VITE_BASE_API]: {
+              target: VITE_PROXY,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(VITE_BASE_API, ""),
+            },
+          }
+          : undefined,
+    },
+
     define: {
       __APP_VERSION__: JSON.stringify(__APP_VERSION__),
       __APP_BUILD_TIME__: JSON.stringify(__APP_BUILD_TIME__)
