@@ -22,7 +22,7 @@ export const useRouteStore = defineStore('routeStore', () => {
 
   function getMenus(routes, path, depth = 1, result = []) {
     for (const route of routes) {
-      if (!(route.meta && route.meta.title)) continue
+      if (!route?.meta?.title) continue
       const menu = {
         path: path ? path + '/' + route.path : route.path,
         meta: route.meta,
@@ -38,7 +38,7 @@ export const useRouteStore = defineStore('routeStore', () => {
   }
 
   function toLogin() {
-    if (!(route.meta && route.meta.roles)) return
+    if (!route?.meta?.roles) return
     router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
   }
 

@@ -10,7 +10,7 @@ export function createPermissionGuard(router) {
     console.log('permission>to:', to)
 
     // 页面无权限限制
-    if (!(to.meta && to.meta.roles)) {
+    if (!to?.meta?.roles) {
       console.warn('页面无权限限制')
       return next()
     }

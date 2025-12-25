@@ -59,7 +59,7 @@ service.interceptors.response.use(
 
     window.$notification.error({
       title: '错误',
-      content: (error.response.data && error.response.data.message) || '系统繁忙，请稍后再试！'
+      content: (error.response?.data?.message) || '系统繁忙，请稍后再试！'
     })
 
     return Promise.reject(error)
