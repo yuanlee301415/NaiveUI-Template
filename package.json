@@ -10,6 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite build && vite preview",
+    "preview:dist": "vite preview",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
     "server": "npx json-server server/db.json --port 3001"
