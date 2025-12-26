@@ -2,6 +2,8 @@
 import { useRouter } from 'vue-router'
 import { HOME_ROUTE_NAME } from '@/router/constants.js'
 
+defineOptions({ name: 'Exception_403'})
+
 const router = useRouter()
 </script>
 

@@ -16,7 +16,7 @@ import pkg from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig(({mode}) => {
-  // eslint-disable-next-line no-undef
+   
   const root = cwd();
   const env = loadEnv(mode, root);
   console.log("ENV:\n", env);

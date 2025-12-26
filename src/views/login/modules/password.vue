@@ -6,6 +6,8 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants.js'
 
+defineOptions({ name: 'PasswordLogin' })
+
 const router = useRouter()
 const authStore = useAuthStore()
 const routeStore = useRouteStore()

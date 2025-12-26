@@ -5,6 +5,9 @@ import { useRouter } from 'vue-router'
 import { getCaptchaApi } from '@/api/rights.js'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants.js'
 
+// eslint-disable-next-line vue/multi-word-component-names
+defineOptions({ name: 'Register' })
+
 const router = useRouter()
 const notification = useNotification()
 const MOBILE_REG = /^1\d{10}$/

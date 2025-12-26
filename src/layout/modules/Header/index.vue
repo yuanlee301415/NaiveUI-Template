@@ -5,6 +5,8 @@ import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 
+defineOptions({name: 'LayoutHeader'})
+
 const KEYS = {
   LOGOUT: 'logout'
 }

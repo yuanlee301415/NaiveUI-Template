@@ -7,6 +7,9 @@ import { getCaptchaApi } from '@/api/rights.js'
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants.js'
 
+
+defineOptions({ name: 'CodeLogin' })
+
 const router = useRouter()
 const routeStore = useRouteStore()
 const authStore = useAuthStore()

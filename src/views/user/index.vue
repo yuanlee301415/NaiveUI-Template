@@ -1,6 +1,8 @@
 <script setup>
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 
+defineOptions({ name: 'UserIndex' })
+
 const authStore = useAuthStore()
 
 </script>

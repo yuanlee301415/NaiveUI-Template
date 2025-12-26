@@ -2,6 +2,8 @@
 import Header from './modules/Header/index.vue'
 import Menus from './modules/Menus/index.vue'
 
+defineOptions({ name: 'LayoutIndex' })
+
 </script>
 
 <template>

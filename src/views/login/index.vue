@@ -1,6 +1,7 @@
 <script setup>
 import WaveBg from '@/components/WaveBg.vue'
 
+defineOptions({ name: 'LoginIndex' })
 </script>
 
 <template>

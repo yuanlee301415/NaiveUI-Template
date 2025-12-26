@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
+defineOptions({ name: 'NaiveIndex'})
+
 const date = ref(Date.now())
 
 </script>

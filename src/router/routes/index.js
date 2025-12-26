@@ -1,5 +1,5 @@
 import { Layout, HOME_ROUTE_NAME } from '@/router/constants.js'
-import HomeView from '@/views/HomeView.vue'
+import HomeView from '@/views/home/index.vue'
 import { nestedRoutes } from '@/router/routes/modules/nested.js'
 import { exceptionRoutes } from '@/router/routes/modules/exception.js'
 import { loginRoutes } from '@/router/routes/modules/login.js'
@@ -28,7 +28,7 @@ export const basic = [
     children: [
       {
         path: '',
-        component: () => import('@/views/AboutView.vue')
+        component: () => import('@/views/about/index.vue')
       }
     ]
   },
@@ -43,7 +43,7 @@ export const basic = [
     children: [
       {
         path: '',
-        component: () => import('@/views/Naive.vue')
+        component: () => import('@/views/naive/index.vue')
       }
     ]
   },
@@ -56,7 +56,7 @@ export const basic = [
     children: [
       {
         path: '',
-        component: () => import('@/views/User.vue')
+        component: () => import('@/views/user/index.vue')
       }
     ]
   },
