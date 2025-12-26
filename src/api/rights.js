@@ -1,8 +1,14 @@
 import request from '@/utils/request.js'
 
-export function loginApi(id) {
+export function loginApi(name) {
   return request({
-    url: `/login/${id}`
+    url: `/login/${name}`
+  })
+}
+
+export function getCaptchaApi(mobile) {
+  return request({
+    url: `/captcha/${mobile}`
   })
 }
 
