@@ -11,12 +11,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
+import { visualizer } from "rollup-plugin-visualizer";
 
 import pkg from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig(({mode}) => {
-   
+
   const root = cwd();
   const env = loadEnv(mode, root);
   console.log("ENV:\n", env);
@@ -81,6 +82,11 @@ export default defineConfig(({mode}) => {
         inject: 'body-last',
 
         customDomId: '__SVG_ICON_LOCAL__',
+      }),
+
+      visualizer({
+        filename: 'dist/report.html',
+        title: `Bundle Analysis - ${new Date().toLocaleString()}`
       })
     ],
 

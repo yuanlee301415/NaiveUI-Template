@@ -39,6 +39,7 @@
     "json-server": "1.0.0-beta.3",
     "less": "^4.5.1",
     "prettier": "3.6.2",
+    "rollup-plugin-visualizer": "^6.0.5",
     "unocss": "^66.5.10",
     "unplugin-auto-import": "^20.3.0",
     "unplugin-vue-components": "^30.0.0",
