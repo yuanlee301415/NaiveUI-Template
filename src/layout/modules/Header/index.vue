@@ -5,18 +5,21 @@ import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 
-defineOptions({name: 'LayoutHeader'})
+defineOptions({ name: 'LayoutHeader' })
 
 const KEYS = {
-  LOGOUT: 'logout'
+  LOGOUT: 'logout',
 }
 const authStore = useAuthStore()
 const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
 
-
 const options = [
-  { label: '退出登录', key: KEYS.LOGOUT, icon: SvgIconVNode({ icon: 'i-mdi:exit-to-app', size: 18 }) }
+  {
+    label: '退出登录',
+    key: KEYS.LOGOUT,
+    icon: SvgIconVNode({ icon: 'i-mdi:exit-to-app', size: 18 }),
+  },
 ]
 
 function logout() {
@@ -27,7 +30,7 @@ function logout() {
     negativeText: '取消',
     onPositiveClick() {
       authStore.logout()
-    }
+    },
   })
 }
 
@@ -55,11 +58,9 @@ function handleSelect(key) {
           </n-button>
         </n-dropdown>
       </template>
-      <n-button v-else text @click="router.push({name: LOGIN_ROUTE_NAME})">[登录]</n-button>
+      <n-button v-else text @click="router.push({ name: LOGIN_ROUTE_NAME })">[登录]</n-button>
     </n-flex>
   </header>
 </template>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

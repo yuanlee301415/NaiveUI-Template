@@ -1,6 +1,6 @@
 /*
-* 页面加载进度条
-* */
+ * 页面加载进度条
+ * */
 
 export function createLoadingBarGuard(router) {
   router.beforeEach(() => {

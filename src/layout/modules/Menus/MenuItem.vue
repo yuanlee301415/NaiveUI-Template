@@ -5,15 +5,19 @@ defineOptions({ name: 'MenuItem ' })
 
 defineProps({
   menu: {
-    type: Object
-  }
+    type: Object,
+  },
 })
 </script>
 
 <template>
-  <dl >
+  <dl>
     <dt>
-      <router-link :to="menu.path" :style="{paddingLeft: menu.depth + 'em'}"><SvgIcon v-if="menu.meta.icon" :icon="menu.meta.icon" class="text-2xl"/><span>{{ menu.meta.title }}</span></router-link>
+      <router-link :to="menu.path" :style="{ paddingLeft: menu.depth + 'em' }"
+        ><SvgIcon v-if="menu.meta.icon" :icon="menu.meta.icon" class="text-2xl" /><span>{{
+          menu.meta.title
+        }}</span></router-link
+      >
     </dt>
     <dd v-if="menu.children">
       <MenuItem v-for="child of menu.children" :key="child.path" :menu="child" />

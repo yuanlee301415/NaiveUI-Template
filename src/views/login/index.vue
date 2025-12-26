@@ -6,7 +6,7 @@ defineOptions({ name: 'LoginIndex' })
 
 <template>
   <div class="w-full h-full flex-center relative overflow-hidden bg-[#e5e0ff]">
-    <WaveBg/>
+    <WaveBg />
     <n-card class="w-auto relative z-10 rounded-20px p-20px">
       <RouterView v-slot="{ Component, route }">
         <transition name="fade-slide" mode="out-in">

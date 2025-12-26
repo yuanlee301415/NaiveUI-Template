@@ -9,17 +9,17 @@ import { computed } from 'vue'
 export function setupNaiveDiscreteApi() {
   const configProviderPropsRef = computed(() => {
     const osTheme = useOsTheme()
-    const theme = computed(() => osTheme.value === 'dark' ? darkTheme : null)
+    const theme = computed(() => (osTheme.value === 'dark' ? darkTheme : null))
     return {
-      theme: theme.value
+      theme: theme.value,
     }
   })
 
   const { message, dialog, notification, loadingBar } = createDiscreteApi(
     ['message', 'dialog', 'notification', 'loadingBar'],
     {
-      configProviderProps: configProviderPropsRef
-    }
+      configProviderProps: configProviderPropsRef,
+    },
   )
 
   window['$message'] = message

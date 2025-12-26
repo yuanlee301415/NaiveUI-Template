@@ -4,17 +4,15 @@
 
 import axios from 'axios'
 
-const NOT_TOAST_URLS = [
-  new RegExp('/login')
-]
+const NOT_TOAST_URLS = [new RegExp('/login')]
 
 // create an axios instance
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   },
-  timeout: 1000 * 60 * 5
+  timeout: 1000 * 60 * 5,
 })
 
 // response interceptor
@@ -48,26 +46,25 @@ service.interceptors.response.use(
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
       window.$notification.error({
         title: '错误',
-        content: '请求超时，请稍后再试！'
+        content: '请求超时，请稍后再试！',
       })
       return Promise.reject(error)
     }
 
-    if (NOT_TOAST_URLS.find(reg => reg.test(error.config.url))) {
+    if (NOT_TOAST_URLS.find((reg) => reg.test(error.config.url))) {
       return Promise.reject(error)
     }
 
     window.$notification.error({
       title: '错误',
-      content: (error.response?.data?.message) || '系统繁忙，请稍后再试！'
+      content: error.response?.data?.message || '系统繁忙，请稍后再试！',
     })
 
     return Promise.reject(error)
-  }
+  },
 )
 
 // 重新登录
-function reLogin() {
-}
+function reLogin() {}
 
 export default service

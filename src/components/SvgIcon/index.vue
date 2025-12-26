@@ -6,12 +6,12 @@ defineOptions({ name: 'SvgIcon', inheritAttrs: false })
 const props = defineProps({
   icon: {
     type: String,
-    default: ''
+    default: '',
   },
   localIcon: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const bindAttrs = useAttrs()
@@ -23,7 +23,6 @@ const symbolId = computed(() => {
   const icon = props.localIcon || 'no-icon'
   return `#${prefix}-${icon}`
 })
-
 </script>
 
 <template>
@@ -37,6 +36,4 @@ const symbolId = computed(() => {
   </template>
 </template>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

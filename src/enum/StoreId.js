@@ -1,8 +1,8 @@
 /*
-* Store id
-* */
+ * Store id
+ * */
 
 export const StoreId = {
   Auth: 'authStore',
-  Route: 'routeStore'
+  Route: 'routeStore',
 }

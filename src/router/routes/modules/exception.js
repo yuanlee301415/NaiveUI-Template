@@ -7,11 +7,11 @@ export const exceptionRoutes = {
   children: [
     {
       path: '404',
-      component: () => import('@/views/exception/404.vue')
+      component: () => import('@/views/exception/404.vue'),
     },
     {
       path: '403',
-      component: () => import('@/views/exception/403.vue')
-    }
-  ]
+      component: () => import('@/views/exception/403.vue'),
+    },
+  ],
 }

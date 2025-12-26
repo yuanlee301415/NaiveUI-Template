@@ -1,6 +1,6 @@
 /*
-* User model
-* */
+ * User model
+ * */
 
 export class User {
   /**
@@ -24,7 +24,7 @@ export class User {
    * @param {User} _
    */
   constructor(_) {
-    const {id, name, roles} = { ..._ }
+    const { id, name, roles } = { ..._ }
     this.id = id
     this.name = name
     this.roles = roles
@@ -36,6 +36,6 @@ export class User {
    * @return {User[]|*}
    */
   from(list) {
-    return list?.map(_ => new this(_))
+    return list?.map((_) => new this(_))
   }
 }

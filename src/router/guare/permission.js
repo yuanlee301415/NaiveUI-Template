@@ -1,6 +1,6 @@
 /*
-* 用户权限
-* */
+ * 用户权限
+ * */
 
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'

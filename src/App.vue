@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router'
 import { darkTheme, useOsTheme, zhCN, dateZhCN } from 'naive-ui'
 
 const osTheme = useOsTheme()
-const theme = computed(() => osTheme.value === 'dark' ? darkTheme : null)
+const theme = computed(() => (osTheme.value === 'dark' ? darkTheme : null))
 
 onMounted(() => {
   const leftStyle =

@@ -1,6 +1,6 @@
 /*
-* 用户 Store
-* */
+ * 用户 Store
+ * */
 
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('authStore', () => {
   const user = reactive({
     id: '',
     name: '',
-    roles: null
+    roles: null,
   })
 
   const authStore = useAuthStore()
@@ -45,6 +45,6 @@ export const useAuthStore = defineStore('authStore', () => {
     user,
     login,
     logout,
-    getAuthUser
+    getAuthUser,
   }
 })

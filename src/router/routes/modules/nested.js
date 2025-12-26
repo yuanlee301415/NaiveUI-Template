@@ -6,7 +6,7 @@ export const nestedRoutes = {
   component: Layout,
   redirect: '/nested/a',
   meta: {
-    title: 'Nested'
+    title: 'Nested',
   },
   children: [
     {
@@ -21,8 +21,8 @@ export const nestedRoutes = {
           component: () => import('@/views/nested/a/a1/index.vue'),
           meta: {
             title: 'NestedA1',
-            icon: 'i-mdi:timer-sand-complete'
-          }
+            icon: 'i-mdi:timer-sand-complete',
+          },
         },
         {
           path: 'a2',
@@ -30,10 +30,10 @@ export const nestedRoutes = {
           component: () => import('@/views/nested/a/a2/index.vue'),
           meta: {
             title: 'NestedA2',
-            icon: 'i-mdi:timer-sand-complete'
-          }
-        }
-      ]
+            icon: 'i-mdi:timer-sand-complete',
+          },
+        },
+      ],
     },
 
     {
@@ -47,18 +47,18 @@ export const nestedRoutes = {
           name: 'NestedB1',
           component: () => import('@/views/nested/b/b1/index.vue'),
           meta: {
-            title: 'NestedB1'
-          }
+            title: 'NestedB1',
+          },
         },
         {
           path: 'b2',
           name: 'NestedB2',
           component: () => import('@/views/nested/b/b2/index.vue'),
           meta: {
-            title: 'NestedB2'
-          }
-        }
-      ]
+            title: 'NestedB2',
+          },
+        },
+      ],
     },
 
     {
@@ -71,7 +71,7 @@ export const nestedRoutes = {
           path: 'c1',
           name: 'NestedC1',
           meta: {
-            title: 'NestedC1'
+            title: 'NestedC1',
           },
           redirect: '/nested/c/c1/1',
           children: [
@@ -80,28 +80,28 @@ export const nestedRoutes = {
               name: 'NestedC1-1',
               component: () => import('@/views/nested/c/c1/1/index.vue'),
               meta: {
-                title: 'NestedC1-1'
-              }
+                title: 'NestedC1-1',
+              },
             },
             {
               path: '2',
               name: 'NestedC1-2',
               component: () => import('@/views/nested/c/c1/2/index.vue'),
               meta: {
-                title: 'NestedC1-2'
-              }
-            }
-          ]
+                title: 'NestedC1-2',
+              },
+            },
+          ],
         },
         {
           path: 'c2',
           name: 'NestedC2',
           component: () => import('@/views/nested/c/c2/index.vue'),
           meta: {
-            title: 'NestedC2'
-          }
-        }
-      ]
-    }
-  ]
+            title: 'NestedC2',
+          },
+        },
+      ],
+    },
+  ],
 }

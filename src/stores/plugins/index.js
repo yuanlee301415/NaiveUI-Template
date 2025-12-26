@@ -1,6 +1,6 @@
 /*
-* 重置 State 插件
-* */
+ * 重置 State 插件
+ * */
 import { StoreId } from '@/enum/index.js'
 import { cloneJson } from '@/utils/cloneJson.js'
 

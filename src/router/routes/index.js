@@ -5,8 +5,8 @@ import { exceptionRoutes } from '@/router/routes/modules/exception.js'
 import { loginRoutes } from '@/router/routes/modules/login.js'
 
 /*
-* 基础（静态）路由
-* */
+ * 基础（静态）路由
+ * */
 export const basic = [
   {
     path: '/',
@@ -16,9 +16,9 @@ export const basic = [
       {
         path: '',
         name: HOME_ROUTE_NAME,
-        component: HomeView
-      }
-    ]
+        component: HomeView,
+      },
+    ],
   },
   {
     path: '/about',
@@ -28,24 +28,24 @@ export const basic = [
     children: [
       {
         path: '',
-        component: () => import('@/views/about/index.vue')
-      }
-    ]
+        component: () => import('@/views/about/index.vue'),
+      },
+    ],
   },
   {
     path: '/naive',
     name: 'Naive',
     meta: {
       title: 'Naive',
-      icon: 'i-mdi:alpha-n-box-outline'
+      icon: 'i-mdi:alpha-n-box-outline',
     },
     component: Layout,
     children: [
       {
         path: '',
-        component: () => import('@/views/naive/index.vue')
-      }
-    ]
+        component: () => import('@/views/naive/index.vue'),
+      },
+    ],
   },
 
   {
@@ -56,9 +56,9 @@ export const basic = [
     children: [
       {
         path: '',
-        component: () => import('@/views/user/index.vue')
-      }
-    ]
+        component: () => import('@/views/user/index.vue'),
+      },
+    ],
   },
 
   nestedRoutes,
@@ -71,10 +71,7 @@ export const basic = [
 const notFound = {
   path: '/:path(.*)*',
   name: 'NotFound',
-  redirect: '/exception/404'
+  redirect: '/exception/404',
 }
 
-export const routes = [
-  ...basic,
-  notFound
-]
+export const routes = [...basic, notFound]

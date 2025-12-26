@@ -1,6 +1,6 @@
 /*
-* 路由 Store
-* */
+ * 路由 Store
+ * */
 
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -26,7 +26,7 @@ export const useRouteStore = defineStore('routeStore', () => {
       const menu = {
         path: path ? path + '/' + route.path : route.path,
         meta: route.meta,
-        depth
+        depth,
       }
       result.push(menu)
 
@@ -47,7 +47,7 @@ export const useRouteStore = defineStore('routeStore', () => {
   }
 
   function redirectFormLogin() {
-    const {redirect} = route.query
+    const { redirect } = route.query
     if (redirect) {
       router.push(redirect)
     } else {
@@ -58,6 +58,6 @@ export const useRouteStore = defineStore('routeStore', () => {
   return {
     menus,
     toLogin,
-    redirectFormLogin
+    redirectFormLogin,
   }
 })

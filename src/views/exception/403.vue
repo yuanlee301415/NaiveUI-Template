@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { HOME_ROUTE_NAME } from '@/router/constants.js'
 
-defineOptions({ name: 'Exception_403'})
+defineOptions({ name: 'Exception_403' })
 
 const router = useRouter()
 </script>
@@ -14,13 +14,11 @@ const router = useRouter()
     </template>
     <template #footer>
       <n-flex justify="center" :size="20">
-        <n-button @click="router.replace({name: HOME_ROUTE_NAME })">返回首页</n-button>
+        <n-button @click="router.replace({ name: HOME_ROUTE_NAME })">返回首页</n-button>
         <n-button @click="router.go(-1)">返回上一页</n-button>
       </n-flex>
     </template>
   </n-result>
 </template>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>
