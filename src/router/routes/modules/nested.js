@@ -1,6 +1,6 @@
 import Layout from '@/layout/index.vue'
 
-export const nested = {
+export const nestedRoutes = {
   path: '/nested',
   name: 'Nested',
   component: Layout,

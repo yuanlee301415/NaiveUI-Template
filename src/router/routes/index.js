@@ -1,7 +1,8 @@
-import { Layout, HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
+import { Layout, HOME_ROUTE_NAME } from '@/router/constants.js'
 import HomeView from '@/views/HomeView.vue'
-import { nested } from '@/router/routes/modules/nested.js'
-import { exception } from '@/router/routes/modules/exception.js'
+import { nestedRoutes } from '@/router/routes/modules/nested.js'
+import { exceptionRoutes } from '@/router/routes/modules/exception.js'
+import { loginRoutes } from '@/router/routes/modules/login.js'
 
 /*
 * 基础（静态）路由
@@ -46,16 +47,7 @@ export const basic = [
       }
     ]
   },
-  {
-    path: '/login',
-    children: [
-      {
-        path: '',
-        name: LOGIN_ROUTE_NAME,
-        component: () => import('@/views/login/index.vue')
-      }
-    ]
-  },
+
   {
     path: '/user',
     name: 'User',
@@ -69,9 +61,11 @@ export const basic = [
     ]
   },
 
-  nested,
+  nestedRoutes,
 
-  exception
+  exceptionRoutes,
+
+  loginRoutes,
 ]
 
 const notFound = {

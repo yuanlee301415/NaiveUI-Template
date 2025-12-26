@@ -1,6 +1,6 @@
 import { Layout } from '@/router/constants.js'
 
-export const exception = {
+export const exceptionRoutes = {
   path: '/exception',
   name: 'Exception',
   component: Layout,
