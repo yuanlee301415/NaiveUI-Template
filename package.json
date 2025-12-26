@@ -14,7 +14,9 @@
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
     "server": "npx json-server server/db.json --port 3001",
-    "ver": "node build/scripts/update-version.js"
+    "ver": "node build/scripts/update-version.js",
+    "gen-release": "node build/scripts/gen-release.js",
+    "postbuild": "npm run gen-release"
   },
   "dependencies": {
     "@unocss/reset": "^66.5.10",
