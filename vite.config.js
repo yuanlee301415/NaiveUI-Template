@@ -12,7 +12,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
 import { visualizer } from "rollup-plugin-visualizer";
-
+import terser from '@rollup/plugin-terser'
 import pkg from "./package.json";
 
 // https://vite.dev/config/
@@ -136,7 +136,15 @@ export default defineConfig(({mode}) => {
             'vue': ['vue', 'vue-router', 'pinia'],
             'naive-ui': ['naive-ui']
           }
-        }
+        },
+        plugins: [
+          terser({
+            compress: {
+              drop_debugger: true,
+              pure_funcs: Object.keys(console).filter(key => !['debug', 'error'].includes(key)).map(key => `console.${key}`)
+            }
+          })
+        ]
       }
     }
   }
