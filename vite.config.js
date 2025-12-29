@@ -124,6 +124,20 @@ export default defineConfig(({mode}) => {
     define: {
       __APP_VERSION__: JSON.stringify(__APP_VERSION__),
       __APP_BUILD_TIME__: JSON.stringify(__APP_BUILD_TIME__)
+    },
+
+    build: {
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'assets/js/[name].[hash].js',
+          entryFileNames: 'assets/js/[name].[hash].js',
+          assetFileNames: 'assets/[ext]/[name].[hash].[ext]',
+          manualChunks: {
+            'vue': ['vue', 'vue-router', 'pinia'],
+            'naive-ui': ['naive-ui']
+          }
+        }
+      }
     }
   }
 })
