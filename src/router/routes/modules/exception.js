@@ -1,4 +1,4 @@
-import { Layout } from '@/router/constants.js'
+import { Layout, NOT_FOUND_PAGE } from '@/router/constants.js'
 
 export const exceptionRoutes = {
   path: '/exception',
@@ -7,10 +7,12 @@ export const exceptionRoutes = {
   children: [
     {
       path: '404',
-      component: () => import('@/views/exception/404.vue'),
+      name: 'Exception404',
+      component: NOT_FOUND_PAGE,
     },
     {
       path: '403',
+      name: 'Exception403',
       component: () => import('@/views/exception/403.vue'),
     },
   ],
