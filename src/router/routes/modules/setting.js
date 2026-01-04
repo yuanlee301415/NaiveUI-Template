@@ -1,11 +1,12 @@
 import { Layout } from '@/router/constants.js'
+import { Role } from '@/enum'
 
 export const settingRoutes = {
   path: '/setting',
   name: 'Setting',
   meta: {
     title: '设置',
-    roles: ['User', 'Admin'],
+    roles: [Role.User, Role.Admin],
     icon: 'i-mdi:cog-outline'
   },
   component: Layout,
@@ -16,18 +17,18 @@ export const settingRoutes = {
       name: 'SettingAccount',
       meta: {
         title: '个人设置',
-        roles: ['User', 'Admin']
+        roles: [Role.User, Role.Admin]
       },
-      component: () => import('@/views/setting/account.vue'),
+      component: () => import('@/views/setting/account.vue')
     },
     {
       path: 'system',
       name: 'SettingSystem',
       meta: {
         title: '系统设置',
-        roles: ['Admin']
+        roles: [Role.Admin]
       },
-      component: () => import('@/views/setting/system.vue'),
-    },
-  ],
+      component: () => import('@/views/setting/system.vue')
+    }
+  ]
 }

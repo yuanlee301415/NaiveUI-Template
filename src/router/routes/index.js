@@ -1,5 +1,6 @@
 import HomeView from '@/views/home/index.vue'
 import { Layout, HOME_ROUTE_NAME, NOT_FOUND_ROUTE_NAME, NOT_FOUND_PAGE } from '@/router/constants.js'
+import { Role } from '@/enum'
 import { basicRoutes } from '@/router/routes/basic.js'
 import { nestedRoutes } from '@/router/routes/modules/nested.js'
 import { settingRoutes } from '@/router/routes/modules/setting.js'
@@ -67,7 +68,7 @@ export const dynamicRoutes = [
   {
     path: '/user',
     name: 'UserRoot',
-    meta: { title: '用户中心', roles: ['User'], icon: 'i-mdi:account-outline' },
+    meta: { title: '用户中心', roles: [Role.User], icon: 'i-mdi:account-outline' },
     component: Layout,
     children: [
       {

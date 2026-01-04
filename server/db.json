@@ -48,28 +48,28 @@
       "id": "5d5c3646-5b59-447c-86ff-56e9f3b66850",
       "name": "管理员",
       "roles": [
-        "Admin"
+        "admin"
       ]
     },
     {
       "id": "987d5269-2056-4c6a-9b71-d2a9eb0d2350",
       "name": "张三",
       "roles": [
-        "User"
+        "user"
       ]
     },
     {
       "id": "12688699-b400-4884-89d3-5a22c3d774af",
       "name": "李四",
       "roles": [
-        "User"
+        "user"
       ]
     },
     {
       "id": "96dce8f3-9790-42d0-960b-70f723fbdcf1",
       "name": "王五",
       "roles": [
-        "User"
+        "user"
       ]
     }
   ]
