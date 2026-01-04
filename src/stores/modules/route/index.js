@@ -2,6 +2,10 @@
  * 路由 Store
  * */
 
+/**
+ * @typedef {{path: string, depth: number, meta: object, children: Menu[]}} Menu
+ */
+
 import { defineStore } from 'pinia'
 import { useRoute } from 'vue-router'
 
@@ -10,15 +14,37 @@ import { StoreId } from '@/enum/index.js'
 import { dynamicRoutes, staticRoutes } from '@/router/routes'
 import { HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
+/**
+ * 添加的动态路由
+ * @type {RouteLocation[]}
+ */
 let addRoutes = []
 
+/**
+ * 添加的动态路由记录
+ * @type {Function[]}
+ */
 const removeRouteFns = []
 
+/**
+ * 路由权限判断
+ * - 路由没有配置 `roles` 字段，则表示此路由无权限限制
+ * - 如果用户角色存在路由 `roles`，则表示有权限访问，否则无权限
+ * @param {string[]} roles 用户角色
+ * @param {RouteLocation} route 路由
+ * @return {boolean} 是否有权限
+ */
 const hasPermission = (roles, route) => {
   if (!route.meta?.roles) return true
   return route.meta.roles.some((_) => roles.includes(_))
 }
 
+/**
+ * 过滤路由
+ * @param {string[]} roles 用户角色
+ * @param {RouteLocation[]} routes 路由列表
+ * @return {RouteLocation[]} 路由列表
+ */
 const filterAsyncRoutes = (roles, routes) => {
   function _(routes) {
     const ret = []
@@ -36,6 +62,14 @@ const filterAsyncRoutes = (roles, routes) => {
   return _(routes)
 }
 
+/**
+ * 生成菜单
+ * @param {RouteLocation[]} routes 路由列表
+ * @param {RouteLocation.path} [path='']
+ * @param {number} [depth=1] 嵌套深度
+ * @param {Menu[]} result 缓存的中间结果
+ * @return {Menu[]} 菜单列表
+ */
 const genMenus = (routes, path = '', depth = 1, result = []) => {
   for (const route of routes) {
     if (!route?.meta?.title) continue
@@ -73,6 +107,10 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
     }
   }
 
+  /**
+   * 添加动态路由
+   * @param {string[]} roles 用户角色列表
+   */
   function addDynamicRoutes(roles) {
     addRoutes = filterAsyncRoutes(roles, dynamicRoutes)
     // console.log('addDynamicRoutes>addRoutes:', addRoutes)
@@ -82,12 +120,17 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
     // console.log('addDynamicRoutes>routes:', router.getRoutes())
   }
 
+  // 清空添加的动态路由
   function resetRoutes() {
     while (removeRouteFns.length) {
       removeRouteFns.pop()?.()
     }
   }
 
+  /**
+   * 获取菜单列表
+   * @return {Menu[]}
+   */
   function getMenus() {
     return genMenus([...staticRoutes, ...addRoutes])
   }

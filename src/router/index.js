@@ -1,3 +1,12 @@
+/*
+* 路由
+* */
+
+/**
+ * 路由对象
+ * @typedef {import('vue-router').RouteLocation} RouteLocation
+ */
+
 import { createRouter, createWebHistory } from 'vue-router'
 import { staticRoutes } from './routes'
 import { setupRouterGuard } from './guard'
