@@ -17,9 +17,11 @@ export default defineConfig({
   // 安全列表，确保动态图标被扫描
   safelist: [
     'i-mdi:home-outline',
+    'i-mdi:account-outline',
     'i-mdi:information-slab-circle-outline',
     'i-mdi:alpha-n-box-outline',
     'i-mdi:timer-sand-complete',
+    'i-mdi:cog-outline'
   ],
 
   /*
