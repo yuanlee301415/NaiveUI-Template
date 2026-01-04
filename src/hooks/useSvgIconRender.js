@@ -6,7 +6,6 @@ import { h } from 'vue'
 
 export function useSvgIconRender(SvgIcon) {
   function SvgIconVNode(config = {}) {
-    console.log(config)
     const { icon, localIcon, color, size } = config
     const style = {
       color,

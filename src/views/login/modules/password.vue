@@ -49,10 +49,10 @@ async function handleSubmit() {
   await formRef.value?.validate()
   loading.value = true
   try {
-    const user = await authStore.login(formData)
+    await authStore.login(formData)
     notification.success({
       title: '登录成功',
-      content: `欢迎回来，${user.name}！`,
+      content: `欢迎回来！`,
       duration: 1000,
     })
     routeStore.redirectFormLogin()

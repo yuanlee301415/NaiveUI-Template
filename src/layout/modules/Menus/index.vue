@@ -8,8 +8,7 @@ defineOptions({ name: 'LayoutMenus' })
 const routeStore = useRouteStore()
 const menus = ref(null)
 
-menus.value = routeStore.menus
-// console.log('menus:', menus)
+menus.value = routeStore.getMenus()
 </script>
 
 <template>

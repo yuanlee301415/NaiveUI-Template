@@ -3,42 +3,60 @@
  * */
 
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
-import { basic } from '@/router/routes'
+import { router } from '@/router'
+import { StoreId } from '@/enum/index.js'
+import { dynamicRoutes, staticRoutes } from '@/router/routes'
 import { HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
-export const useRouteStore = defineStore('routeStore', () => {
-  const route = useRoute()
-  const router = useRouter()
-  const menus = ref([])
+let addRoutes = []
 
-  init()
+const removeRouteFns = []
 
-  function init() {
-    menus.value = getMenus(basic)
-  }
+const hasPermission = (roles, route) => {
+  if (!route.meta?.roles) return true
+  return route.meta.roles.some((_) => roles.includes(_))
+}
 
-  function getMenus(routes, path, depth = 1, result = []) {
+const filterAsyncRoutes = (roles, routes) => {
+  function _(routes) {
+    const ret = []
+    if (!routes) return
     for (const route of routes) {
-      if (!route?.meta?.title) continue
-      const menu = {
-        path: path ? path + '/' + route.path : route.path,
-        meta: route.meta,
-        depth,
+      const temp = { ...route, children: null }
+      if (hasPermission(roles, route)) {
+        temp.children = _(route.children)
+        ret.push(temp)
       }
-      result.push(menu)
-
-      if (!route.children) continue
-      const children = getMenus(route.children, menu.path, depth + 1)
-      menu.children = children.length ? children : null
     }
-    return result
+    return ret
   }
+
+  return _(routes)
+}
+
+const genMenus = (routes, path = '', depth = 1, result = []) => {
+  for (const route of routes) {
+    if (!route?.meta?.title) continue
+    const menu = {
+      path: path ? path + '/' + route.path : route.path,
+      meta: route.meta,
+      depth
+    }
+    result.push(menu)
+
+    if (!route.children) continue
+    const children = genMenus(route.children, menu.path, depth + 1)
+    menu.children = children.length ? children : null
+  }
+  return result
+}
+
+export const useRouteStore = defineStore(StoreId.Route, () => {
+  const route = useRoute()
 
   function toLogin() {
-    if (!route?.meta?.roles) return
     router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
   }
 
@@ -55,9 +73,31 @@ export const useRouteStore = defineStore('routeStore', () => {
     }
   }
 
+  function addDynamicRoutes(roles) {
+    addRoutes = filterAsyncRoutes(roles, dynamicRoutes)
+    // console.log('addDynamicRoutes>addRoutes:', addRoutes)
+    addRoutes.forEach(route => {
+      removeRouteFns.push(router.addRoute(route))
+    })
+    // console.log('addDynamicRoutes>routes:', router.getRoutes())
+  }
+
+  function resetRoutes() {
+    while (removeRouteFns.length) {
+      removeRouteFns.pop()?.()
+    }
+  }
+
+  function getMenus() {
+    return genMenus([...staticRoutes, ...addRoutes])
+  }
+
   return {
-    menus,
+    getMenus,
     toLogin,
+    // toHome,
     redirectFormLogin,
+    addDynamicRoutes,
+    resetRoutes
   }
 })

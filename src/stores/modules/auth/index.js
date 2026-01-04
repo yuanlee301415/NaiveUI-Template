@@ -4,16 +4,17 @@
 
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import { StoreId } from '@/enum/index.js'
 import { loginApi, getAuthUserApi } from '@/api/rights.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { User } from '@/models/User.js'
 
-export const useAuthStore = defineStore('authStore', () => {
-  const user = reactive({
+export const useAuthStore = defineStore(StoreId.Auth, () => {
+  const user = reactive(new User({
     id: '',
     name: '',
-    roles: null,
-  })
+    roles: null
+  }))
 
   const authStore = useAuthStore()
   const routeStore = useRouteStore()
@@ -21,7 +22,7 @@ export const useAuthStore = defineStore('authStore', () => {
   async function login({ name }) {
     const res = await loginApi(name)
     sessionStorage.setItem('token', res.token)
-    return await getAuthUser()
+    routeStore.resetRoutes()
   }
 
   async function logout() {
@@ -34,6 +35,7 @@ export const useAuthStore = defineStore('authStore', () => {
     const token = sessionStorage.getItem('token')
     const { id, name, roles } = new User(await getAuthUserApi(token))
     Object.assign(user, { id, name, roles })
+    console.log('getAuthUser>user:', user)
     return user
   }
 
@@ -45,6 +47,6 @@ export const useAuthStore = defineStore('authStore', () => {
     user,
     login,
     logout,
-    getAuthUser,
+    getAuthUser
   }
 })
