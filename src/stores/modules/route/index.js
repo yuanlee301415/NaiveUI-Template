@@ -2,15 +2,12 @@
  * 路由 Store
  * */
 
-/**
- * @typedef {{path: string, depth: number, meta: object, children: Menu[]}} Menu
- */
-
 import { defineStore } from 'pinia'
 import { useRoute } from 'vue-router'
 
 import { router } from '@/router'
 import { StoreId } from '@/enum/index.js'
+import { Menu } from '@/models'
 import { dynamicRoutes, staticRoutes } from '@/router/routes'
 import { HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants.js'
 
@@ -65,19 +62,21 @@ const filterAsyncRoutes = (roles, routes) => {
 /**
  * 生成菜单
  * @param {RouteLocation[]} routes 路由列表
- * @param {RouteLocation.path} [path='']
- * @param {number} [depth=1] 嵌套深度
- * @param {Menu[]} result 缓存的中间结果
+ * @param {string} [path]
+ * @param {number} [depth] 嵌套深度
+ * @param {Menu[]} [result] 缓存的中间结果
  * @return {Menu[]} 菜单列表
  */
 const genMenus = (routes, path = '', depth = 1, result = []) => {
   for (const route of routes) {
     if (!route?.meta?.title) continue
-    const menu = {
-      path: path ? path + '/' + route.path : route.path,
-      meta: route.meta,
-      depth
-    }
+    const menu = new Menu({
+        path: path ? path + '/' + route.path : route.path,
+        icon: route.meta.icon,
+        title: route.meta.title,
+        depth,
+    })
+
     result.push(menu)
 
     if (!route.children) continue
