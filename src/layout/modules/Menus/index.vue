@@ -1,18 +1,14 @@
 <script setup>
-import { ref } from 'vue'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import MenuItem from './MenuItem.vue'
 
 defineOptions({ name: 'LayoutMenus' })
 
 const routeStore = useRouteStore()
-const menus = ref(null)
-
-menus.value = routeStore.getMenus()
 </script>
 
 <template>
   <nav>
-    <MenuItem v-for="menu of menus" :key="menu.path" :menu="menu" />
+    <MenuItem v-for="menu of routeStore.menus" :key="menu.path" :menu="menu" />
   </nav>
 </template>
