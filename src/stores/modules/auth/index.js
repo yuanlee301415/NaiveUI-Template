@@ -7,11 +7,12 @@ import { reactive } from 'vue'
 import { StoreId } from '@/enum/index.js'
 import { loginApi, getAuthUserApi } from '@/api/rights.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
-import { User } from '@/models/User.js'
+import { AuthUser } from '@/models/AuthUser.js'
 
 export const useAuthStore = defineStore(StoreId.Auth, () => {
-  const user = reactive(new User({
+  const user = reactive(new AuthUser({
     id: '',
+    login: '',
     name: '',
     roles: null
   }))
@@ -33,8 +34,7 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
 
   async function getAuthUser() {
     const token = sessionStorage.getItem('token')
-    const { id, name, roles } = new User(await getAuthUserApi(token))
-    Object.assign(user, { id, name, roles })
+    Object.assign(user, new AuthUser(await getAuthUserApi(token)))
     console.log('getAuthUser>user:', user)
     return user
   }
