@@ -1,10 +1,15 @@
 {
+  // 登录接口
   // `id` 关联 `authUser#login`
   // `token` 关联 `authUser#id`
   "login": [
     {
       "id": "admin",
       "token": "5d5c3646-5b59-447c-86ff-56e9f3b66850"
+    },
+    {
+      "id": "super",
+      "token": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
     },
     {
       "id": "zhangsan",
@@ -20,13 +25,22 @@
     }
   ],
   
+  // 认证接口
   "authUser": [
     {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "login": "super",
+      "name": "超级管理员",
+      "roles": [
+        "SUPER"
+      ]
+    },
+    {
       "id": "5d5c3646-5b59-447c-86ff-56e9f3b66850",
-      "login": "Admin",
+      "login": "admin",
       "name": "管理员",
       "roles": [
-        "admin"
+        "ADMIN"
       ]
     },
     {
@@ -34,7 +48,7 @@
       "login": "zhangsan", 
       "name": "张三",
       "roles": [
-        "user"
+        "USER"
       ]
     },
     {
@@ -42,7 +56,7 @@
       "login": "lisi",     
       "name": "李四",
       "roles": [
-        "user"
+        "USER"
       ]
     },
     {
@@ -50,7 +64,7 @@
       "login": "wangwu",
       "name": "王五",
       "roles": [
-        "user"
+        "USER"
       ]
     }
   ],

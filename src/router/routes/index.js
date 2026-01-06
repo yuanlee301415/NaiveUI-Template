@@ -4,6 +4,7 @@ import { Role } from '@/enum'
 import { basicRoutes } from '@/router/routes/basic.js'
 import { nestedRoutes } from '@/router/routes/modules/nested.js'
 import { settingRoutes } from '@/router/routes/modules/setting.js'
+import { functionRoutes } from '@/router/routes/modules/function.js'
 
 /*
  * 静态路由
@@ -65,6 +66,8 @@ export const staticRoutes = [
  * - 有权限限制，根据用户角色动态添加
  * */
 export const dynamicRoutes = [
+  functionRoutes,
+
   {
     path: '/user',
     name: 'UserRoot',

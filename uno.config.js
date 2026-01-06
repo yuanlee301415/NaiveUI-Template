@@ -20,8 +20,10 @@ export default defineConfig({
     'i-mdi:account-outline',
     'i-mdi:information-slab-circle-outline',
     'i-mdi:alpha-n-box-outline',
+    'i-mdi:reorder-horizontal',
     'i-mdi:timer-sand-complete',
-    'i-mdi:cog-outline'
+    'i-mdi:cog-outline',
+    'i-mdi:grid-large'
   ],
 
   /*

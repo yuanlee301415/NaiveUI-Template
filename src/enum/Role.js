@@ -3,9 +3,18 @@
  * */
 
 export const Role = {
-  // 用户
-  User: 'user',
+  // 超级管理员
+  Super: 'SUPER',
 
   // 管理员
-  Admin: 'admin'
+  Admin: 'ADMIN',
+
+  // 用户
+  User: 'USER',
+
+  * [Symbol.iterator]() {
+    yield this.User
+    yield this.Admin
+    yield this.Super
+  }
 }
