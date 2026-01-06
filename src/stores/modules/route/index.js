@@ -27,6 +27,11 @@ const removeRouteFns = []
 
 export const useRouteStore = defineStore(StoreId.Route, () => {
   const route = useRoute()
+
+  /**
+   * 菜单列表
+   * @type {Menu[]}
+   */
   const menus = ref([])
 
   function toLogin() {

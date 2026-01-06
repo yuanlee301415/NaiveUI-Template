@@ -1,8 +1,9 @@
 <script setup>
 import Header from './modules/Header/index.vue'
-import Menus from './modules/Menus/index.vue'
+import Sider from './modules/Sider/index.vue'
 
 defineOptions({ name: 'LayoutIndex' })
+
 </script>
 
 <template>
@@ -12,9 +13,19 @@ defineOptions({ name: 'LayoutIndex' })
     </n-layout-header>
 
     <n-layout position="absolute" style="top: 80px; bottom: 60px" has-sider>
-      <n-layout-sider :native-scrollbar="false" width="200" content-style="padding: 20px;" bordered>
-        <Menus />
+      <n-layout-sider
+        :width="300"
+        :collapsed-width="90"
+        :collapsed-icon-size="30"
+        :native-scrollbar="false"
+        collapse-mode="width"
+        show-trigger="arrow-circle"
+        content-style="padding: 20px;"
+        bordered
+      >
+        <Sider />
       </n-layout-sider>
+
       <n-layout content-style="padding: 20px;" :native-scrollbar="false">
         <RouterView v-slot="{ Component, route }">
           <transition name="fade-slide" mode="out-in">

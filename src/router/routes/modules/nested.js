@@ -7,6 +7,7 @@ export const nestedRoutes = {
   redirect: '/nested/a',
   meta: {
     title: 'Nested',
+    icon: 'i-mdi:timer-sand-complete'
   },
   children: [
     {
