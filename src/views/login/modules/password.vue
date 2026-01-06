@@ -14,8 +14,14 @@ const routeStore = useRouteStore()
 const notification = useNotification()
 const NAME_REG = /^[a-z\d]{3,20}$/
 
+const ACCOUNTS = [
+  { login: 'super', name: '超级管理员' },
+  { login: 'admin', name: '管理员' },
+  { login: 'user', name: '普通用户' }
+]
+
 const RULES = {
-  name: {
+  login: {
     required: true,
     trigger: 'blur',
     validator(rule, value) {
@@ -23,18 +29,18 @@ const RULES = {
       if (value.length < 3) return new Error('用户名最少3位字符')
       if (!NAME_REG.test(value)) return new Error('用户名只允许字母数字')
       return true
-    },
+    }
   },
   password: {
     required: true,
     trigger: 'blur',
-    message: '请输入密码',
-  },
+    message: '请输入密码'
+  }
 }
 
 const formData = reactive({
-  name: '',
-  password: '',
+  login: 'admin',
+  password: '123456'
 })
 
 const loading = ref(false)
@@ -53,17 +59,27 @@ async function handleSubmit() {
     notification.success({
       title: '登录成功',
       content: `欢迎回来！`,
-      duration: 1000,
+      duration: 1000
     })
     routeStore.redirectFormLogin()
   } catch (e) {
     console.error(e)
     notification.error({
-      content: '用户名或密码错误！',
+      content: '用户名或密码错误！'
     })
   } finally {
     loading.value = false
   }
+}
+
+/**
+ * 快捷登录
+ * @param {string} login
+ */
+function handleAccountLogin({ login }) {
+  formData.login = login
+  formData.password = '123456'
+  handleSubmit()
 }
 </script>
 
@@ -74,9 +90,9 @@ async function handleSubmit() {
     </n-h2>
 
     <n-form ref="formRef" :model="formData" :rules="RULES" size="large" @keyup.enter="handleSubmit">
-      <n-form-item label="用户名" path="name">
+      <n-form-item label="用户名" path="login">
         <n-input
-          v-model:value="formData.name"
+          v-model:value="formData.login"
           :allow-input="noSideSpace"
           maxlength="10"
           placeholder="请输入用户名"
@@ -104,16 +120,31 @@ async function handleSubmit() {
             size="large"
             class="flex-1"
             @click="router.push({ name: LOGIN_CODE_ROUTE_NAME })"
-            >验证码登录</n-button
+          >验证码登录
+          </n-button
           >
           <n-button
             block
             size="large"
             class="flex-1"
             @click="router.push({ name: LOGIN_REGISTER_ROUTE_NAME })"
-            >注册帐号</n-button
+          >注册帐号
+          </n-button
           >
         </n-flex>
+      </n-flex>
+
+      <n-divider>快捷登录</n-divider>
+      <n-flex :size="15" class="w-full flex-y-center justify-between">
+        <n-button
+          v-for="ac of ACCOUNTS"
+          :key="ac.login"
+          block
+          size="large"
+          class="flex-1"
+          @click="handleAccountLogin(ac)"
+        >{{ ac.name }}
+        </n-button>
       </n-flex>
     </n-form>
   </div>

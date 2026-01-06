@@ -20,8 +20,8 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
   const authStore = useAuthStore()
   const routeStore = useRouteStore()
 
-  async function login({ name }) {
-    const res = await loginApi(name)
+  async function login({ login }) {
+    const res = await loginApi(login)
     sessionStorage.setItem('token', res.token)
     routeStore.resetRoutes()
   }

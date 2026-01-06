@@ -4,12 +4,16 @@
   // `token` 关联 `authUser#id`
   "login": [
     {
+      "id": "super",
+      "token": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
       "id": "admin",
       "token": "5d5c3646-5b59-447c-86ff-56e9f3b66850"
     },
     {
-      "id": "super",
-      "token": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      "id": "user",
+      "token": "550e8400-e29b-41d4-a716-446655440000"
     },
     {
       "id": "zhangsan",
@@ -41,6 +45,14 @@
       "name": "管理员",
       "roles": [
         "ADMIN"
+      ]
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "login": "user", 
+      "name": "普通用户",
+      "roles": [
+        "USER"
       ]
     },
     {
