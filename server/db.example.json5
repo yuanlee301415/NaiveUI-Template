@@ -1,0 +1,391 @@
+{
+  // `id` 关联 `authUser#login`
+  // `token` 关联 `authUser#id`
+  "login": [
+    {
+      "id": "admin",
+      "token": "5d5c3646-5b59-447c-86ff-56e9f3b66850"
+    },
+    {
+      "id": "zhangsan",
+      "token": "987d5269-2056-4c6a-9b71-d2a9eb0d2350"
+    },
+    {
+      "id": "lisi",
+      "token": "12688699-b400-4884-89d3-5a22c3d774af"
+    },
+    {
+      "id": "wangwu",
+      "token": "96dce8f3-9790-42d0-960b-70f723fbdcf1"
+    }
+  ],
+  
+  "authUser": [
+    {
+      "id": "5d5c3646-5b59-447c-86ff-56e9f3b66850",
+      "login": "Admin",
+      "name": "管理员",
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "id": "987d5269-2056-4c6a-9b71-d2a9eb0d2350",
+      "login": "zhangsan", 
+      "name": "张三",
+      "roles": [
+        "user"
+      ]
+    },
+    {
+      "id": "12688699-b400-4884-89d3-5a22c3d774af",
+      "login": "lisi",     
+      "name": "李四",
+      "roles": [
+        "user"
+      ]
+    },
+    {
+      "id": "96dce8f3-9790-42d0-960b-70f723fbdcf1",
+      "login": "wangwu",
+      "name": "王五",
+      "roles": [
+        "user"
+      ]
+    }
+  ],
+  
+  "captcha": [
+    {
+      "id": "13111111111",
+      "code": "1111",
+      "name": "admin"
+    },
+    {
+      "id": "13222222222",
+      "code": "2222",
+      "name": "zhangsan"
+    },
+    {
+      "id": "13333333333",
+      "code": "3333",
+      "name": "lisi"
+    },
+    {
+      "id": "13444444444",
+      "code": "4444",
+      "name": "wangwu"
+    }
+  ],
+
+  "users": [
+    {
+      "id": "1",
+      "name": "Lisa Rodriguez",
+      "login": "cngJQuxH7gLg2",
+      "phone": "13859521671",
+      "email": "u.loro@vgc.pro",
+      "gender": 1,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764518400000
+    },
+    {
+      "id": "2",
+      "name": "Jose Hernandez",
+      "login": "gH20Ro",
+      "phone": "15326266335",
+      "email": "y.gwykdy@ihkmgxuq.za",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764522000000
+    },
+    {
+      "id": "3",
+      "name": "Nancy Clark",
+      "login": "I4yJBHtt",
+      "phone": "13410777644",
+      "email": "c.oopia@wcve.om",
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764525600000
+    },
+    {
+      "id": "4",
+      "name": "William Brown",
+      "login": "TSlZoj1fZ",
+      "phone": "15780751958",
+      "email": "i.kbnx@jdtzyjpkq.si",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764529200000
+    },
+    {
+      "id": "5",
+      "name": "Frank Gonzalez",
+      "login": "nnsM1",
+      "phone": "13852878118",
+      "email": "n.pzhfpprewj@olkfgb.sa",
+      "gender": 1,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764532800000
+    },
+    {
+      "id": "6",
+      "name": "Carol Martinez",
+      "login": "ljw",
+      "phone": "13855449951",
+      "email": "y.lsn@dhguzb.cr",
+      "gender": 2,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764536400000
+    },
+    {
+      "id": "7",
+      "name": "Timothy Young",
+      "login": "YllykbooFlAlY",
+      "phone": "15345050825",
+      "email": "m.zdbit@tysynihs.fo",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764540000000
+    },
+    {
+      "id": "8",
+      "name": "Christopher Smith",
+      "login": "fbmAxMX3P",
+      "phone": "17748332766",
+      "email": "b.ylhovgm@ftuswgchef.gf",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764543600000
+    },
+    {
+      "id": "9",
+      "name": "Larry Williams",
+      "login": "FKcEPFTLCt7BMe",
+      "phone": "15512361657",
+      "email": "g.nifpz@ndvxmfc.ec",
+      "gender": 2,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764547200000
+    },
+    {
+      "id": "10",
+      "name": "Dorothy Brown",
+      "login": "ugJUPyBM6f",
+      "phone": "13477523193",
+      "email": "j.zdsxj@epskpb.tr",
+      "gender": 2,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764550800000
+    },
+    {
+      "id": "11",
+      "name": "Robert Lopez",
+      "login": "XcZiaOGvKnLO5Aw",
+      "phone": "13839328845",
+      "email": "n.ecyvlnsxym@rsyflqw.to",
+      "gender": 2,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764554400000
+    },
+    {
+      "id": "12",
+      "name": "Charles Garcia",
+      "login": "FgQcwv4OmN",
+      "phone": "15158577935",
+      "email": "r.tprpo@npcsgcnpi.ht",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764558000000
+    },
+    {
+      "id": "13",
+      "name": "Charles Wilson",
+      "login": "hD0B1Ktu",
+      "phone": "18614741838",
+      "email": "p.gnim@hpylr.as",
+      "gender": 2,
+      "status": 0,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764561600000
+    },
+    {
+      "id": "14",
+      "name": "Gary Lopez",
+      "login": "ZijUGQ1kjUi",
+      "phone": "13375613858",
+      "email": "b.wfxvwiqkcw@objo.hn",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764565200000
+    },
+    {
+      "id": "15",
+      "name": "Michelle Robinson",
+      "login": "oAe7xXCxSOoeoTo",
+      "phone": "17886029839",
+      "email": "i.etxigpporb@lwzm.wf",
+      "gender": 2,
+      "status": 1,
+      "roles": [
+        "R_SFKY_BGW",
+        "R_DNVJ_LGR",
+        "R_ERFU_JVXE",
+        "R_TVO_XKD"
+      ],
+      "createTime": 1764568800000
+    }
+  ],
+  
+  "roles": [
+    {
+      "id": "1",
+      "code": "superAdmin",
+      "name": "超级管理员",
+      "status": 0
+    },
+    {
+      "id": "2",
+      "code": "admin",
+      "name": "管理员",
+      "status": 0
+    },
+    {
+      "id": "3",
+      "code": "user",
+      "name": "用户",
+      "status": 0
+    },
+    {
+      "id": "4",
+      "code": "guest",
+      "name": "访客",
+      "status": 0
+    },
+    {
+      "id": "5",
+      "code": "roleA",
+      "name": "角色A",
+      "status": 1
+    },
+    {
+      "id": "6",
+      "code": "roleB",
+      "name": "角色B",
+      "status": 1
+    },
+    {
+      "id": "7",
+      "code": "roleC",
+      "name": "角色C",
+      "status": 1
+    },
+    {
+      "id": "8",
+      "code": "roleD",
+      "name": "角色D",
+      "status": 0
+    },
+    {
+      "id": "9",
+      "code": "roleE",
+      "name": "角色E",
+      "status": 0
+    },
+    {
+      "id": "10",
+      "code": "roleF",
+      "name": "角色F",
+      "status": 1
+    },
+    {
+      "id": "11",
+      "code": "roleG",
+      "name": "角色G",
+      "status": 0
+    }
+  ]
+}
