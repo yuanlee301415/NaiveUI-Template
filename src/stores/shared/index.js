@@ -46,7 +46,13 @@ export function filterAsyncRoutes(roles, routes) {
  */
 export function genMenus(routes, path = '', depth = 1, result = []) {
   for (const route of routes) {
+
+    // 没有 `title`
     if (!route?.meta?.title) continue
+
+    // 子路由全部无权限
+    if (route.children?.length === 0) continue
+
     const menu = new Menu({
       path: path ? path + '/' + route.path : route.path,
       icon: route.meta.icon,
