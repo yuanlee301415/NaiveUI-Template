@@ -53,7 +53,7 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
 
   /**
    * 添加动态路由
-   * @param {string[]} roles 用户角色列表
+   * @param {Role[]} roles 用户角色列表
    */
   function addDynamicRoutes(roles) {
     addRoutes = filterAsyncRoutes(roles, dynamicRoutes)

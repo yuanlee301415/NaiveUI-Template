@@ -1,7 +1,7 @@
-/*
+/**
  * 用户角色
- * */
-
+ * @enum {string}
+ */
 export const Role = {
   // 超级管理员
   Super: 'SUPER',

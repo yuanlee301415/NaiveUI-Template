@@ -16,7 +16,7 @@ export class AuthUser {
 
   /**
    * 角色
-   * @type {string[]}
+   * @type {Role[]}
    */
   roles
 

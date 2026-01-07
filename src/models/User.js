@@ -22,7 +22,7 @@ export class User {
 
   /**
    * 角色
-   * @type {string[]}
+   * @type {Role[]}
    */
   roles
 

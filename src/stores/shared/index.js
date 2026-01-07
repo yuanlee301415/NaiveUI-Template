@@ -4,7 +4,7 @@ import { Menu } from '@/models/index.js'
  * 路由权限判断
  * - 路由没有配置 `roles` 字段，则表示此路由无权限限制
  * - 如果用户角色存在路由 `roles`，则表示有权限访问，否则无权限
- * @param {string[]} roles 用户角色
+ * @param {Role[]} roles 用户角色
  * @param {RouteLocation} route 路由
  * @return {boolean} 是否有权限
  */
@@ -15,7 +15,7 @@ export function hasPermission(roles, route) {
 
 /**
  * 过滤路由
- * @param {string[]} roles 用户角色
+ * @param {Role[]} roles 用户角色
  * @param {RouteLocation[]} routes 路由列表
  * @return {RouteLocation[]} 路由列表
  */
