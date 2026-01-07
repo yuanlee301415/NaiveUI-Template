@@ -3,11 +3,13 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { Role } from '@/enum'
 import { removeAuthToken } from '@/utils/authToken.js'
+import { usePermission } from '@/hooks/permission.js'
 
-defineOptions({ name: 'SuperPage' })
+defineOptions({ name: 'ToggleAuth' })
 
 const authStore = useAuthStore()
 const routeStore = useRouteStore()
+const { hasPermission } = usePermission()
 
 const ACCOUNTS = [
   { login: 'super', name: '超级管理员' },
@@ -29,20 +31,10 @@ async function handleToggleAccount({ login }) {
 
 <template>
   <n-flex vertical size="large">
-    <h1>权限指令</h1>
+    <h1>切换权限</h1>
 
     <n-card title="用户角色" segmented>
       <n-tag>{{ authStore.user.roles }}</n-tag>
-    </n-card>
-
-    <n-card title="权限" segmented>
-      <n-flex size="large">
-        <n-button v-permission="[...Role]">所有角色</n-button>
-        <n-button v-permission="[Role.Super, Role.Admin]">超级管理员、管理员</n-button>
-        <n-button v-permission="[Role.Super]">超级管理员</n-button>
-        <n-button v-permission="[Role.Admin]">管理员</n-button>
-        <n-button v-permission="[Role.User]">用户</n-button>
-      </n-flex>
     </n-card>
 
     <n-card title="切换帐号" segmented>
@@ -55,6 +47,27 @@ async function handleToggleAccount({ login }) {
         </n-button>
       </n-flex>
     </n-card>
+
+    <n-card title="权限指令" segmented>
+      <n-flex size="large">
+        <n-button v-permission="[...Role]">所有角色</n-button>
+        <n-button v-permission="[Role.Super, Role.Admin]">超级管理员、管理员</n-button>
+        <n-button v-permission="[Role.Super]">超级管理员</n-button>
+        <n-button v-permission="[Role.Admin]">管理员</n-button>
+        <n-button v-permission="[Role.User]">用户</n-button>
+      </n-flex>
+    </n-card>
+
+    <n-card title="权限 Hook" segmented>
+      <n-flex size="large">
+        <n-button v-if="hasPermission([...Role])">所有角色</n-button>
+        <n-button v-if="hasPermission([Role.Super, Role.Admin])">超级管理员、管理员</n-button>
+        <n-button v-if="hasPermission([Role.Super])">超级管理员</n-button>
+        <n-button v-if="hasPermission([Role.Admin])">管理员</n-button>
+        <n-button v-if="hasPermission([Role.User])">用户</n-button>
+      </n-flex>
+    </n-card>
+
 
   </n-flex>
 </template>
