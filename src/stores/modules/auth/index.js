@@ -8,6 +8,7 @@ import { StoreId } from '@/enum/index.js'
 import { loginApi, getAuthUserApi } from '@/api/rights.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { AuthUser } from '@/models/AuthUser.js'
+import { getAuthToken, setAuthToken, removeAuthToken } from '@/utils/authToken.js'
 
 export const useAuthStore = defineStore(StoreId.Auth, () => {
   const user = reactive(new AuthUser({
@@ -22,18 +23,18 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
 
   async function login({ login }) {
     const res = await loginApi(login)
-    sessionStorage.setItem('token', res.token)
+    setAuthToken(res.token)
     routeStore.resetRoutes()
   }
 
   async function logout() {
-    sessionStorage.removeItem('token')
+    removeAuthToken()
     resetStore()
     routeStore.toLogin()
   }
 
   async function getAuthUser() {
-    const token = sessionStorage.getItem('token')
+    const token = getAuthToken()
     Object.assign(user, new AuthUser(await getAuthUserApi(token)))
     console.log('getAuthUser>user:', user)
     return user
@@ -47,6 +48,7 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
     user,
     login,
     logout,
-    getAuthUser
+    getAuthUser,
+    resetStore
   }
 })

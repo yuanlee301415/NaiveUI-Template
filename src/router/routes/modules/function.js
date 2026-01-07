@@ -19,6 +19,15 @@ export const functionRoutes = {
         roles: [Role.Super]
       },
       component: () => import('@/views/function/super.vue')
+    },
+    {
+      path: 'toggle-auth',
+      name: 'ToggleAuth',
+      meta: {
+        title: '切换权限',
+        roles: [...Role]
+      },
+      component: () => import('@/views/function/toggle-auth.vue')
     }
   ]
 }

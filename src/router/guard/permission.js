@@ -6,6 +6,7 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { basicRoutes } from '@/router/routes/basic.js'
+import { getAuthToken } from '@/utils/authToken.js'
 
 export function createPermissionGuard(router) {
   const routeStore = useRouteStore()
@@ -19,7 +20,7 @@ export function createPermissionGuard(router) {
       return true
     }
 
-    const token = sessionStorage.getItem('token')
+    const token = getAuthToken()
     const authStore = useAuthStore()
 
     // 未登录
