@@ -28,7 +28,7 @@
       "token": "96dce8f3-9790-42d0-960b-70f723fbdcf1"
     }
   ],
-  
+
   // 认证接口
   "authUser": [
     {
@@ -49,7 +49,7 @@
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440000",
-      "login": "user", 
+      "login": "user",
       "name": "普通用户",
       "roles": [
         "USER"
@@ -57,7 +57,7 @@
     },
     {
       "id": "987d5269-2056-4c6a-9b71-d2a9eb0d2350",
-      "login": "zhangsan", 
+      "login": "zhangsan",
       "name": "张三",
       "roles": [
         "USER"
@@ -65,7 +65,7 @@
     },
     {
       "id": "12688699-b400-4884-89d3-5a22c3d774af",
-      "login": "lisi",     
+      "login": "lisi",
       "name": "李四",
       "roles": [
         "USER"
@@ -80,7 +80,7 @@
       ]
     }
   ],
-  
+
   "captcha": [
     {
       "id": "13111111111",
@@ -135,7 +135,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764522000000
+      "createTime": 1764553104000
     },
     {
       "id": "3",
@@ -150,7 +150,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764525600000
+      "createTime": 1764587808000
     },
     {
       "id": "4",
@@ -158,7 +158,7 @@
       "login": "TSlZoj1fZ",
       "phone": "15780751958",
       "email": "i.kbnx@jdtzyjpkq.si",
-      "gender": 2,
+      "gender": null,
       "status": 1,
       "roles": [
         "R_SFKY_BGW",
@@ -166,7 +166,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764529200000
+      "createTime": 1764622512000
     },
     {
       "id": "5",
@@ -182,7 +182,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764532800000
+      "createTime": 1764657216000
     },
     {
       "id": "6",
@@ -198,7 +198,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764536400000
+      "createTime": 1764691920000
     },
     {
       "id": "7",
@@ -206,7 +206,7 @@
       "login": "YllykbooFlAlY",
       "phone": "15345050825",
       "email": "m.zdbit@tysynihs.fo",
-      "gender": 2,
+      "gender": null,
       "status": 1,
       "roles": [
         "R_SFKY_BGW",
@@ -214,7 +214,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764540000000
+      "createTime": 1764726624000
     },
     {
       "id": "8",
@@ -222,7 +222,7 @@
       "login": "fbmAxMX3P",
       "phone": "17748332766",
       "email": "b.ylhovgm@ftuswgchef.gf",
-      "gender": 2,
+      "gender": 1,
       "status": 1,
       "roles": [
         "R_SFKY_BGW",
@@ -230,7 +230,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764543600000
+      "createTime": 1764761328000
     },
     {
       "id": "9",
@@ -246,7 +246,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764547200000
+      "createTime": 1764796032000
     },
     {
       "id": "10",
@@ -254,7 +254,7 @@
       "login": "ugJUPyBM6f",
       "phone": "13477523193",
       "email": "j.zdsxj@epskpb.tr",
-      "gender": 2,
+      "gender": 1,
       "status": 0,
       "roles": [
         "R_SFKY_BGW",
@@ -262,7 +262,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764550800000
+      "createTime": 1764830736000
     },
     {
       "id": "11",
@@ -270,7 +270,7 @@
       "login": "XcZiaOGvKnLO5Aw",
       "phone": "13839328845",
       "email": "n.ecyvlnsxym@rsyflqw.to",
-      "gender": 2,
+      "gender": 1,
       "status": 0,
       "roles": [
         "R_SFKY_BGW",
@@ -278,7 +278,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764554400000
+      "createTime": 1764865440000
     },
     {
       "id": "12",
@@ -294,7 +294,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764558000000
+      "createTime": 1764900144000
     },
     {
       "id": "13",
@@ -310,7 +310,7 @@
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764561600000
+      "createTime": 1764934848000
     },
     {
       "id": "14",
@@ -318,15 +318,15 @@
       "login": "ZijUGQ1kjUi",
       "phone": "13375613858",
       "email": "b.wfxvwiqkcw@objo.hn",
-      "gender": 2,
-      "status": 1,
+      "gender": 1,
+      "status": null,
       "roles": [
         "R_SFKY_BGW",
         "R_DNVJ_LGR",
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764565200000
+      "createTime": 1764969552000
     },
     {
       "id": "15",
@@ -335,17 +335,16 @@
       "phone": "17886029839",
       "email": "i.etxigpporb@lwzm.wf",
       "gender": 2,
-      "status": 1,
       "roles": [
         "R_SFKY_BGW",
         "R_DNVJ_LGR",
         "R_ERFU_JVXE",
         "R_TVO_XKD"
       ],
-      "createTime": 1764568800000
+      "createTime": 1765004256000
     }
   ],
-  
+
   "roles": [
     {
       "id": "1",
