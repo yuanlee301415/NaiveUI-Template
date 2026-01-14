@@ -1,2 +1,5 @@
 export * from './StoreId.js'
 export * from './Role.js'
+export * from './Gender.js'
+export * from './UsingStatus.js'
+export * from './OperationType.js'
