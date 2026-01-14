@@ -2,6 +2,16 @@
  * 用户
  * */
 
+import formatDate from '@/utils/formatDate.js'
+
+const LOGIN_LABEL = '登录名'
+const NAME_LABEL = '显示名称'
+const PHONE_LABEL = '手机'
+const EMAIL_LABEL = '邮箱'
+const GENDER_LABEL = '性别'
+const STATUS_LABEL = '状态'
+const CREATE_TIME_LABEL = '创建时间'
+
 export class User {
   /**
    * @type {string}
@@ -27,27 +37,31 @@ export class User {
   roles
 
   /**
+   * 手机
    * @type {string}
    */
   phone
 
   /**
+   * 邮箱
    * @type {string}
    */
   email
 
   /**
-   * @type {1|2}
+   * 性别
+   * @type {Gender}
    */
   gender
 
   /**
-   * @type {0|1}
+   * 状态
+   * @type {UsingStatus}
    */
   status
 
   /**
-   * 创建时间戳
+   * 创建时间
    * @type {number}
    */
   createTime
@@ -56,7 +70,7 @@ export class User {
    * @param {User} _
    */
   constructor(_) {
-    const { id, login, name, roles, phone, email, gender, status, createTime } = { ..._ }
+    const { id, login = '', name = '', roles = null, phone = '', email = '', gender = null, status = null, createTime } = { ..._ }
     this.id = id
     this.login = login
     this.name = name
@@ -68,12 +82,37 @@ export class User {
     this.createTime = createTime
   }
 
+  get createTimeString() {
+    return formatDate(this.createTime)
+  }
+
+  static LOGIN_LABEL = LOGIN_LABEL
+  static NAME_LABEL = NAME_LABEL
+  static PHONE_LABEL = PHONE_LABEL
+  static EMAIL_LABEL = EMAIL_LABEL
+  static GENDER_LABEL = GENDER_LABEL
+  static STATUS_LABEL = STATUS_LABEL
+  static CREATE_TIME_LABEL = CREATE_TIME_LABEL
+
   /**
    * 批量实例化
    * @param {Array} [list]
    * @return {User[]|*}
    */
-  from(list) {
+  static from(list) {
     return list?.map((_) => new this(_))
+  }
+
+  /**
+   * 搜索条件 Model
+   * @type {UserParams}
+   */
+  static UserParams = class extends this {
+    constructor(_) {
+      super(_)
+      delete this.id
+      delete this.roles
+      delete this.createTime
+    }
   }
 }
