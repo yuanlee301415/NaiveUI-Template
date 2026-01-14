@@ -5,6 +5,7 @@ import { basicRoutes } from '@/router/routes/basic.js'
 import { nestedRoutes } from '@/router/routes/modules/nested.js'
 import { settingRoutes } from '@/router/routes/modules/setting.js'
 import { functionRoutes } from '@/router/routes/modules/function.js'
+import { manageRoutes } from '@/router/routes/modules/manage.js'
 
 /*
  * 静态路由
@@ -83,6 +84,8 @@ export const dynamicRoutes = [
   },
 
   settingRoutes,
+
+  manageRoutes,
 
   // VueRouter 库限制，必须放置在所有路由后面
   {

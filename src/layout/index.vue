@@ -26,7 +26,7 @@ defineOptions({ name: 'LayoutIndex' })
         <Sider />
       </n-layout-sider>
 
-      <n-layout content-style="padding: 20px;" :native-scrollbar="false">
+      <n-layout content-style="padding: 20px;height:100%;" :native-scrollbar="false">
         <RouterView v-slot="{ Component, route }">
           <transition name="fade-slide" mode="out-in">
             <component :is="Component" :key="route.path" />

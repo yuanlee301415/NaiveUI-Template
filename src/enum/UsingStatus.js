@@ -24,7 +24,7 @@ export const UsingStatus = {
   [ENABLED[0]]: ENABLED[1],
 
   * [Symbol.iterator]() {
-    yield [DISABLED[0], DISABLED[1]]
-    yield [ENABLED[0], ENABLED[1]]
+    yield { value: DISABLED[0], label: DISABLED[1] }
+    yield { value: ENABLED[0], label: ENABLED[1] }
   }
 }
