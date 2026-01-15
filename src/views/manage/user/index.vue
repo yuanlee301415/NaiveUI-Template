@@ -134,7 +134,7 @@ function handleEdit(user) {
 async function handleDelete(user) {
   await deleteUserApi(user.id)
   window.$toastSuccess('删除用户成功！')
-  getUsers()
+  void getUsers()
 }
 
 // 搜索
@@ -159,8 +159,8 @@ function onAdd() {
 async function onBatchDelete() {
   await batchDeleteUserApi(checkedRowKeys.value)
   window.$toastSuccess('批量删除用户成功！')
-  getUsers()
   checkedRowKeys.value = []
+  void getUsers()
 }
 
 // 刷新列表

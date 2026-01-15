@@ -10,7 +10,7 @@ import { setupNaiveDiscreteApi } from './plugins'
 import { setupStore } from '@/stores/index.js'
 import { setupDirectives } from '@/directives/index.js'
 
-bootstrap()
+void bootstrap()
 
 async function bootstrap() {
   const app = createApp(App)
