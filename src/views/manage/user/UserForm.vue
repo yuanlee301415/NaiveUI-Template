@@ -89,7 +89,7 @@ async function submit() {
       await updateUserApi(model)
       break
   }
-  window.$notification.success({ content: operationType + '用户成功！', duration: 5000 })
+  window.$toastSuccess(operationType + '用户成功！')
 }
 
 defineExpose({
