@@ -1,80 +1,35 @@
 <script setup>
 import { reactive, ref, onBeforeUnmount, computed } from 'vue'
-import { useNotification } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { getCaptchaApi } from '@/api/rights.js'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants.js'
+import { useFormRules } from '@/hooks/useFormRules.js'
 
 // eslint-disable-next-line vue/multi-word-component-names
 defineOptions({ name: 'Register' })
 
 const router = useRouter()
-const notification = useNotification()
-const MOBILE_REG = /^1\d{10}$/
-const CODE_REG = /^\d{4}$/
 
 const formData = reactive({
-  mobile: '',
+  phone: '',
   code: '',
   password: '',
   confirmPassword: '',
+  email: ''
 })
 
-const createConfirmPasswordRule = (password) => {
-  return [
-    {
-      required: true,
-      message: '请再次输入密码',
-    },
-    {
-      trigger: 'input',
-      asyncValidator(rule, value) {
-        if (value && value !== password) return Promise.reject(rule.message)
-        return Promise.resolve()
-      },
-      message: '再次密码不一致',
-    },
-  ]
-}
+const { createPhoneRules, createCodeFourRules, createPasswordRules, createConfirmPasswordRules, createEmailRules, createRuleMessage } = useFormRules()
+const { phoneMessage, codeFourMessage, passwordMessage, confirmPasswordMessage, emailMessage } = createRuleMessage()
 
-const rules = computed(() => ({
-  mobile: [
-    {
-      key: 'mobile',
-      required: true,
-      trigger: 'blur',
-      validator(rule, value) {
-        if (!value) return new Error('请输入手机号')
-        if (!MOBILE_REG.test(value)) return new Error('手机号格式错误')
-        return true
-      },
-    },
-  ],
-  code: [
-    {
-      required: true,
-      message: '请输入验证码',
-    },
-    {
-      pattern: CODE_REG,
-      trigger: 'blur',
-      message: '验证码格式错误',
-    },
-  ],
-  password: [
-    {
-      required: true,
-      trigger: 'blur',
-      validator(rule, value) {
-        if (!value) return new Error('请输入密码')
-        if (value.length < 4 || value.length > 16)
-          return new Error('密码格式错误，4-16位字符，包含字母、数字、下划线')
-        return true
-      },
-    },
-  ],
-  confirmPassword: createConfirmPasswordRule(formData.password),
-}))
+const rules = computed(() => {
+  return {
+    phone: createPhoneRules({ key: 'phone' }),
+    code: createCodeFourRules(),
+    password: createPasswordRules(),
+    confirmPassword: createConfirmPasswordRules({ password: formData.password }),
+    email: createEmailRules({ required: false })
+  }
+})
 
 const countdownRest = ref(0)
 
@@ -97,23 +52,16 @@ function countdown(seconds = 10) {
 }
 
 async function handleGetCaptcha() {
-  await formRef.value?.validate(null, (rule) => {
-    console.log('rule:', rule)
-    return rule.key === 'mobile'
-  })
+  await formRef.value?.validate(null, (rule) => rule.key === 'phone')
   countdown()
-  const captcha = await getCaptchaApi(formData.mobile)
+  const captcha = await getCaptchaApi(formData.phone)
   formData.code = captcha.code
 }
 
 async function handleSubmit() {
+  console.log(formData)
   await formRef.value?.validate()
-
-  notification.success({
-    title: '注册成功',
-    duration: 1000,
-  })
-
+  window.$toastSuccess('注册成功')
   router.push({ name: LOGIN_CODE_ROUTE_NAME })
 }
 
@@ -129,12 +77,12 @@ onBeforeUnmount(() => {
     </n-h2>
 
     <n-form ref="formRef" :model="formData" :rules="rules" size="large" @keyup.enter="handleSubmit">
-      <n-form-item label="手机号" path="mobile">
+      <n-form-item label="手机号" path="phone">
         <n-input
-          v-model:value="formData.mobile"
+          v-model:value="formData.phone"
           :allow-input="noSideSpace"
+          :placeholder="phoneMessage.requiredMessage"
           maxlength="11"
-          placeholder="请输入手机号"
         />
       </n-form-item>
 
@@ -143,13 +91,14 @@ onBeforeUnmount(() => {
           v-model:value="formData.code"
           :allow-input="noSideSpace"
           class="flex-1"
+          :placeholder="codeFourMessage.requiredMessage"
           maxlength="4"
-          placeholder="请输入验证码"
         />
 
         <div class="w-150px ml-4">
           <n-button v-if="countdownRest" class="w-full" disabled
-            >{{ countdownRest }}秒后重新获取</n-button
+          >{{ countdownRest }}秒后重新获取
+          </n-button
           >
           <n-button v-else class="w-full" @click="handleGetCaptcha">获取验证码</n-button>
         </div>
@@ -159,9 +108,9 @@ onBeforeUnmount(() => {
         <n-input
           v-model:value="formData.password"
           :allow-input="noSideSpace"
+          :placeholder="passwordMessage.requiredMessage"
           type="password"
           maxlength="20"
-          placeholder="请输入密码"
         />
       </n-form-item>
 
@@ -169,9 +118,18 @@ onBeforeUnmount(() => {
         <n-input
           v-model:value="formData.confirmPassword"
           :allow-input="noSideSpace"
+          :placeholder="confirmPasswordMessage.requiredMessage"
           type="password"
           maxlength="20"
-          placeholder="请再次输入密码"
+        />
+      </n-form-item>
+
+      <n-form-item label="邮箱" path="email">
+        <n-input
+          v-model:value="formData.email"
+          :allow-input="noSideSpace"
+          :placeholder="emailMessage.requiredMessage"
+          maxlength="50"
         />
       </n-form-item>
     </n-form>
@@ -179,7 +137,8 @@ onBeforeUnmount(() => {
     <n-flex :size="[0, 30]" justify="right">
       <n-button type="primary" round block size="large" @click="handleSubmit">确认</n-button>
       <n-button round block size="large" @click="router.push({ name: LOGIN_PASSWORD_ROUTE_NAME })"
-        >返回</n-button
+      >返回
+      </n-button
       >
     </n-flex>
   </div>

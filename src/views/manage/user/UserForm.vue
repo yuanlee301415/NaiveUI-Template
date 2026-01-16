@@ -6,10 +6,13 @@
 import { User } from '@/models/index.js'
 import { reactive, ref } from 'vue'
 import { Gender, UsingStatus, OperationType } from '@/enum/index.js'
-import { PHONE_REG, USER_NAME_REG, EMAIL_REG } from '@/constants/reg.js'
 import { createUserApi, updateUserApi } from '@/api/user.js'
+import { useFormRules } from '@/hooks/useFormRules.js'
 
 defineOptions({ name: 'UserForm' })
+
+const { createNickNameRules, createPhoneRules, createEmailRules, createRuleMessage } = useFormRules()
+const { loginNameMessage, nickNameMessage, phoneMessage, emailMessage } = createRuleMessage()
 
 const { user, operationType } = defineProps({
   /**
@@ -45,37 +48,10 @@ const model = reactive(new User({
  */
 const formRef = ref()
 
-const RULES = {
-  name: {
-    required: true,
-    trigger: 'blur',
-    validator(rule, value) {
-      if (!value || !value.length) return new Error('请输入用户名')
-      if (!USER_NAME_REG.test(value)) return new Error('用户名只允许：4-6位中英文、数字、字母字符')
-      return true
-    }
-  },
-  phone: [
-    {
-      required: true,
-      trigger: 'blur',
-      validator(rule, value) {
-        if (!value) return new Error('请输入手机号')
-        if (!PHONE_REG.test(value)) return new Error('手机号格式错误')
-        return true
-      }
-    }
-  ],
-  email: [
-    {
-      trigger: 'blur',
-      validator(rule, value) {
-        if (!value) return
-        if (!EMAIL_REG.test(value)) return new Error('手机号格式错误')
-        return true
-      }
-    }
-  ]
+const rules = {
+  name: createNickNameRules(),
+  phone: createPhoneRules(),
+  email: createEmailRules()
 }
 
 // 提交表单
@@ -99,21 +75,21 @@ defineExpose({
 
 
 <template>
-  <n-form :model="model" :rules="RULES" ref="formRef">
+  <n-form :model="model" :rules="rules" ref="formRef">
     <n-form-item v-if="operationType === OperationType.Edit" path="login" :label="User.LOGIN_LABEL">
-      <n-input v-model:value="model.login" disabled />
+      <n-input v-model:value="model.login" :placeholder="loginNameMessage.requiredMessage" disabled />
     </n-form-item>
 
     <n-form-item path="name" :label="User.NAME_LABEL">
-      <n-input v-model:value="model.name" maxlength="16" />
+      <n-input v-model:value="model.name" :placeholder="nickNameMessage.requiredMessage" maxlength="16" />
     </n-form-item>
 
     <n-form-item path="phone" :label="User.PHONE_LABEL">
-      <n-input v-model:value="model.phone" maxlength="11" />
+      <n-input v-model:value="model.phone" :placeholder="phoneMessage.requiredMessage" maxlength="11" />
     </n-form-item>
 
     <n-form-item path="email" :label="User.EMAIL_LABEL">
-      <n-input v-model:value="model.email" maxlength="30" />
+      <n-input v-model:value="model.email" :placeholder="emailMessage.requiredMessage" maxlength="30" />
     </n-form-item>
 
     <n-form-item path="gender" :label="User.GENDER_LABEL">

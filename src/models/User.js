@@ -4,8 +4,8 @@
 
 import formatDate from '@/utils/formatDate.js'
 
-const LOGIN_LABEL = '登录名'
-const NAME_LABEL = '显示名称'
+const LOGIN_LABEL = '用户名'
+const NAME_LABEL = '昵称'
 const PHONE_LABEL = '手机'
 const EMAIL_LABEL = '邮箱'
 const GENDER_LABEL = '性别'
@@ -19,13 +19,13 @@ export class User {
   id
 
   /**
-   * 登录名
+   * 用户名
    * @type {string}
    */
   login
 
   /**
-   * 显示名称
+   * 昵称
    * @type {string}
    */
   name
