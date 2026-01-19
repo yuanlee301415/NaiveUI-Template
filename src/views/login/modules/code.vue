@@ -13,7 +13,7 @@ const router = useRouter()
 const routeStore = useRouteStore()
 const authStore = useAuthStore()
 const { createPhoneRules, createCodeFourRules, createRuleMessage } = useFormRules()
-const { phoneMessage, codeFourMessage } = createRuleMessage()
+const { phoneMessage } = createRuleMessage()
 
 const rules = {
   phone: createPhoneRules({ key: 'phone' }),
@@ -22,7 +22,7 @@ const rules = {
 
 const formData = reactive({
   phone: '',
-  code: ''
+  code: []
 })
 
 const loading = ref(false)
@@ -53,7 +53,7 @@ async function handleGetCaptcha() {
   await formRef.value?.validate(null, (rule) => rule.key === 'phone')
   countdown()
   captcha = await getCaptchaApi(formData.phone)
-  formData.code = captcha.code
+  formData.code = captcha.code.split('')
 }
 
 async function handleSubmit() {
@@ -93,13 +93,7 @@ onBeforeUnmount(() => {
       </n-form-item>
 
       <n-form-item label="验证码" path="code">
-        <n-input
-          v-model:value="formData.code"
-          :allow-input="noSideSpace"
-          :placeholder="codeFourMessage.requiredMessage"
-          class="flex-1"
-          maxlength="4"
-        />
+        <n-input-otp v-model:value="formData.code" :length="4" />
 
         <div class="w-150px ml-4">
           <n-button v-if="countdownRest" class="w-full" disabled

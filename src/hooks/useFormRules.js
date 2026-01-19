@@ -50,8 +50,8 @@ export function useFormRules() {
 
   // 4位验证码
   function createCodeFourRules({ required = true, requiredMessage = codeFourMessage.requiredMessage, patternMessage = codeFourMessage.patternMessage, trigger = 'change', key } = {}) {
-    const rules = [createPatternRule({ pattern: CODE_FOUR_REG, patternMessage, trigger, key })]
-    required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
+    const rules = [createCodePatternRule({ pattern: CODE_FOUR_REG, patternMessage, trigger, key })]
+    required && rules.unshift(createCodeRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
@@ -134,6 +134,45 @@ export function useFormRules() {
       pattern,
       trigger,
       key
+    }
+  }
+
+  /**
+   * 验证码 必填
+   * @param {boolean} required 是否必填
+   * @param {string} requiredMessage 提示信息
+   * @param {string} key 字段 Key
+   * @return {{validator, required, key}}
+   */
+  function createCodeRequiredRule({ required, requiredMessage, key }) {
+    return {
+      message: requiredMessage,
+      required,
+      key,
+      validator(_, value) {
+        if (value === null || value === void 0) return false
+        return value.filter(Boolean).length !== 0
+      }
+    }
+  }
+
+  /**
+   * 验证码 格式
+   * @param {RegExp} pattern 正则
+   * @param {string} patternMessage 提示信息
+   * @param {string} trigger 触发方式
+   * @param {string} key 字段 Key
+   * @return {{validator, trigger, message, key}}
+   */
+  function createCodePatternRule({ pattern, patternMessage, trigger, key }) {
+    return {
+      message: patternMessage,
+      trigger,
+      key,
+      validator(_, value) {
+        if (value.filter(Boolean).length === 0) return true
+        return pattern.test(value.join(''))
+      }
     }
   }
 
