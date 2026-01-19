@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { getCaptchaApi } from '@/api/rights.js'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants.js'
 import { useFormRules } from '@/hooks/useFormRules.js'
+import { noSideSpace } from '@/utils/naiveUI.js'
 
 // eslint-disable-next-line vue/multi-word-component-names
 defineOptions({ name: 'Register' })
@@ -37,9 +38,6 @@ const formRef = ref(null)
 
 let countdownTimer = null
 
-function noSideSpace(value) {
-  return !value.startsWith(' ') && !value.endsWith(' ')
-}
 
 function countdown(seconds = 10) {
   countdownRest.value = seconds

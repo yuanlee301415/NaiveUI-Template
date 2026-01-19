@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { useFormRules } from '@/hooks/useFormRules.js'
 import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants.js'
+import { noSideSpace } from '@/utils/naiveUI.js'
 
 defineOptions({ name: 'PasswordLogin' })
 
@@ -33,10 +34,6 @@ const formData = reactive({
 const loading = ref(false)
 
 const formRef = ref(null)
-
-function noSideSpace(value) {
-  return !value.startsWith(' ') && !value.endsWith(' ')
-}
 
 async function handleSubmit() {
   await formRef.value?.validate()

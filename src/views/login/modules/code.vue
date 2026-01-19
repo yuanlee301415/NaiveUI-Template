@@ -6,6 +6,7 @@ import { getCaptchaApi } from '@/api/rights.js'
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants.js'
 import { useFormRules } from '@/hooks/useFormRules.js'
+import { noSideSpace } from '@/utils/naiveUI.js'
 
 defineOptions({ name: 'CodeLogin' })
 
@@ -34,10 +35,6 @@ const formRef = ref(null)
 let countdownTimer = null
 
 let captcha = null
-
-function noSideSpace(value) {
-  return !value.startsWith(' ') && !value.endsWith(' ')
-}
 
 function countdown(seconds = 10) {
   countdownRest.value = seconds
