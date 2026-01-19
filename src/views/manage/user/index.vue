@@ -3,7 +3,7 @@
 -->
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, shallowRef } from 'vue'
 import { NFlex } from 'naive-ui'
 import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user.js'
 import { User, DataTablePaginationBasicConfig, DataTableSorter } from '@/models/index.js'
@@ -17,9 +17,9 @@ defineOptions({ name: 'ManageUser' })
 
 /**
  * 用户列表
- * @type {Ref<User[]>}
+ * @type {ShallowRef<User[]>}
  */
-const users = ref([])
+const users = shallowRef([])
 
 /**
  * 表格列配置
