@@ -1,6 +1,6 @@
 /*
-* NaiveUI 库工具方法
-* */
+ * NaiveUI 库工具方法
+ * */
 
 /**
  * NInput trim() 效果

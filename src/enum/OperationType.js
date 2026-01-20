@@ -15,5 +15,5 @@ export const OperationType = {
    * 编辑
    * @type {'编辑'}
    */
-  Edit: '编辑'
+  Edit: '编辑',
 }

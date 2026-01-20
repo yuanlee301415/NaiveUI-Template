@@ -46,7 +46,6 @@ export function filterAsyncRoutes(roles, routes) {
  */
 export function genMenus(routes, path = '', depth = 1, result = []) {
   for (const route of routes) {
-
     // 没有 `title`
     if (!route?.meta?.title) continue
 

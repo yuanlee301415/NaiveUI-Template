@@ -1,6 +1,6 @@
 /*
-* 指令
-* */
+ * 指令
+ * */
 
 import { permission } from './modules/permission.js'
 

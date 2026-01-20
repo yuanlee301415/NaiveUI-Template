@@ -14,7 +14,7 @@ const { hasPermission } = usePermission()
 const ACCOUNTS = [
   { login: 'super', name: '超级管理员' },
   { login: 'admin', name: '管理员' },
-  { login: 'user', name: '普通用户' }
+  { login: 'user', name: '普通用户' },
 ]
 
 /**
@@ -39,12 +39,7 @@ async function handleToggleAccount({ login }) {
 
     <n-card title="切换帐号" segmented>
       <n-flex :size="15" class="w-full flex-y-center justify-between">
-        <n-button
-          v-for="ac of ACCOUNTS"
-          :key="ac.login"
-          @click="handleToggleAccount(ac)"
-        >{{ ac.name }}
-        </n-button>
+        <n-button v-for="ac of ACCOUNTS" :key="ac.login" @click="handleToggleAccount(ac)">{{ ac.name }} </n-button>
       </n-flex>
     </n-card>
 
@@ -67,8 +62,6 @@ async function handleToggleAccount({ login }) {
         <n-button v-if="hasPermission([Role.User])">用户</n-button>
       </n-flex>
     </n-card>
-
-
   </n-flex>
 </template>
 

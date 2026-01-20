@@ -4,7 +4,7 @@ export const testRoutes = {
   path: '/test',
   name: 'Test',
   meta: {
-    title: 'Test'
+    title: 'Test',
   },
   component: Layout,
   children: [
@@ -12,9 +12,9 @@ export const testRoutes = {
       path: 'countdown',
       name: 'TestCountdown',
       meta: {
-        title: '倒计时'
+        title: '倒计时',
       },
-      component: () => import('@/views/test/countdown.vue')
-    }
-  ]
+      component: () => import('@/views/test/countdown.vue'),
+    },
+  ],
 }

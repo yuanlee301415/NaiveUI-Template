@@ -7,7 +7,7 @@ export const functionRoutes = {
   meta: {
     title: '系统功能',
     roles: [...Role],
-    icon: 'i-mdi:grid-large'
+    icon: 'i-mdi:grid-large',
   },
   component: Layout,
   children: [
@@ -16,18 +16,18 @@ export const functionRoutes = {
       name: 'SuperPage',
       meta: {
         title: '超级管理员可见',
-        roles: [Role.Super]
+        roles: [Role.Super],
       },
-      component: () => import('@/views/function/super.vue')
+      component: () => import('@/views/function/super.vue'),
     },
     {
       path: 'toggle-auth',
       name: 'ToggleAuth',
       meta: {
         title: '切换权限',
-        roles: [...Role]
+        roles: [...Role],
       },
-      component: () => import('@/views/function/toggle-auth.vue')
-    }
-  ]
+      component: () => import('@/views/function/toggle-auth.vue'),
+    },
+  ],
 }

@@ -19,5 +19,4 @@ const date = ref(Date.now())
     <h2>日期际化</h2>
     <n-date-picker v-model:value="date" type="date" />
   </n-card>
-
 </template>

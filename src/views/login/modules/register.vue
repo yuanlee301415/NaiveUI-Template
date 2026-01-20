@@ -17,7 +17,7 @@ const formData = reactive({
   code: [],
   password: '',
   confirmPassword: '',
-  email: ''
+  email: '',
 })
 
 const { createPhoneRules, createCodeFourRules, createPasswordRules, createConfirmPasswordRules, createEmailRules, createRuleMessage } = useFormRules()
@@ -30,7 +30,7 @@ const rules = computed(() => {
     code: createCodeFourRules(),
     password: createPasswordRules(),
     confirmPassword: createConfirmPasswordRules({ password: formData.password }),
-    email: createEmailRules({ required: false })
+    email: createEmailRules({ required: false }),
   }
 })
 
@@ -59,22 +59,14 @@ async function handleSubmit() {
 
     <n-form ref="formRef" :model="formData" :rules="rules" size="large" @keyup.enter="handleSubmit">
       <n-form-item label="手机号" path="phone">
-        <n-input
-          v-model:value="formData.phone"
-          :allow-input="noSideSpace"
-          :placeholder="phoneMessage.requiredMessage"
-          maxlength="11"
-        />
+        <n-input v-model:value="formData.phone" :allow-input="noSideSpace" :placeholder="phoneMessage.requiredMessage" maxlength="11" />
       </n-form-item>
 
       <n-form-item label="验证码" path="code">
         <n-input-otp v-model:value="formData.code" :length="4" />
 
         <div class="w-150px ml-4">
-          <n-button v-if="isCounting" class="w-full" disabled
-          >{{ seconds }}秒后重新获取
-          </n-button
-          >
+          <n-button v-if="isCounting" class="w-full" disabled>{{ seconds }}秒后重新获取 </n-button>
           <n-button v-else class="w-full" @click="handleGetCaptcha">获取验证码</n-button>
         </div>
       </n-form-item>
@@ -100,21 +92,13 @@ async function handleSubmit() {
       </n-form-item>
 
       <n-form-item label="邮箱" path="email">
-        <n-input
-          v-model:value="formData.email"
-          :allow-input="noSideSpace"
-          :placeholder="emailMessage.requiredMessage"
-          maxlength="50"
-        />
+        <n-input v-model:value="formData.email" :allow-input="noSideSpace" :placeholder="emailMessage.requiredMessage" maxlength="50" />
       </n-form-item>
     </n-form>
 
     <n-flex :size="[0, 30]" justify="right">
       <n-button type="primary" round block size="large" @click="handleSubmit">确认</n-button>
-      <n-button round block size="large" @click="router.push({ name: LOGIN_PASSWORD_ROUTE_NAME })"
-      >返回
-      </n-button
-      >
+      <n-button round block size="large" @click="router.push({ name: LOGIN_PASSWORD_ROUTE_NAME })">返回 </n-button>
     </n-flex>
   </div>
 </template>

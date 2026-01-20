@@ -1,76 +1,106 @@
 /*
-* 表单规则
-* */
+ * 表单规则
+ * */
 
 import { toValue } from 'vue'
 import { PHONE_REG, EMAIL_REG, CODE_FOUR_REG, PWD_REG, LOGIN_NAME_REG, USER_NAME_REG } from '@/constants/reg.js'
 
 const phoneMessage = {
   requiredMessage: '请输入手机号',
-  patternMessage: '手机号格式错误'
+  patternMessage: '手机号格式错误',
 }
 
 const codeFourMessage = {
   requiredMessage: '请输入验证码',
-  patternMessage: '验证码格式错误，4位数字'
+  patternMessage: '验证码格式错误，4位数字',
 }
 
 const loginNameMessage = {
   requiredMessage: '请输入用户名',
-  patternMessage: '用户名格式错误，3-20位字符，包含小写字母、数字'
+  patternMessage: '用户名格式错误，3-20位字符，包含小写字母、数字',
 }
 
 const nickNameMessage = {
   requiredMessage: '请输入昵称',
-  patternMessage: '昵称格式错误，4-16位字符，包含汉字、大小写字母、数字、中划线、下划线'
+  patternMessage: '昵称格式错误，4-16位字符，包含汉字、大小写字母、数字、中划线、下划线',
 }
 
 const passwordMessage = {
   requiredMessage: '请输入密码',
-  patternMessage: '密码格式错误，6-18位字符，包含大小写字母、数字、下划线'
+  patternMessage: '密码格式错误，6-18位字符，包含大小写字母、数字、下划线',
 }
 
 const confirmPasswordMessage = {
   requiredMessage: '请再次输入密码',
-  patternMessage: '再次密码不一致'
+  patternMessage: '再次密码不一致',
 }
 
 const emailMessage = {
   requiredMessage: '请输入邮箱地址',
-  patternMessage: '邮箱格式错误'
+  patternMessage: '邮箱格式错误',
 }
 
 export function useFormRules() {
   // 手机
-  function createPhoneRules({ required = true, requiredMessage = phoneMessage.requiredMessage, patternMessage = phoneMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createPhoneRules({
+    required = true,
+    requiredMessage = phoneMessage.requiredMessage,
+    patternMessage = phoneMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createPatternRule({ pattern: PHONE_REG, patternMessage, trigger, key })]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   // 4位验证码
-  function createCodeFourRules({ required = true, requiredMessage = codeFourMessage.requiredMessage, patternMessage = codeFourMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createCodeFourRules({
+    required = true,
+    requiredMessage = codeFourMessage.requiredMessage,
+    patternMessage = codeFourMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createCodePatternRule({ pattern: CODE_FOUR_REG, patternMessage, trigger, key })]
     required && rules.unshift(createCodeRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   // 用户名
-  function createLoginNameRules({ required = true, requiredMessage = loginNameMessage.requiredMessage, patternMessage = loginNameMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createLoginNameRules({
+    required = true,
+    requiredMessage = loginNameMessage.requiredMessage,
+    patternMessage = loginNameMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createPatternRule({ pattern: LOGIN_NAME_REG, patternMessage, trigger, key })]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   // 密码
-  function createPasswordRules({ required = true, requiredMessage = passwordMessage.requiredMessage, patternMessage = passwordMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createPasswordRules({
+    required = true,
+    requiredMessage = passwordMessage.requiredMessage,
+    patternMessage = passwordMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createPatternRule({ pattern: PWD_REG, patternMessage, trigger, key })]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   // EMail
-  function createEmailRules({ required = true, requiredMessage = emailMessage.requiredMessage, patternMessage = emailMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createEmailRules({
+    required = true,
+    requiredMessage = emailMessage.requiredMessage,
+    patternMessage = emailMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createPatternRule({ pattern: EMAIL_REG, patternMessage, trigger, key })]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
@@ -78,28 +108,36 @@ export function useFormRules() {
 
   // 确认密码
   function createConfirmPasswordRules({
-                                        required = true,
-                                        requiredMessage = confirmPasswordMessage.requiredMessage,
-                                        patternMessage = confirmPasswordMessage.patternMessage,
-                                        trigger = 'input',
-                                        key,
-                                        password
-                                      } = {}) {
-    const rules = [{
-      asyncValidator(rule, value) {
-        if (value && value !== toValue(password)) return Promise.reject(rule.message)
-        return Promise.resolve()
+    required = true,
+    requiredMessage = confirmPasswordMessage.requiredMessage,
+    patternMessage = confirmPasswordMessage.patternMessage,
+    trigger = 'input',
+    key,
+    password,
+  } = {}) {
+    const rules = [
+      {
+        asyncValidator(rule, value) {
+          if (value && value !== toValue(password)) return Promise.reject(rule.message)
+          return Promise.resolve()
+        },
+        message: patternMessage,
+        trigger,
+        key,
       },
-      message: patternMessage,
-      trigger,
-      key
-    }]
+    ]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   // 昵称
-  function createNickNameRules({ required = true, requiredMessage = nickNameMessage.requiredMessage, patternMessage = nickNameMessage.patternMessage, trigger = 'change', key } = {}) {
+  function createNickNameRules({
+    required = true,
+    requiredMessage = nickNameMessage.requiredMessage,
+    patternMessage = nickNameMessage.patternMessage,
+    trigger = 'change',
+    key,
+  } = {}) {
     const rules = [createPatternRule({ pattern: USER_NAME_REG, patternMessage, trigger, key })]
     required && rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
@@ -116,7 +154,7 @@ export function useFormRules() {
     return {
       message: requiredMessage,
       required,
-      key
+      key,
     }
   }
 
@@ -133,7 +171,7 @@ export function useFormRules() {
       message: patternMessage,
       pattern,
       trigger,
-      key
+      key,
     }
   }
 
@@ -152,7 +190,7 @@ export function useFormRules() {
       validator(_, value) {
         if (value === null || value === void 0) return false
         return value.filter(Boolean).length !== 0
-      }
+      },
     }
   }
 
@@ -172,7 +210,7 @@ export function useFormRules() {
       validator(_, value) {
         if (value.filter(Boolean).length === 0) return true
         return pattern.test(value.join(''))
-      }
+      },
     }
   }
 
@@ -185,7 +223,7 @@ export function useFormRules() {
       nickNameMessage: { ...nickNameMessage },
       passwordMessage: { ...passwordMessage },
       confirmPasswordMessage: { ...confirmPasswordMessage },
-      emailMessage: { ...emailMessage }
+      emailMessage: { ...emailMessage },
     }
   }
 
@@ -197,6 +235,6 @@ export function useFormRules() {
     createCodeFourRules,
     createConfirmPasswordRules,
     createEmailRules,
-    createRuleMessage
+    createRuleMessage,
   }
 }

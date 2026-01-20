@@ -1,6 +1,6 @@
 /*
-* 使用状态
-* */
+ * 使用状态
+ * */
 
 const DISABLED = [0, '禁用']
 
@@ -23,8 +23,8 @@ export const UsingStatus = {
 
   [ENABLED[0]]: ENABLED[1],
 
-  * [Symbol.iterator]() {
+  *[Symbol.iterator]() {
     yield { value: DISABLED[0], label: DISABLED[1] }
     yield { value: ENABLED[0], label: ENABLED[1] }
-  }
+  },
 }

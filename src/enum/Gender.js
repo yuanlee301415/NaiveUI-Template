@@ -1,6 +1,6 @@
 /*
-* 性别
-* */
+ * 性别
+ * */
 
 const MALE = [1, '男']
 
@@ -23,8 +23,8 @@ export const Gender = {
 
   [FEMALE[0]]: FEMALE[1],
 
-  * [Symbol.iterator]() {
+  *[Symbol.iterator]() {
     yield { value: MALE[0], label: MALE[1] }
     yield { value: FEMALE[0], label: FEMALE[1] }
-  }
+  },
 }

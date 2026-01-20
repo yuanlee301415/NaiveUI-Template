@@ -1,9 +1,4 @@
-import {
-  LOGIN_ROUTE_NAME,
-  LOGIN_PASSWORD_ROUTE_NAME,
-  LOGIN_CODE_ROUTE_NAME,
-  LOGIN_REGISTER_ROUTE_NAME,
-} from '@/router/constants.js'
+import { LOGIN_ROUTE_NAME, LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants.js'
 
 export const loginRoutes = {
   path: '/login',

@@ -11,12 +11,14 @@ import { AuthUser } from '@/models/AuthUser.js'
 import { getAuthToken, setAuthToken, removeAuthToken } from '@/utils/authToken.js'
 
 export const useAuthStore = defineStore(StoreId.Auth, () => {
-  const user = reactive(new AuthUser({
-    id: '',
-    login: '',
-    name: '',
-    roles: null
-  }))
+  const user = reactive(
+    new AuthUser({
+      id: '',
+      login: '',
+      name: '',
+      roles: null,
+    }),
+  )
 
   const authStore = useAuthStore()
   const routeStore = useRouteStore()
@@ -49,6 +51,6 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
     login,
     logout,
     getAuthUser,
-    resetStore
+    resetStore,
   }
 })

@@ -15,7 +15,7 @@ export function createPermissionGuard(router) {
     // console.log('permission>to:\n', JSON.stringify({ path: to.path, name: to.name, meta: to.meta, params: to.params }, null, 2))
 
     // 页面无权限限制
-    if (basicRoutes.some(_ => to.path.startsWith(_.path))) {
+    if (basicRoutes.some((_) => to.path.startsWith(_.path))) {
       // console.warn('页面无权限限制:', to.path)
       return true
     }

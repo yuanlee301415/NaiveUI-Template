@@ -7,7 +7,7 @@ export const nestedRoutes = {
   redirect: '/nested/a',
   meta: {
     title: 'Nested',
-    icon: 'i-mdi:reorder-horizontal'
+    icon: 'i-mdi:reorder-horizontal',
   },
   children: [
     {
@@ -21,7 +21,7 @@ export const nestedRoutes = {
           name: 'NestedA1',
           component: () => import('@/views/nested/a/a1/index.vue'),
           meta: {
-            title: 'NestedA1'
+            title: 'NestedA1',
           },
         },
         {
@@ -29,7 +29,7 @@ export const nestedRoutes = {
           name: 'NestedA2',
           component: () => import('@/views/nested/a/a2/index.vue'),
           meta: {
-            title: 'NestedA2'
+            title: 'NestedA2',
           },
         },
       ],

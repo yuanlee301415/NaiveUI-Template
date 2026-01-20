@@ -1,6 +1,6 @@
 /*
-* 设置、获取、删除 用户认证 Token
-* */
+ * 设置、获取、删除 用户认证 Token
+ * */
 
 const key = 'access_token'
 

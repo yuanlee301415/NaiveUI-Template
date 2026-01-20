@@ -56,7 +56,7 @@ const search = reactive({
    * 排序
    * @type {DataTableSorter}
    */
-  sorter: null
+  sorter: null,
 })
 
 /**
@@ -82,7 +82,7 @@ const modalForm = reactive({
   // 弹窗标题
   get title() {
     return this.operationType + ' - 用户'
-  }
+  },
 })
 
 /**
@@ -99,7 +99,7 @@ const pagination = reactive({
     pagination.pageSize = pageSize
     pagination.page = 1
     getUsers()
-  }
+  },
 })
 
 getUsers()
@@ -108,7 +108,12 @@ getUsers()
 async function getUsers() {
   search.loading = true
   try {
-    const { data, pages, items } = await getUsersApi({ ...search.params, page: pagination.page, size: pagination.pageSize, sort: search.sorter?.sortString })
+    const { data, pages, items } = await getUsersApi({
+      ...search.params,
+      page: pagination.page,
+      size: pagination.pageSize,
+      sort: search.sorter?.sortString,
+    })
     users.value = User.from(data)
     pagination.pageCount = pages
     pagination.itemCount = items
@@ -199,12 +204,17 @@ function onUpdateSorter(sorter) {
 
 <template>
   <n-flex vertical :size="20" class="h-full">
-
     <UserSearch v-model:params="search.params" :loading="search.loading" @search="onSearch" @reset="onReset" />
 
     <n-card title="用户管理" segmented class="flex-1 overflow-hidden">
       <template #header-extra>
-        <TableHeaderOperation :loading="search.loading" :disabled-delete="!checkedRowKeys.length" @add="onAdd" @batch-delete="onBatchDelete" @refresh="onRefresh" />
+        <TableHeaderOperation
+          :loading="search.loading"
+          :disabled-delete="!checkedRowKeys.length"
+          @add="onAdd"
+          @batch-delete="onBatchDelete"
+          @refresh="onRefresh"
+        />
       </template>
       <n-data-table
         :columns="columns"
@@ -230,10 +240,10 @@ function onUpdateSorter(sorter) {
       :loading="modalForm.loading"
       :mask-closable="false"
       :show-icon="false"
-      preset='dialog'
-      negative-text='取消'
-      positive-text='确认'
-      style="width: 50vw;max-width: 700px;"
+      preset="dialog"
+      negative-text="取消"
+      positive-text="确认"
+      style="width: 50vw; max-width: 700px"
       auto-focus
       trap-focus
       @positive-click="handleSubmit"

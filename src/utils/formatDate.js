@@ -7,17 +7,17 @@
  * @returns {string} - 格式化后的字符串
  */
 export default function formatDate(value, { isShort = false, separator = '/', placeholder = '--' } = {}) {
-    value = new Date(new Date(value).getTime() || new Date(Number(value)).getTime())
+  value = new Date(new Date(value).getTime() || new Date(Number(value)).getTime())
 
-    // 无效数据
-    if (!value.getTime()) return placeholder
+  // 无效数据
+  if (!value.getTime()) return placeholder
 
-    // 短格式（只返回：年月日）
-    const [year, month, date] = [value.getFullYear(), value.getMonth() + 1, value.getDate()]
-    const ymdStr = [year, month.toString().padStart(2, '0'), date.toString().padStart(2, '0')].join(separator)
-    if (isShort) return ymdStr
+  // 短格式（只返回：年月日）
+  const [year, month, date] = [value.getFullYear(), value.getMonth() + 1, value.getDate()]
+  const ymdStr = [year, month.toString().padStart(2, '0'), date.toString().padStart(2, '0')].join(separator)
+  if (isShort) return ymdStr
 
-    // 全格式（年月日时分秒）
-    const [hour, min, sec] = [value.getHours(), value.getMinutes(), value.getSeconds()]
-    return ymdStr + ' ' + [hour.toString().padStart(2, '0'), min.toString().padStart(2, '0'), sec.toString().padStart(2, '0')].join(':')
+  // 全格式（年月日时分秒）
+  const [hour, min, sec] = [value.getHours(), value.getMinutes(), value.getSeconds()]
+  return ymdStr + ' ' + [hour.toString().padStart(2, '0'), min.toString().padStart(2, '0'), sec.toString().padStart(2, '0')].join(':')
 }

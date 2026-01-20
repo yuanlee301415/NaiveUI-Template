@@ -19,29 +19,31 @@ const { user, operationType } = defineProps({
    * @type {User}
    */
   user: {
-    type: User
+    type: User,
   },
 
   /**
    * @type {OperationType}
    */
   operationType: {
-    type: String
-  }
+    type: String,
+  },
 })
 
 /**
  * @type {User}
  */
-const model = reactive(new User({
-  id: user.id,
-  login: user.login,
-  name: user.name,
-  phone: user.phone,
-  email: user.email,
-  gender: user.gender,
-  status: user.status
-}))
+const model = reactive(
+  new User({
+    id: user.id,
+    login: user.login,
+    name: user.name,
+    phone: user.phone,
+    email: user.email,
+    gender: user.gender,
+    status: user.status,
+  }),
+)
 
 /**
  * @type {Ref<HTMLFormElement | null>}
@@ -51,7 +53,7 @@ const formRef = ref()
 const rules = {
   name: createNickNameRules(),
   phone: createPhoneRules(),
-  email: createEmailRules()
+  email: createEmailRules(),
 }
 
 // 提交表单
@@ -69,10 +71,9 @@ async function submit() {
 }
 
 defineExpose({
-  submit
+  submit,
 })
 </script>
-
 
 <template>
   <n-form :model="model" :rules="rules" ref="formRef">

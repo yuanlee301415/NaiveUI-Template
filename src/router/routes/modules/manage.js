@@ -7,7 +7,7 @@ export const manageRoutes = {
   meta: {
     title: '系统管理',
     roles: [...Role],
-    icon: 'i-mdi:grid-large'
+    icon: 'i-mdi:grid-large',
   },
   component: Layout,
   children: [
@@ -16,9 +16,9 @@ export const manageRoutes = {
       name: 'ManageUser',
       meta: {
         title: '用户管理',
-        roles: [...Role]
+        roles: [...Role],
       },
-      component: () => import('@/views/manage/user/index.vue')
-    }
-  ]
+      component: () => import('@/views/manage/user/index.vue'),
+    },
+  ],
 }

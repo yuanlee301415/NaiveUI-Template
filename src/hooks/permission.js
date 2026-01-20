@@ -1,6 +1,6 @@
 /*
-* 权限 Hook
-* */
+ * 权限 Hook
+ * */
 
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 
@@ -25,10 +25,10 @@ export function usePermission() {
    * @return boolean
    */
   function somePermission(perms) {
-    return !!authStore.user.roles?.some(role => perms.includes(role))
+    return !!authStore.user.roles?.some((role) => perms.includes(role))
   }
 
   return {
-    hasPermission
+    hasPermission,
   }
 }

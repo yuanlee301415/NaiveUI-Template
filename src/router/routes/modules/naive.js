@@ -5,7 +5,7 @@ export const naiveRoutes = {
   name: 'Naive',
   meta: {
     title: 'Naive',
-    icon: 'i-mdi:alpha-n-box-outline'
+    icon: 'i-mdi:alpha-n-box-outline',
   },
   component: Layout,
   children: [
@@ -13,13 +13,13 @@ export const naiveRoutes = {
       path: 'button',
       name: 'NaiveIndex',
       meta: { title: 'Button' },
-      component: () => import('@/views/naive/button.vue')
+      component: () => import('@/views/naive/button.vue'),
     },
     {
       path: 'i18n',
       name: 'NaiveI18n',
       meta: { title: '国际化' },
-      component: () => import('@/views/naive/i18n.vue')
-    }
-  ]
+      component: () => import('@/views/naive/i18n.vue'),
+    },
+  ],
 }

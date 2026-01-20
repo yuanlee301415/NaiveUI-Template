@@ -1,6 +1,6 @@
 /*
-* 用户 API
-* */
+ * 用户 API
+ * */
 
 import request from '@/utils/request.js'
 
@@ -12,11 +12,16 @@ export function getUsersApi({ login, name, phone, email, gender, status, page = 
   return request({
     url: `/users`,
     params: {
-      login, name, phone, email, gender, status,
+      login,
+      name,
+      phone,
+      email,
+      gender,
+      status,
       _page: page,
       _per_page: size,
-      _sort: sort
-    }
+      _sort: sort,
+    },
   })
 }
 
@@ -30,8 +35,13 @@ export function createUserApi({ name, phone, email, gender, status }) {
     url: `/users`,
     method: 'post',
     data: {
-      name, phone, email, gender, status, createTime: Date.now()
-    }
+      name,
+      phone,
+      email,
+      gender,
+      status,
+      createTime: Date.now(),
+    },
   })
 }
 
@@ -45,8 +55,12 @@ export function updateUserApi({ id, name, phone, email, gender, status }) {
     url: `/users/${id}`,
     method: 'patch',
     data: {
-      name, phone, email, gender, status
-    }
+      name,
+      phone,
+      email,
+      gender,
+      status,
+    },
   })
 }
 
@@ -58,7 +72,7 @@ export function updateUserApi({ id, name, phone, email, gender, status }) {
 export function deleteUserApi(id) {
   return request({
     url: `/users/${id}`,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -68,5 +82,5 @@ export function deleteUserApi(id) {
  * @return {Promise<User[]>}
  */
 export function batchDeleteUserApi(ids = []) {
-  return Promise.all(ids.map(id => deleteUserApi(id)))
+  return Promise.all(ids.map((id) => deleteUserApi(id)))
 }

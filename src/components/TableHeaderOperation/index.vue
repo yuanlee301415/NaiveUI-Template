@@ -5,25 +5,23 @@ DataTable 表头操作
 - 刷新
 -->
 <script setup>
-
 defineOptions({ name: 'TableHeaderOperation' })
 
 defineProps({
   // 是否禁用“批量删除”
   disabledDelete: {
-    type: Boolean
+    type: Boolean,
   },
 
   loading: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
 })
 
 /**
  * @type {EmitFn<('add'|'batchDelete'|'refresh')[]>}
  */
 const emit = defineEmits(['add', 'batchDelete', 'refresh'])
-
 </script>
 
 <template>
@@ -51,7 +49,7 @@ const emit = defineEmits(['add', 'batchDelete', 'refresh'])
 
     <n-button :loading="loading" tertiary @click="emit('refresh')">
       <template #icon>
-        <SvgIcon icon='i-mdi:refresh' />
+        <SvgIcon icon="i-mdi:refresh" />
       </template>
       刷新
     </n-button>

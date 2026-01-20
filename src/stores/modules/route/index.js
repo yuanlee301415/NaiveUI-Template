@@ -24,7 +24,6 @@ let addRoutes = []
  */
 const removeRouteFns = []
 
-
 export const useRouteStore = defineStore(StoreId.Route, () => {
   const route = useRoute()
 
@@ -35,7 +34,7 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
   const menus = ref([])
 
   getMenus()
-  
+
   function toLogin() {
     router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
   }
@@ -60,7 +59,7 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
   function addDynamicRoutes(roles) {
     addRoutes = filterAsyncRoutes(roles, dynamicRoutes)
     // console.log('addDynamicRoutes>addRoutes:', addRoutes)
-    addRoutes.forEach(route => {
+    addRoutes.forEach((route) => {
       removeRouteFns.push(router.addRoute(route))
     })
     getMenus()
@@ -87,6 +86,6 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
     // toHome,
     redirectFormLogin,
     addDynamicRoutes,
-    resetRoutes
+    resetRoutes,
   }
 })

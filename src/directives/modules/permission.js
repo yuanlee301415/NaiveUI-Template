@@ -1,6 +1,6 @@
 /*
-* 权限指令
-* */
+ * 权限指令
+ * */
 
 import { useAuthStore } from '@/stores/modules/auth/index.js'
 
@@ -9,9 +9,9 @@ export const permission = {
     const authStore = useAuthStore()
     const { roles } = authStore.user
     const { value } = binding
-    if (!roles.some(role => value?.includes(role))) {
+    if (!roles.some((role) => value?.includes(role))) {
       el.disabled = true
       el.classList.add('n-button--disabled')
     }
-  }
+  },
 }

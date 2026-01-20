@@ -1,6 +1,6 @@
 /*
-* DataTable 排序
-* */
+ * DataTable 排序
+ * */
 
 // 降序
 const DESCEND = 'descend'

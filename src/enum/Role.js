@@ -1,6 +1,6 @@
 /*
-* 角色
-* */
+ * 角色
+ * */
 
 /**
  * 角色 Enum
@@ -19,9 +19,9 @@ export const Role = {
   // 用户
   User: 'USER',
 
-  * [Symbol.iterator]() {
+  *[Symbol.iterator]() {
     yield this.User
     yield this.Admin
     yield this.Super
-  }
+  },
 }

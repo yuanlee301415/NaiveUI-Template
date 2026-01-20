@@ -9,15 +9,11 @@ import { computed } from 'vue'
 export function setupNaiveDiscreteApi() {
   const osTheme = useOsTheme()
   const configProviderPropsRef = computed(() => ({
-      theme: osTheme.value === 'dark' ? darkTheme : null
-    }
-  ))
-  const { message, dialog, notification, loadingBar } = createDiscreteApi(
-    ['message', 'dialog', 'notification', 'loadingBar'],
-    {
-      configProviderProps: configProviderPropsRef
-    }
-  )
+    theme: osTheme.value === 'dark' ? darkTheme : null,
+  }))
+  const { message, dialog, notification, loadingBar } = createDiscreteApi(['message', 'dialog', 'notification', 'loadingBar'], {
+    configProviderProps: configProviderPropsRef,
+  })
 
   window['$message'] = message
   window['$dialog'] = dialog
@@ -31,7 +27,7 @@ export function setupNaiveDiscreteApi() {
    * @param {number} [duration=3000] 时长
    * @return {NotificationReactive}
    */
-  window.$toastSuccess = function(content = '操作成功', title = '成功', duration = 3000) {
+  window.$toastSuccess = function (content = '操作成功', title = '成功', duration = 3000) {
     return notification.success({ content, title, duration })
   }
 
@@ -42,7 +38,7 @@ export function setupNaiveDiscreteApi() {
    * @param {number} [duration=3000] 时长
    * @return {NotificationReactive}
    */
-  window.$toastError = function(content = '操作失败', title = '失败', duration = 3000) {
+  window.$toastError = function (content = '操作失败', title = '失败', duration = 3000) {
     return notification.error({ content, title, duration })
   }
 }

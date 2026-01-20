@@ -5,4 +5,3 @@ defineOptions({ name: 'NestedB1' })
 <template>
   <h1>Nested>b>b1.</h1>
 </template>
-

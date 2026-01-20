@@ -9,7 +9,7 @@ import { UsingStatus, Gender } from '@/enum/index.js'
 defineOptions({ name: 'UserSearch' })
 
 defineProps({
-  loading: Boolean
+  loading: Boolean,
 })
 
 /**
@@ -24,14 +24,12 @@ const model = defineModel('params', { required: true })
  * @type {EmitFn<('search' | 'reset')[]>}
  */
 const emit = defineEmits(['search', 'reset'])
-
 </script>
 
 <template>
   <n-card :bordered="false" size="small">
-    <n-form :model='model' ref='formRef' label-placement='left' label-width='80'>
+    <n-form :model="model" ref="formRef" label-placement="left" label-width="80">
       <n-grid responsive="screen" item-responsive>
-
         <n-form-item-gi span="24 sm:12 m:6" path="login" :label="User.LOGIN_LABEL">
           <n-input v-model:value="model.login" clearable />
         </n-form-item-gi>
@@ -60,22 +58,20 @@ const emit = defineEmits(['search', 'reset'])
           <n-flex justify="end" class="w-full">
             <n-button tertiary @click="emit('reset')">
               <template #icon>
-                <SvgIcon icon='i-mdi:refresh' />
+                <SvgIcon icon="i-mdi:refresh" />
               </template>
               重置
             </n-button>
 
             <n-button tertiary type="primary" :loading="loading" @click="emit('search')">
               <template #icon>
-                <SvgIcon icon='i-mdi:magnify' />
+                <SvgIcon icon="i-mdi:magnify" />
               </template>
               搜索
             </n-button>
           </n-flex>
         </n-form-item-gi>
-
       </n-grid>
     </n-form>
   </n-card>
 </template>
-

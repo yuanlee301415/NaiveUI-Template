@@ -5,7 +5,7 @@ export const exceptionRoutes = {
   name: 'Exception',
   meta: {
     title: '异常页面',
-    icon: 'i-mdi:block-helper'
+    icon: 'i-mdi:block-helper',
   },
   component: Layout,
   children: [
@@ -13,7 +13,7 @@ export const exceptionRoutes = {
       path: '404',
       name: 'Exception404',
       meta: {
-        title: '404'
+        title: '404',
       },
       component: NOT_FOUND_PAGE,
     },
@@ -21,7 +21,7 @@ export const exceptionRoutes = {
       path: '403',
       name: 'Exception403',
       meta: {
-        title: '403'
+        title: '403',
       },
       component: () => import('@/views/exception/403.vue'),
     },

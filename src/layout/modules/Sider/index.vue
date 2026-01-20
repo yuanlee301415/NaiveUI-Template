@@ -17,7 +17,7 @@ function genMenuOptions(menus, options = []) {
     const option = {
       key: _.path,
       label: _.title,
-      icon: _.icon && SvgIconVNode({ icon: _.icon })
+      icon: _.icon && SvgIconVNode({ icon: _.icon }),
     }
     if (_.children?.length) {
       option.children = genMenuOptions(_.children)

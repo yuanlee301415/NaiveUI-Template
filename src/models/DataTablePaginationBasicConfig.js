@@ -1,6 +1,6 @@
 /*
-* Naive DataTable 组件分页基础配置
-* */
+ * Naive DataTable 组件分页基础配置
+ * */
 
 /**
  * DataTablePaginationBasicConfig Model
@@ -56,7 +56,16 @@ export class DataTablePaginationBasicConfig {
    * @param {DataTablePaginationBasicConfig} [_]
    */
   constructor(_) {
-    const { page = 1, pageSize = 10, pageSizes = [10, 20, 30, 50], pageCount = 0, itemCount = 0, showQuickJumper = true, showSizePicker = true, suffix } = { ..._ }
+    const {
+      page = 1,
+      pageSize = 10,
+      pageSizes = [10, 20, 30, 50],
+      pageCount = 0,
+      itemCount = 0,
+      showQuickJumper = true,
+      showSizePicker = true,
+      suffix,
+    } = { ..._ }
     this.page = page
     this.pageSize = pageSize
     this.pageSizes = pageSizes

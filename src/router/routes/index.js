@@ -23,9 +23,9 @@ export const staticRoutes = [
       {
         path: '',
         name: HOME_ROUTE_NAME,
-        component: HomeView
-      }
-    ]
+        component: HomeView,
+      },
+    ],
   },
 
   naiveRoutes,
@@ -39,16 +39,16 @@ export const staticRoutes = [
       {
         path: '',
         name: 'About',
-        component: () => import('@/views/about/index.vue')
-      }
-    ]
+        component: () => import('@/views/about/index.vue'),
+      },
+    ],
   },
 
   testRoutes,
 
   nestedRoutes,
 
-  ...basicRoutes
+  ...basicRoutes,
 ]
 
 /*
@@ -67,9 +67,9 @@ export const dynamicRoutes = [
       {
         path: '',
         name: 'User',
-        component: () => import('@/views/user/index.vue')
-      }
-    ]
+        component: () => import('@/views/user/index.vue'),
+      },
+    ],
   },
 
   settingRoutes,
@@ -80,6 +80,6 @@ export const dynamicRoutes = [
   {
     path: '/:pathMatch(.*)*',
     name: NOT_FOUND_ROUTE_NAME,
-    component: NOT_FOUND_PAGE
-  }
+    component: NOT_FOUND_PAGE,
+  },
 ]
