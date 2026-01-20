@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onBeforeUnmount } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useRouteStore } from '@/stores/modules/route/index.js'
 import { getCaptchaApi } from '@/api/rights.js'
@@ -7,6 +7,7 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants.js'
 import { useFormRules } from '@/hooks/useFormRules.js'
 import { noSideSpace } from '@/utils/naiveUI.js'
+import { useCountdown } from '@/hooks/useCountdown.js'
 
 defineOptions({ name: 'CodeLogin' })
 
@@ -15,6 +16,7 @@ const routeStore = useRouteStore()
 const authStore = useAuthStore()
 const { createPhoneRules, createCodeFourRules, createRuleMessage } = useFormRules()
 const { phoneMessage } = createRuleMessage()
+const { seconds, countdown, isCounting } = useCountdown(5000)
 
 const rules = {
   phone: createPhoneRules({ key: 'phone' }),
@@ -28,23 +30,9 @@ const formData = reactive({
 
 const loading = ref(false)
 
-const countdownRest = ref(0)
-
 const formRef = ref(null)
 
-let countdownTimer = null
-
 let captcha = null
-
-function countdown(seconds = 10) {
-  countdownRest.value = seconds
-  countdownTimer = setInterval(() => {
-    countdownRest.value = --seconds
-    if (seconds === 0) {
-      clearInterval(countdownTimer)
-    }
-  }, 1000)
-}
 
 async function handleGetCaptcha() {
   await formRef.value?.validate(null, (rule) => rule.key === 'phone')
@@ -68,9 +56,6 @@ async function handleSubmit() {
   }
 }
 
-onBeforeUnmount(() => {
-  clearInterval(countdownTimer)
-})
 </script>
 
 <template>
@@ -93,10 +78,13 @@ onBeforeUnmount(() => {
         <n-input-otp v-model:value="formData.code" :length="4" />
 
         <div class="w-150px ml-4">
-          <n-button v-if="countdownRest" class="w-full" disabled
-          >{{ countdownRest }}秒后重新获取
-          </n-button
+          <n-button
+            v-if="isCounting"
+            class="w-full"
+            disabled
           >
+            {{ seconds }}秒后重新获取
+          </n-button>
           <n-button v-else class="w-full" @click="handleGetCaptcha">获取验证码</n-button>
         </div>
       </n-form-item>

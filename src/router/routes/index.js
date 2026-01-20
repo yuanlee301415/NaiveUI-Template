@@ -6,6 +6,7 @@ import { nestedRoutes } from '@/router/routes/modules/nested.js'
 import { settingRoutes } from '@/router/routes/modules/setting.js'
 import { functionRoutes } from '@/router/routes/modules/function.js'
 import { manageRoutes } from '@/router/routes/modules/manage.js'
+import { testRoutes } from '@/router/routes/modules/test.js'
 
 /*
  * 静态路由
@@ -56,6 +57,8 @@ export const staticRoutes = [
       }
     ]
   },
+
+  testRoutes,
 
   nestedRoutes,
 
