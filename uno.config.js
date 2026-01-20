@@ -23,7 +23,8 @@ export default defineConfig({
     'i-mdi:reorder-horizontal',
     'i-mdi:timer-sand-complete',
     'i-mdi:cog-outline',
-    'i-mdi:grid-large'
+    'i-mdi:grid-large',
+    'i-mdi:block-helper'
   ],
 
   /*

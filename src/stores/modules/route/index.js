@@ -34,6 +34,8 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
    */
   const menus = ref([])
 
+  getMenus()
+  
   function toLogin() {
     router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
   }
