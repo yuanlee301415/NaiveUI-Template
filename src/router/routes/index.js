@@ -7,6 +7,7 @@ import { settingRoutes } from '@/router/routes/modules/setting.js'
 import { functionRoutes } from '@/router/routes/modules/function.js'
 import { manageRoutes } from '@/router/routes/modules/manage.js'
 import { testRoutes } from '@/router/routes/modules/test.js'
+import { naiveRoutes } from '@/router/routes/modules/naive.js'
 
 /*
  * 静态路由
@@ -27,22 +28,7 @@ export const staticRoutes = [
     ]
   },
 
-  {
-    path: '/naive',
-    name: 'NaiveRoot',
-    meta: {
-      title: 'Naive',
-      icon: 'i-mdi:alpha-n-box-outline'
-    },
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'Naive',
-        component: () => import('@/views/naive/index.vue')
-      }
-    ]
-  },
+  naiveRoutes,
 
   {
     path: '/about',
