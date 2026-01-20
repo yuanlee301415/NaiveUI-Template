@@ -39,8 +39,10 @@
     "globals": "^16.5.0",
     "json-server": "1.0.0-beta.3",
     "less": "^4.5.1",
+    "lint-staged": "^16.2.7",
     "prettier": "3.6.2",
     "rollup-plugin-visualizer": "^6.0.5",
+    "simple-git-hooks": "^2.13.1",
     "unocss": "^66.5.10",
     "unplugin-auto-import": "^20.3.0",
     "unplugin-vue-components": "^30.0.0",
@@ -48,5 +50,11 @@
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-devtools": "^8.0.5"
+  },
+  "lint-staged": {
+    "*.{vue,js}": ["eslint . --fix --cache", "prettier --write --experimental-cli src/"]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   }
 }
