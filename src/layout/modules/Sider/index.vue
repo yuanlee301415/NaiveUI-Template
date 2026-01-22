@@ -39,7 +39,13 @@ function handleClickMenu(path) {
 </script>
 
 <template>
-  <n-menu :value="activeKey" :options="menuOptions" @update:value="handleClickMenu" />
+  <aside>
+    <n-menu :value="activeKey" :options="menuOptions" :collapsed-width="60" :collapsed-icon-size="30" @update:value="handleClickMenu" />
+  </aside>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+aside {
+  width: var(--sider-width);
+}
+</style>

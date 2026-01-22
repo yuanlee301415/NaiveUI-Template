@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
+import Logo from '../Logo/index.vue'
 
 defineOptions({ name: 'LayoutHeader' })
 
@@ -45,9 +46,10 @@ function handleSelect(key) {
 </script>
 
 <template>
-  <header class="flex justify-between">
-    <n-h2>Header</n-h2>
-    <n-flex size="medium">
+  <header class="flex items-center">
+    <Logo />
+
+    <n-flex size="medium" class="ml-a">
       <template v-if="authStore.user.name">
         <n-dropdown :options="options" trigger="click" @select="handleSelect">
           <n-button>
@@ -63,4 +65,10 @@ function handleSelect(key) {
   </header>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+header {
+  height: 56px;
+  padding: 0 10px;
+  background-color: var(--color-background-mute);
+}
+</style>

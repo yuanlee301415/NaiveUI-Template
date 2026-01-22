@@ -53,4 +53,6 @@
 :root {
   font-size: 14px;
   line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(50, 50, 50, 0.9) transparent;
 }
