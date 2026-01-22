@@ -24,11 +24,13 @@
     "klona": "^2.0.6",
     "naive-ui": "^2.43.2",
     "pinia": "^3.0.4",
+    "tailwind-merge": "^3.4.0",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@iconify-json/line-md": "^1.2.13",
     "@iconify-json/mdi": "^1.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@unocss/preset-icons": "^66.5.10",
@@ -52,7 +54,10 @@
     "vite-plugin-vue-devtools": "^8.0.5"
   },
   "lint-staged": {
-    "*.{vue,js}": ["eslint . --fix --cache", "prettier --write --experimental-cli src/"]
+    "*.{vue,js}": [
+      "eslint . --fix --cache",
+      "prettier --write --experimental-cli src/"
+    ]
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

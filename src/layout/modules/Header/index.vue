@@ -4,7 +4,9 @@ import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
+import { useAppStore } from '@/stores/modules/app/index.js'
 import Logo from '../Logo/index.vue'
+import MenuToggler from '@/components/MenuToggler/index.vue'
 
 defineOptions({ name: 'LayoutHeader' })
 
@@ -14,6 +16,7 @@ const KEYS = {
 const authStore = useAuthStore()
 const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
+const appStore = useAppStore()
 
 const options = [
   {
@@ -48,6 +51,8 @@ function handleSelect(key) {
 <template>
   <header class="flex items-center">
     <Logo />
+
+    <MenuToggler :collapsed="appStore.siderCollapsed" @click="appStore.toggleSiderCollapsed()" />
 
     <n-flex size="medium" class="ml-a">
       <template v-if="authStore.user.name">

@@ -4,12 +4,14 @@ import { useRoute } from 'vue-router'
 import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 import { router } from '@/router/index.js'
 import { useRouteStore } from '@/stores/modules/route/index.js'
+import { useAppStore } from '@/stores/modules/app/index.js'
 
 defineOptions({ name: 'LayoutSider' })
 
 const routeStore = useRouteStore()
 const route = useRoute()
 const { SvgIconVNode } = useSvgIcon()
+const appStore = useAppStore()
 
 // 生成菜单选项
 function genMenuOptions(menus, options = []) {
@@ -39,13 +41,24 @@ function handleClickMenu(path) {
 </script>
 
 <template>
-  <aside>
-    <n-menu :value="activeKey" :options="menuOptions" :collapsed-width="60" :collapsed-icon-size="30" @update:value="handleClickMenu" />
+  <aside :class="{ collapsed: appStore.siderCollapsed }" class="transition-all-300">
+    <n-menu
+      :value="activeKey"
+      :options="menuOptions"
+      :collapsed="appStore.siderCollapsed"
+      :collapsed-width="60"
+      :collapsed-icon-size="30"
+      @update:value="handleClickMenu"
+    />
   </aside>
 </template>
 
 <style scoped lang="less">
 aside {
-  width: var(--sider-width);
+  width: calc(var(--sider-width) - 10px);
+
+  &.collapsed {
+    width: 60px;
+  }
 }
 </style>
