@@ -6,13 +6,15 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import { setupRouter } from './router'
-import { setupNaiveDiscreteApi } from './plugins'
+import { setupNaiveDiscreteApi, setupLoading } from './plugins'
 import { setupStore } from '@/stores/index.js'
 import { setupDirectives } from '@/directives/index.js'
 
 void bootstrap()
 
 async function bootstrap() {
+  setupLoading()
+
   const app = createApp(App)
   setupNaiveDiscreteApi()
   setupStore(app)
