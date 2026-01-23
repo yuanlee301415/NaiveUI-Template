@@ -7,6 +7,7 @@ import { useSvgIcon } from '@/hooks/useSvgIcon.js'
 import { useAppStore } from '@/stores/modules/app/index.js'
 import Logo from '../Logo/index.vue'
 import MenuToggler from '@/components/MenuToggler/index.vue'
+import Breadcrumb from '../Breadcrumb/index.vue'
 
 defineOptions({ name: 'LayoutHeader' })
 
@@ -49,10 +50,12 @@ function handleSelect(key) {
 </script>
 
 <template>
-  <header class="flex items-center">
+  <header class="flex items-center gap-4">
     <Logo />
 
     <MenuToggler :collapsed="appStore.siderCollapsed" @click="appStore.toggleSiderCollapsed()" />
+
+    <Breadcrumb />
 
     <n-flex size="medium" class="ml-a">
       <template v-if="authStore.user.name">
