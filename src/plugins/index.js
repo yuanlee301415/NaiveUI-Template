@@ -1,2 +1,2 @@
-export * from './setupNaiveDiscrete.js'
+export * from './naiveDiscreteApi.js'
 export * from './loading.js'

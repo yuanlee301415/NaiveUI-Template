@@ -14,9 +14,10 @@ void bootstrap()
 
 async function bootstrap() {
   setupLoading()
+  setupNaiveDiscreteApi()
 
   const app = createApp(App)
-  setupNaiveDiscreteApi()
+
   setupStore(app)
   setupDirectives(app)
   await setupRouter(app)
