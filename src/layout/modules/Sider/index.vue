@@ -1,10 +1,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useSvgIcon } from '@/hooks/useSvgIcon.js'
+import { useSvgIcon } from '@/hooks/index.js'
 import { router } from '@/router/index.js'
-import { useRouteStore } from '@/stores/modules/route/index.js'
-import { useAppStore } from '@/stores/modules/app/index.js'
+import { useRouteStore, useAppStore } from '@/stores/index.js'
 
 defineOptions({ name: 'LayoutSider' })
 

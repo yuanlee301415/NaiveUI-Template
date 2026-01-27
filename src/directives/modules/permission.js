@@ -2,7 +2,7 @@
  * 权限指令
  * */
 
-import { useAuthStore } from '@/stores/modules/auth/index.js'
+import { useAuthStore } from '@/stores/index.js'
 
 export const permission = {
   mounted(el, binding) {

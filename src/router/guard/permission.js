@@ -2,9 +2,8 @@
  * 用户权限
  * */
 
-import { useAuthStore } from '@/stores/modules/auth/index.js'
+import { useAuthStore, useRouteStore } from '@/stores/index.js'
 import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
-import { useRouteStore } from '@/stores/modules/route/index.js'
 import { basicRoutes } from '@/router/routes/basic.js'
 import { getAuthToken } from '@/utils/authToken.js'
 

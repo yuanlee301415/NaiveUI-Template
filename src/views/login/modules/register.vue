@@ -3,9 +3,8 @@ import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getCaptchaApi } from '@/api/rights.js'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants.js'
-import { useFormRules } from '@/hooks/useFormRules.js'
+import { useFormRules, useCountdown } from '@/hooks/index.js'
 import { noSideSpace } from '@/utils/naiveUI.js'
-import { useCountdown } from '@/hooks/useCountdown.js'
 
 // eslint-disable-next-line vue/multi-word-component-names
 defineOptions({ name: 'Register' })

@@ -1,9 +1,8 @@
 <script setup>
-import { useAuthStore } from '@/stores/modules/auth/index.js'
-import { useRouteStore } from '@/stores/modules/route/index.js'
+import { useAuthStore, useRouteStore } from '@/stores/index.js'
 import { Role } from '@/enum'
 import { removeAuthToken } from '@/utils/authToken.js'
-import { usePermission } from '@/hooks/permission.js'
+import { usePermission } from '@/hooks/index.js'
 
 defineOptions({ name: 'ToggleAuth' })
 

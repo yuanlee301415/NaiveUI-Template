@@ -6,7 +6,7 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 import { StoreId } from '@/enum/index.js'
 import { loginApi, getAuthUserApi } from '@/api/rights.js'
-import { useRouteStore } from '@/stores/modules/route/index.js'
+import { useRouteStore } from '@/stores/index.js'
 import { AuthUser } from '@/models/AuthUser.js'
 import { getAuthToken, setAuthToken, removeAuthToken } from '@/utils/authToken.js'
 

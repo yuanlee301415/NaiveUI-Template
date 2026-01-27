@@ -3,11 +3,11 @@
 -->
 
 <script setup>
-import { User } from '@/models/index.js'
 import { reactive, ref } from 'vue'
+import { User } from '@/models/index.js'
 import { Gender, UsingStatus, OperationType } from '@/enum/index.js'
 import { createUserApi, updateUserApi } from '@/api/user.js'
-import { useFormRules } from '@/hooks/useFormRules.js'
+import { useFormRules } from '@/hooks/index.js'
 
 defineOptions({ name: 'UserForm' })
 

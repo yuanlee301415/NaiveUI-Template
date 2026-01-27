@@ -1,13 +1,11 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useRouteStore } from '@/stores/modules/route/index.js'
+import { useRouteStore, useAuthStore } from '@/stores/index.js'
 import { getCaptchaApi } from '@/api/rights.js'
-import { useAuthStore } from '@/stores/modules/auth/index.js'
 import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants.js'
-import { useFormRules } from '@/hooks/useFormRules.js'
+import { useFormRules, useCountdown } from '@/hooks/index.js'
 import { noSideSpace } from '@/utils/naiveUI.js'
-import { useCountdown } from '@/hooks/useCountdown.js'
 
 defineOptions({ name: 'CodeLogin' })
 

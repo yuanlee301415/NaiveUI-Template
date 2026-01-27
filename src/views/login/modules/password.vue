@@ -1,9 +1,8 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/modules/auth/index.js'
-import { useRouteStore } from '@/stores/modules/route/index.js'
-import { useFormRules } from '@/hooks/useFormRules.js'
+import { useAuthStore, useRouteStore } from '@/stores/index.js'
+import { useFormRules } from '@/hooks/index.js'
 import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants.js'
 import { noSideSpace } from '@/utils/naiveUI.js'
 
