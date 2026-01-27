@@ -46,11 +46,11 @@ async function handleSubmit() {
   loading.value = true
   try {
     await authStore.login({ login: captcha.name })
-    window.$toastSuccess('欢迎回来!', '登录成功')
+    window.$notification.success({ content: '欢迎回来！', title: '登录成功', duration: 3000 })
     routeStore.redirectFormLogin()
   } catch (e) {
     console.error(e)
-    window.$toastError('手机号或验证码错误！')
+    window.$message.error('手机号或验证码错误！')
   } finally {
     loading.value = false
   }

@@ -40,11 +40,11 @@ async function handleSubmit() {
   loading.value = true
   try {
     await authStore.login(formData)
-    window.$toastSuccess('欢迎回来！', '登录成功')
+    window.$notification.success({ content: '欢迎回来！', title: '登录成功', duration: 3000 })
     routeStore.redirectFormLogin()
   } catch (e) {
     console.error(e)
-    window.$toastError('用户名或密码错误！', '登录失败')
+    window.$message.error('用户名或密码错误！')
   } finally {
     loading.value = false
   }

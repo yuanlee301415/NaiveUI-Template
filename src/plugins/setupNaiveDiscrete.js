@@ -13,32 +13,18 @@ export function setupNaiveDiscreteApi() {
   }))
   const { message, dialog, notification, loadingBar } = createDiscreteApi(['message', 'dialog', 'notification', 'loadingBar'], {
     configProviderProps: configProviderPropsRef,
+
+    // 配置消息
+    messageProviderProps: {
+      closable: true,
+      duration: 5000,
+      placement: 'top-right',
+      'keep-alive-on-hover': true,
+    },
   })
 
   window['$message'] = message
   window['$dialog'] = dialog
   window['$notification'] = notification
   window['$loading'] = loadingBar
-
-  /**
-   * notification.success
-   * @param {string} content 内容
-   * @param {string} title 标题
-   * @param {number} [duration=3000] 时长
-   * @return {NotificationReactive}
-   */
-  window.$toastSuccess = function (content = '操作成功', title = '成功', duration = 3000) {
-    return notification.success({ content, title, duration })
-  }
-
-  /**
-   * notification.error
-   * @param {string} content 内容
-   * @param {string} title 标题
-   * @param {number} [duration=3000] 时长
-   * @return {NotificationReactive}
-   */
-  window.$toastError = function (content = '操作失败', title = '失败', duration = 3000) {
-    return notification.error({ content, title, duration })
-  }
 }

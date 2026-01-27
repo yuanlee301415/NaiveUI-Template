@@ -67,7 +67,7 @@ async function submit() {
       await updateUserApi(model)
       break
   }
-  window.$toastSuccess(operationType + '用户成功！')
+  window.$message.success(operationType + '用户成功！')
 }
 
 defineExpose({

@@ -46,7 +46,7 @@ async function handleGetCaptcha() {
 async function handleSubmit() {
   console.log(formData)
   await formRef.value?.validate()
-  window.$toastSuccess('注册成功')
+  window.$message.success('注册成功')
   router.push({ name: LOGIN_CODE_ROUTE_NAME })
 }
 </script>

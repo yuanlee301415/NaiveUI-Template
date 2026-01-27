@@ -1,5 +1,5 @@
 <script setup>
-defineOptions({ name: 'NaiveIndex' })
+defineOptions({ name: 'NaiveButton' })
 </script>
 
 <template>

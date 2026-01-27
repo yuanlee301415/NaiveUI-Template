@@ -21,5 +21,11 @@ export const naiveRoutes = {
       meta: { title: '国际化' },
       component: () => import('@/views/naive/i18n.vue'),
     },
+    {
+      path: 'message',
+      name: 'NaiveMessage',
+      meta: { title: 'Message' },
+      component: () => import('@/views/naive/message.vue'),
+    },
   ],
 }

@@ -44,7 +44,7 @@ service.interceptors.response.use(
 
     // 请求超时
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
-      window.$toastError('请求超时，请稍后再试！', '错误')
+      window.$message.error('请求超时，请稍后再试！')
       return Promise.reject(error)
     }
 
@@ -52,7 +52,7 @@ service.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    window.$toastError(error.response?.data?.message || '系统繁忙，请稍后再试！', '错误')
+    window.$message.error(error.response?.data?.message || '系统繁忙，请稍后再试！')
     return Promise.reject(error)
   },
 )

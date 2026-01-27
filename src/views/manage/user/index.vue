@@ -138,7 +138,7 @@ function handleEdit(user) {
  */
 async function handleDelete(user) {
   await deleteUserApi(user.id)
-  window.$toastSuccess('删除用户成功！')
+  window.$message.success('删除用户成功！')
   void getUsers()
 }
 
@@ -163,7 +163,7 @@ function onAdd() {
 // 批量删除
 async function onBatchDelete() {
   await batchDeleteUserApi(checkedRowKeys.value)
-  window.$toastSuccess('批量删除用户成功！')
+  window.$message.success('批量删除用户成功！')
   checkedRowKeys.value = []
   void getUsers()
 }
