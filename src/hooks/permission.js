@@ -2,7 +2,7 @@
  * 权限 Hook
  * */
 
-import { useAuthStore } from '@/stores/modules/auth/index.js'
+import { useAuthStore } from '@/stores/index.js'
 
 export function usePermission() {
   const authStore = useAuthStore()
