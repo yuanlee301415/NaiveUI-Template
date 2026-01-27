@@ -8,7 +8,7 @@ const darkColor = ref('#646cff')
 </script>
 
 <template>
-  <div class="absolute left-0 top-0 z-1 size-full overflow-hidden">
+  <div class="absolute left-0 top-0 z-1 size-full overflow-hidden blur-3xl">
     <div class="absolute -right-300px -top-900px lt-sm:(-right-100px -top-1170px)">
       <svg height="1337" width="1337">
         <defs>

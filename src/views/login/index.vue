@@ -1,5 +1,5 @@
 <script setup>
-import WaveBg from '@/components/WaveBg.vue'
+import WaveBg from '@/components/WaveBg/index.vue'
 
 defineOptions({ name: 'LoginIndex' })
 </script>
