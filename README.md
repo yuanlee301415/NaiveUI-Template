@@ -1,4 +1,5 @@
-# Vue3-Template
+# NaiveUI-Template
+> Vue3/NaiveUI/UnoCSS Template
 
 This template should help get you started developing with Vue 3 in Vite.
 

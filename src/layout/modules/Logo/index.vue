@@ -6,7 +6,7 @@ const NAME = import.meta.env.VITE_APP_TITLE
 
 <template>
   <n-flex class="header-logo" align="center">
-    <img src="@/assets/logo.svg" width="40" />
+    <img src="/favicon.svg" width="30" />
     <n-h3 class="m-0">{{ NAME }}</n-h3>
   </n-flex>
 </template>

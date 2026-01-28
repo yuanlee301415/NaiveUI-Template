@@ -2,7 +2,7 @@
  * 初始加载动画 插件
  * */
 
-import systemLogo from '@/assets/logo.svg?raw'
+import systemLogo from '/favicon.svg?raw'
 
 const TITLE = import.meta.env.VITE_APP_TITLE
 

@@ -1,8 +1,12 @@
 {
-  "name": "vue3-template",
+  "name": "naive-ui-template",
+  "description": "Vue3/NaiveUI/UnoCSS Template",
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "repository": {
+    "url": "https://github.com/yuanlee301415/NaiveUI-Template"
+  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
@@ -16,7 +20,8 @@
     "server": "npx json-server server/db.json5 --port 3001",
     "ver": "node build/scripts/update-version.js",
     "gen-release": "node build/scripts/gen-release.js",
-    "postbuild": "npm run gen-release"
+    "postbuild": "npm run gen-release",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@unocss/reset": "^66.5.10",
