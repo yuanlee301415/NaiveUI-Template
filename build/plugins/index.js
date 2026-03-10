@@ -8,6 +8,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { html } from './html.js'
 import { setupUnplugins } from './unplugins.js'
+import { releasePlugin } from './release.js'
 
 export function setupVitePlugins({ mode, version, buildTime, viteEnv }) {
   const { VITE_ICON_LOCAL_PREFIX } = viteEnv
@@ -27,12 +28,14 @@ export function setupVitePlugins({ mode, version, buildTime, viteEnv }) {
       iconDirs: [resolve(cwd(), 'src/assets/svg-icons')],
       symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
       inject: 'body-last',
-      customDomId: '__SVG_ICON_LOCAL__'
+      customDomId: '__SVG_ICON_LOCAL__',
     }),
+
+    releasePlugin({ mode, version, buildTime }),
 
     visualizer({
       filename: 'dist/report.html',
-      title: `Bundle Analysis - ${new Date().toLocaleString()}`
-    })
+      title: `Bundle Analysis - ${new Date().toLocaleString()}`,
+    }),
   ]
 }
