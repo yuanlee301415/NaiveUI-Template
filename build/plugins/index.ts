@@ -4,9 +4,9 @@ import { resolve } from 'node:path'
 import type { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { html } from './html.ts'
+import { svgIcons } from './svgIcons.ts'
 import { setupUnplugins } from './unplugins.ts'
 import { releasePlugin } from './release.ts'
 
@@ -31,10 +31,9 @@ export function setupVitePlugins({ mode, version, buildTime, viteEnv, analyze = 
 
     ...setupUnplugins(),
 
-    createSvgIconsPlugin({
-      iconDirs: [resolve(cwd(), 'src/assets/svg-icons')],
-      symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
-      inject: 'body-last',
+    svgIcons({
+      iconDir: resolve(cwd(), 'src/assets/svg-icons'),
+      symbolIdPrefix: VITE_ICON_LOCAL_PREFIX,
       customDomId: '__SVG_ICON_LOCAL__',
     }),
 

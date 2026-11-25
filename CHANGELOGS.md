@@ -285,6 +285,50 @@
 | `pnpm type-check` | 0 错误（`noUnused*` 已开启） |
 | `pnpm format:check` | 通过 |
 
+## 步骤 10：构建工具链本地化（2026-11-25）
+
+### 变更
+
+- **移除两个停止维护的构建插件，改为本地实现（`build/plugins/`）**
+  - `vite-plugin-html`（13 个直接依赖，含 `ejs` / `html-minifier-terser`）→ 重写 `build/plugins/html.ts` 为 Vite 原生 `transformIndexHtml` 插件，注入 `<meta name="release" content="版本@构建时间@模式">`；`index.html` 移除 `<%= version %>…` EJS 模板（`%VITE_APP_TITLE%` 由 Vite 原生替换）。
+    - 取舍：不再对 HTML 做 minify，`dist/index.html` 由 0.66KB 变为 0.73KB（dev/prod 均保留可读缩进）。
+  - `vite-plugin-svg-icons`（8 个直接依赖，含 `svg-baker` / `svgo` / `cors` / `etag`）→ 新增 `build/plugins/svgIcons.ts`：
+    - 保持 `virtual:svg-icons-register` 虚拟模块契约，`src/main.ts` 与 `env.d.ts` 无需改动；
+    - symbol id 规则不变（根目录 `icon-local-<name>`，子目录 `icon-local-<dir>-<name>`）；
+    - 注入位置仍为 body 末尾，根节点 id 仍为 `__SVG_ICON_LOCAL__`；
+    - 图标目录文件变化时使虚拟模块失效并触发 full-reload；
+    - 导出纯函数 `createSymbolId` / `renderSymbol` / `renderSprite` / `loadSymbols` / `createRegisterCode`，供步骤 11 单测。
+- `vite.config.ts`
+  - 抽出 `proxy` 复用 `server.proxy` 与 `preview.proxy`；
+  - `console.log('ENV:', env)` 改为仅 `DEBUG_ENV` 环境变量存在时输出；
+  - 新增 `build.chunkSizeWarningLimit: 1000`，消除 naive-ui 单 vendor chunk（约 805KB raw / 213KB gzip）的 500KB 构建告警；
+  - 新增 `types` 构建模式：`write: false`、`minify: false`、`reportCompressedSize: false`。
+- **适配「unplugin 生成文件不再入库」**（仓库提交 `1eff965` 已把 `types/auto-imports.d.ts`、`types/components.d.ts` 加入 `.gitignore`）：
+  - 新增脚本 `types:gen: "vite build --mode types"`：约 2s，仅生成 d.ts，不写 `dist`；
+  - `type-check` 改为 `pnpm types:gen && vue-tsc --build`；
+  - `build` 改为 `pnpm type-check && vite build`；
+  - 效果：全新克隆后无需先跑 `dev`/`build`，`type-check` 也能拿到自动导入声明。
+- `package.json`：移除 `vite-plugin-html`、`vite-plugin-svg-icons` 两个 devDependencies。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm install` | 成功；`-248` 个包，`pnpm-lock.yaml` 净减少 2222 行 |
+| `pnpm types:gen` | 1.8–2.0s；`types/auto-imports.d.ts`、`types/components.d.ts` 重新生成；`dist` 文件数不变（0 写入） |
+| `pnpm type-check` | 0 错误（含 types:gen 前置步骤） |
+| `pnpm build:only` | 5.23s；**无** 500KB chunk 告警；`dist/index.html` 含 `release` meta（`MODE=production`）；入口 chunk 含 `__SVG_ICON_LOCAL__` / `icon-local-avatar` / `icon-local-not-found` |
+| `pnpm build` | 成功（types:gen → vue-tsc → vite build）；`dist/release` 正常 |
+| `pnpm dev`（3100 端口冒烟） | `/`、`/login/password`、`/403`、`/404`、`/manage/user` 均 200；`/@id/virtual:svg-icons-register` 200 且含 sprite |
+| `pnpm analyze` | 成功，`dist/report.html` 生成 |
+| `pnpm why vite-plugin-html` / `vite-plugin-svg-icons` | 无结果 |
+| `pnpm lint:check` / `pnpm format:check` | 退出码 0 |
+
+### 备注
+
+- 入口 chunk 169.13KB raw / 60.87KB gzip（改动前约 168KB / 59KB，基本持平）：本地 SVG 插件未引入 `svgo` 优化，换取移除整条陈旧依赖链；如需再压体积可另行引入 SVG 优化步骤。
+- 构建总耗时约 5.2s（其中 terser 约占 4.9s），插件数量减少后 dev 启动不再有 svg 插件中间件开销。
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
