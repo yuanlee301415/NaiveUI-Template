@@ -194,17 +194,7 @@ export function useFormRules() {
   /**
    * 格式
    */
-  function createPatternRule({
-    pattern,
-    patternMessage,
-    trigger,
-    key,
-  }: {
-    pattern: RegExp
-    patternMessage: string
-    trigger: string
-    key?: string
-  }): FormItemRule {
+  function createPatternRule({ pattern, patternMessage, trigger, key }: { pattern: RegExp; patternMessage: string; trigger: string; key?: string }): FormItemRule {
     return {
       message: patternMessage,
       pattern,
@@ -231,17 +221,7 @@ export function useFormRules() {
   /**
    * 验证码 格式
    */
-  function createCodePatternRule({
-    pattern,
-    patternMessage,
-    trigger,
-    key,
-  }: {
-    pattern: RegExp
-    patternMessage: string
-    trigger: string
-    key?: string
-  }): FormItemRule {
+  function createCodePatternRule({ pattern, patternMessage, trigger, key }: { pattern: RegExp; patternMessage: string; trigger: string; key?: string }): FormItemRule {
     return {
       message: patternMessage,
       trigger,

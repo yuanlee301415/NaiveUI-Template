@@ -13,9 +13,7 @@ export function useCountdown(duration = 0) {
   const minutes = ref<number>(0)
   const seconds = ref<number>(0)
   const isCounting = computed(() => !!(hours.value + minutes.value + seconds.value))
-  const display = computed(() =>
-    [String(hours.value).padStart(2, '0'), String(minutes.value).padStart(2, '0'), String(seconds.value).padStart(2, '0')].join(':'),
-  )
+  const display = computed(() => [String(hours.value).padStart(2, '0'), String(minutes.value).padStart(2, '0'), String(seconds.value).padStart(2, '0')].join(':'))
 
   let remainingSeconds = (duration / 1000) | 0
   let timer: ReturnType<typeof setTimeout> | undefined

@@ -18,10 +18,7 @@ export interface FormatDateOptions {
  * @param placeholder 无效数据时占位符
  * @returns 格式化后的字符串
  */
-export default function formatDate(
-  value?: number | string | Date | null,
-  { isShort = false, separator = '/', placeholder = '--' }: FormatDateOptions = {},
-): string {
+export default function formatDate(value?: number | string | Date | null, { isShort = false, separator = '/', placeholder = '--' }: FormatDateOptions = {}): string {
   const parsedTime = new Date(value ?? '').getTime()
   const date = new Date(parsedTime || new Date(Number(value)).getTime())
 

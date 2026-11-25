@@ -33,16 +33,7 @@ export class DataTablePaginationBasicConfig {
   suffix: PaginationSuffix
 
   constructor(_: Partial<DataTablePaginationBasicConfig> = {}) {
-    const {
-      page = 1,
-      pageSize = 10,
-      pageSizes = [10, 20, 30, 50],
-      pageCount = 0,
-      itemCount = 0,
-      showQuickJumper = true,
-      showSizePicker = true,
-      suffix,
-    } = _
+    const { page = 1, pageSize = 10, pageSizes = [10, 20, 30, 50], pageCount = 0, itemCount = 0, showQuickJumper = true, showSizePicker = true, suffix } = _
     this.page = page
     this.pageSize = pageSize
     this.pageSizes = pageSizes
