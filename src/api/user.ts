@@ -2,8 +2,8 @@
  * 用户 API
  * */
 
+import type { User, UserParams } from '@/models'
 import request from '@/utils/request'
-import type { User, UserParams } from '@/models/index'
 
 export interface UserListResult {
   data: Partial<User>[]
@@ -17,17 +17,7 @@ export interface GetUsersParams extends Partial<UserParams> {
   sort?: string
 }
 
-export function getUsersApi({
-  login,
-  name,
-  phone,
-  email,
-  gender,
-  status,
-  page = 1,
-  size = 10,
-  sort = '-createTime',
-}: GetUsersParams = {}): Promise<UserListResult> {
+export function getUsersApi({ login, name, phone, email, gender, status, page = 1, size = 10, sort = '-createTime' }: GetUsersParams = {}): Promise<UserListResult> {
   return request<UserListResult>({
     url: `/users`,
     params: {
@@ -65,14 +55,7 @@ export function createUserApi({ name, phone, email, gender, status }: Omit<Parti
 /**
  * 更新用户
  */
-export function updateUserApi({
-  id,
-  name,
-  phone,
-  email,
-  gender,
-  status,
-}: Omit<Partial<UserParams>, 'login'> & { id: string }): Promise<Partial<User>> {
+export function updateUserApi({ id, name, phone, email, gender, status }: Omit<Partial<UserParams>, 'login'> & { id: string }): Promise<Partial<User>> {
   return request<Partial<User>>({
     url: `/users/${id}`,
     method: 'patch',

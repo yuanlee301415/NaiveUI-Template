@@ -3,7 +3,7 @@
  * */
 
 import type { RouteLocationRaw, Router } from 'vue-router'
-import { useAuthStore, useRouteStore } from '@/stores/index'
+import { useAuthStore, useRouteStore } from '@/stores'
 import { LOGIN_ROUTE_NAME } from '@/router/constants'
 import { basicRoutes } from '@/router/routes/basic'
 import { getAuthToken } from '@/utils/authToken'

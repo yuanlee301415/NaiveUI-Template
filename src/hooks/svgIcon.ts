@@ -2,8 +2,8 @@
  * SvgIcon VNode hook
  * */
 
-import { useSvgIconRender } from './svgIconRender'
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import { useSvgIconRender } from './svgIconRender'
 
 export function useSvgIcon() {
   const { SvgIconVNode } = useSvgIconRender(SvgIcon)

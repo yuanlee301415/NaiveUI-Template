@@ -3,8 +3,8 @@
  * */
 
 import type { ObjectDirective } from 'vue'
-import { useAuthStore } from '@/stores/index'
 import type { RoleType } from '@/enum'
+import { useAuthStore } from '@/stores'
 
 export const permission: ObjectDirective<HTMLButtonElement, RoleType[]> = {
   mounted(el, binding) {

@@ -2,9 +2,9 @@
 面包屑 组件
 -->
 <script setup lang="ts">
+import type { DropdownOption } from 'naive-ui'
 import { computed, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { DropdownOption } from 'naive-ui'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import { Breadcrumb } from './shared'
 

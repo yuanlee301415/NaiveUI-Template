@@ -2,8 +2,8 @@
  * 权限 API
  * */
 
-import request from '@/utils/request'
 import type { RoleType } from '@/enum'
+import request from '@/utils/request'
 
 export interface LoginResult {
   id: string

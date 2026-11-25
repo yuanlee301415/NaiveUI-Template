@@ -2,8 +2,8 @@
  * 权限 Hook
  * */
 
-import { useAuthStore } from '@/stores/index'
 import type { RoleType } from '@/enum'
+import { useAuthStore } from '@/stores'
 
 export function usePermission() {
   const authStore = useAuthStore()

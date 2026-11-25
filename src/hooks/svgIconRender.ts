@@ -2,8 +2,8 @@
  * SvgIcon render hook
  * */
 
-import { h } from 'vue'
 import type { Component, VNode } from 'vue'
+import { h } from 'vue'
 
 export interface SvgIconVNodeConfig {
   /** UnoCSS 图标 class */

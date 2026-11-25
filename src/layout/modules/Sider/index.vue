@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { MenuOption } from 'naive-ui'
+import type { Menu } from '@/models'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { MenuOption } from 'naive-ui'
-import { useSvgIcon } from '@/hooks/index'
-import { router } from '@/router/index'
-import { useRouteStore, useAppStore } from '@/stores/index'
-import type { Menu } from '@/models/index'
+import { useSvgIcon } from '@/hooks'
+import { router } from '@/router'
+import { useRouteStore, useAppStore } from '@/stores'
 
 defineOptions({ name: 'LayoutSider' })
 
@@ -43,14 +43,7 @@ function handleClickMenu(path: string): void {
 
 <template>
   <aside :class="{ collapsed: appStore.siderCollapsed }" class="transition-all-300">
-    <n-menu
-      :value="activeKey"
-      :options="menuOptions"
-      :collapsed="appStore.siderCollapsed"
-      :collapsed-width="60"
-      :collapsed-icon-size="30"
-      @update:value="handleClickMenu"
-    />
+    <n-menu :value="activeKey" :options="menuOptions" :collapsed="appStore.siderCollapsed" :collapsed-width="60" :collapsed-icon-size="30" @update:value="handleClickMenu" />
   </aside>
 </template>
 

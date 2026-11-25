@@ -16,10 +16,6 @@
 - Node.js `^22.13.0 || >=24`
 - pnpm 11+（`packageManager` 固定为 `pnpm@11.27.1`；`.npmrc` 开启 `engine-strict`）
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar)（并禁用 Vetur）。
-
 ## TypeScript
 
 - `tsconfig.json` 为 solution 配置，引用三个项目：

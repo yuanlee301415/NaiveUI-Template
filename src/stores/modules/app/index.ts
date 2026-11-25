@@ -3,7 +3,7 @@
  * */
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { StoreId } from '@/enum/index'
+import { StoreId } from '@/enum'
 
 export const useAppStore = defineStore(StoreId.App, () => {
   /**

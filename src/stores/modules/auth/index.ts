@@ -4,9 +4,9 @@
 
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import { StoreId } from '@/enum/index'
+import { StoreId } from '@/enum'
 import { loginApi, getAuthUserApi } from '@/api/rights'
-import { useRouteStore } from '@/stores/index'
+import { useRouteStore } from '@/stores'
 import { AuthUser } from '@/models/AuthUser'
 import { getAuthToken, setAuthToken, removeAuthToken } from '@/utils/authToken'
 

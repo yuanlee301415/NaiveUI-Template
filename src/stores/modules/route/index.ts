@@ -2,19 +2,18 @@
  * 路由 Store
  * */
 
-import { defineStore } from 'pinia'
-import { useRoute } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import type { Ref } from 'vue'
-import { ref } from 'vue'
+import type { Menu } from '@/models'
+import { type RoleType, StoreId } from '@/enum'
 
+import { defineStore } from 'pinia'
+import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 import { router } from '@/router'
-import { StoreId } from '@/enum/index'
-import type { RoleType } from '@/enum/index'
 import { dynamicRoutes, staticRoutes } from '@/router/routes'
 import { HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants'
 import { filterAsyncRoutes, genMenus } from '../../shared'
-import type { Menu } from '@/models/index'
 
 /**
  * 添加的动态路由

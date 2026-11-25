@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import type { DropdownOption } from 'naive-ui'
-import { useAuthStore, useAppStore } from '@/stores/index'
+import { useRouter } from 'vue-router'
+import { useAuthStore, useAppStore } from '@/stores'
 import { LOGIN_ROUTE_NAME } from '@/router/constants'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { useSvgIcon } from '@/hooks/index'
-import Logo from '../Logo/index.vue'
+import { useSvgIcon } from '@/hooks'
 import MenuToggler from '@/components/MenuToggler/index.vue'
+import Logo from '../Logo/index.vue'
 import Breadcrumb from '../Breadcrumb/index.vue'
 
 defineOptions({ name: 'LayoutHeader' })
