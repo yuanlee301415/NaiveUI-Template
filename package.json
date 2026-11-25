@@ -1,17 +1,9 @@
 {
   "name": "naive-ui-template",
-  "description": "Vue3/NaiveUI/UnoCSS Template",
   "version": "0.2.0",
-  "private": true,
+  "description": "Vue3/TypeScript/NaiveUI/UnoCSS Template",
   "type": "module",
-  "packageManager": "pnpm@11.27.1",
-  "repository": {
-    "url": "https://github.com/yuanlee301415/NaiveUI-Template"
-  },
-  "engines": {
-    "node": "^22.13.0 || >=24",
-    "pnpm": ">=11"
-  },
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "pnpm type-check && vite build",
@@ -87,5 +79,13 @@
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
+  },
+  "packageManager": "pnpm@11.27.1",
+  "engines": {
+    "node": "^22.13.0 || >=24",
+    "pnpm": ">=11"
+  },
+  "repository": {
+    "url": "https://github.com/yuanlee301415/NaiveUI-Template"
   }
 }
