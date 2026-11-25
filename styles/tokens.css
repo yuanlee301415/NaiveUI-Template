@@ -1,5 +1,12 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/**
+ * 设计令牌（Design Tokens）
+ * - 命名：--{类别}-{语义}，调色板使用 --vt-c-* 前缀
+ * - 暗色由 prefers-color-scheme 覆盖，与 NaiveUI 的 useOsTheme 行为保持一致
+ */
 :root {
+  color-scheme: light dark;
+
+  /* 调色板 */
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
@@ -19,10 +26,8 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-}
 
-/* semantic color variables for this project */
-:root {
+  /* 语义色 */
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
@@ -33,7 +38,18 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
+  /* 布局尺寸 */
+  --sider-width: 250px;
+  --sider-collapsed-width: 60px; /* 与 Sider 中 n-menu 的 collapsed-width 保持一致 */
+  --layout-header-height: 56px;
+  --layout-content-padding: 20px;
+
+  /* 滚动条 */
+  --scrollbar-thumb-color: rgba(50, 50, 50, 0.9);
+
+  /* 动效 */
+  --transition-duration: 0.3s;
+  --transition-timing: ease;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -48,11 +64,4 @@
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
   }
-}
-
-:root {
-  font-size: 14px;
-  line-height: 1.5;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(50, 50, 50, 0.9) transparent;
 }

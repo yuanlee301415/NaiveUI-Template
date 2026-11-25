@@ -52,7 +52,7 @@ aside {
   width: calc(var(--sider-width) - 10px);
 
   &.collapsed {
-    width: 60px;
+    width: var(--sider-collapsed-width);
   }
 }
 </style>

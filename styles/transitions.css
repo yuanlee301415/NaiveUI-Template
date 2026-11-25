@@ -1,0 +1,16 @@
+/**
+ * 过渡动画
+ * - 路由切换：<transition name="fade-slide" mode="out-in">
+ */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition:
+    opacity var(--transition-duration) var(--transition-timing),
+    transform var(--transition-duration) var(--transition-timing);
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}

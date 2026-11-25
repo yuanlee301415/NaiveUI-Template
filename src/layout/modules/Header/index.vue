@@ -75,7 +75,7 @@ function handleSelect(key: string | number): void {
 
 <style scoped lang="less">
 header {
-  height: 56px;
+  height: var(--layout-header-height);
   padding: 0 10px;
   background-color: var(--color-background-mute);
 }

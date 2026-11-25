@@ -8,7 +8,7 @@ defineOptions({ name: 'LayoutIndex' })
 </script>
 
 <template>
-  <n-layout class="layout-container size-full" content-class="flex flex-col overflow-hidden" style="--sider-width: 250px">
+  <n-layout class="layout-container size-full" content-class="flex flex-col overflow-hidden">
     <Header />
 
     <div class="layout-main-container flex-1 flex overflow-hidden">

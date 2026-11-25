@@ -402,6 +402,41 @@
 - 测试：Vitest + jsdom 独立配置，8 个 spec / 37 个用例，纳入 `type-check` 与 `pnpm check`；按需求不引入 CI。
 - 文档：README 与 CHANGELOGS 与现状对齐。
 
+## CSS 优化：步骤 13–14
+
+> 第三轮改造。范围：把 `src/assets/` 中的 CSS 提取到根目录 `styles/`，按 CSS 变量最佳实践重组，并清理未使用的变量与样式；不改组件结构/业务逻辑，Prettier 仍仅作用于 `src/`。
+
+## 步骤 13：CSS 提取到根目录 `styles/`（2026-11-25）
+
+### 变更
+
+- 新增根目录 `styles/`（4 个文件）：
+  - `styles/index.css`：唯一入口，固定顺序 `@unocss/reset/tailwind-compat.css` → `tokens.css` → `base.css` → `transitions.css`；
+  - `styles/tokens.css`：设计令牌（先平移原有调色板与语义色），新增布局尺寸 / 滚动条 / 动效令牌，暗色由 `@media (prefers-color-scheme: dark)` 覆盖；
+  - `styles/base.css`：`html` 字号/行高/滚动条、`html/body` 高度、`#app` 高度（`100vh` + `100dvh` 兜底）、`a` 颜色过渡；
+  - `styles/transitions.css`：补齐此前「有使用、无定义」的 `fade-slide` 路由过渡（Content 与登录页的 `<transition name="fade-slide">`）。
+- `src/main.ts`：改为 `import '../styles/index.css'` 后 `import 'virtual:uno.css'`（reset 与基础样式在前、UnoCSS 工具类在后），保留 `virtual:svg-icons-register`。
+- 删除 `src/assets/base.css`、`src/assets/main.css`；`src/assets/` 仅保留 `svg-icons/`。
+- 既有硬编码令牌化：
+  - `--sider-width` 由 `src/layout/index.vue` 的内联 `style` 迁入 `styles/tokens.css`，并移除内联样式；
+  - 新增 `--sider-collapsed-width: 60px`（与 `n-menu` 的 `collapsed-width` 对齐）、`--layout-header-height: 56px`、`--layout-content-padding: 20px`、`--scrollbar-thumb-color`、`--transition-duration`、`--transition-timing`；
+  - `Sider`（折叠宽度）、`Header`（高度）、`Content`（内边距）改用令牌。
+
+### 说明
+
+- 导入顺序调整后，reset 处于最前、UnoCSS 工具类位于自定义样式之后，便于工具类覆盖。
+- `#app` 新增 `100dvh`：移动端浏览器地址栏场景下高度更准确，`100vh` 作为回退。
+- `a` 的过渡由宽泛的 `transition: 0.3s` 收敛为仅 `color`，使用令牌控制时长与曲线。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm build:only` | 成功（约 5.0s）；`dist/assets/css/index.*.css` 20.95KB、`layout.*.css` 0.47KB |
+| 产物内容 | reset 位于最前；含 `--sider-width` / `--sider-collapsed-width` / `--layout-*` / `.fade-slide-*`；UnoCSS 工具类（`i-mdi`）保留 |
+| `pnpm dev`（3101 端口） | `/`、`/login/password`、`/manage/user`、`/403`、`/404`、`/src/main.ts` 均 200 |
+| `pnpm check` | lint / type-check / 37 个测试全部通过 |
+
 ## 改造完成总结
 
 > 第二轮「工程化优化」见上文步骤 8–12。

@@ -1,0 +1,9 @@
+/**
+ * 样式入口
+ * 导入顺序：reset → 设计令牌 → 基础样式 → 过渡
+ * 说明：`virtual:uno.css` 在 `src/main.ts` 中随后导入，工具类位于自定义样式之后
+ */
+@import '@unocss/reset/tailwind-compat.css';
+@import './tokens.css';
+@import './base.css';
+@import './transitions.css';
