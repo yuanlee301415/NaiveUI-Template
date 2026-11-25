@@ -56,5 +56,3 @@ function handleSelect(key: string | number): void {
     </n-breadcrumb-item>
   </n-breadcrumb>
 </template>
-
-<style scoped lang="less"></style>

@@ -12,5 +12,3 @@ const authStore = useAuthStore()
     <n-h1 v-if="authStore.user.name">Hello, {{ authStore.user.name }}</n-h1>
   </div>
 </template>
-
-<style scoped lang="less"></style>

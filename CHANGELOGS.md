@@ -437,6 +437,51 @@
 | `pnpm dev`（3101 端口） | `/`、`/login/password`、`/manage/user`、`/403`、`/404`、`/src/main.ts` 均 200 |
 | `pnpm check` | lint / type-check / 37 个测试全部通过 |
 
+## 步骤 14：变量重组与未使用样式清理（2026-11-25）
+
+### 变更
+
+- `styles/tokens.css` 收敛为「**只保留被引用令牌**」：
+  - 保留：`--color-background`、`--color-background-mute`、`--sider-width`、`--sider-collapsed-width`、`--layout-header-height`、`--layout-content-padding`、`--scrollbar-thumb-color`、`--transition-duration`、`--transition-timing`，以及 `color-scheme: light dark`；
+  - 删除：`--vt-c-*`（12 个调色板变量）、`--color-background-soft`、`--color-border`、`--color-border-hover`、`--color-heading`、`--color-text`、`--vt-c-text-light-2` / `--vt-c-text-dark-2`、`--section-gap`；
+  - 新增暗色 `--scrollbar-thumb-color` 覆盖（此前暗色下滚动条固定为深色）。
+- `src/plugins/loading.ts`：移除从未被引用的 `--primary-color` 自定义属性。
+- `uno.config.ts`：新增 `theme.colors.primary = '#646cff'`，使装载动画里的 `text-primary` / `bg-primary` 工具类真正生效（与内联色一致，视觉不变）。
+- 删除 9 个空 `<style>` 块：`ButtonIcon`、`MenuToggler`、`SvgIcon`、`WaveBg`、`Breadcrumb`、`layout/index`、`function/super`、`function/toggle-auth`、`views/user`。
+- `403.vue` / `404.vue` 的 `var(--base-color)` **保留**：该变量由 NaiveUI `n-el` 生成（`naive-ui/es/element/src/Element.mjs` 中把 `common` 的键映射为 `--{kebab(key)}`），不属于本地令牌。
+- `README.md` 新增「样式（CSS）」小节：`styles/` 目录结构、导入顺序、令牌命名约定、暗色实现、`fade-slide` 过渡、Prettier 范围说明。
+
+### 变量映射（定义 ↔ 引用）
+
+| 变量 | 引用点 |
+| --- | --- |
+| `--color-background` | `layout/modules/Content` |
+| `--color-background-mute` | `layout/modules/Header` |
+| `--sider-width` | `layout/modules/Sider`、`layout/modules/Logo` |
+| `--sider-collapsed-width` | `layout/modules/Sider`（折叠态） |
+| `--layout-header-height` | `layout/modules/Header` |
+| `--layout-content-padding` | `layout/modules/Content` |
+| `--scrollbar-thumb-color` | `styles/base.css` |
+| `--transition-duration` / `--transition-timing` | `styles/base.css`、`styles/transitions.css` |
+| `--base-color` | `views/exception/403`、`404`（NaiveUI `n-el` 提供） |
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| 变量审计（脚本扫描全仓 `var(--*)` 与定义） | 9 个自有令牌**全部有引用**；除 `--base-color` 外无未定义引用 |
+| `pnpm build:only` | 成功；`dist/assets/css/index.*.css` **20.08KB**（步骤 13 后 20.95KB、改动前 20.30KB；新增 `fade-slide` 过渡约 0.25KB，净删除约 0.47KB），`layout.*.css` 0.47KB |
+| `pnpm dev`（3102 端口） | `/`、`/login/password`、`/manage/user`、`/403`、`/404`、`/styles/index.css` 均 200 |
+| `pnpm check` | lint / type-check / 37 个测试全部通过 |
+| 空 `<style>` 块 | 0 个 |
+
+## CSS 优化总结（步骤 13–14）
+
+- 全局样式从 `src/assets/` 迁移到根目录 `styles/`，拆分为入口 / 令牌 / 基础 / 过渡四个文件，入口顺序固定为 reset → tokens → base → transitions（UnoCSS 工具类最后导入）。
+- 令牌只保留实际引用项（9 个），命名统一为 `--{类别}-{语义}`，暗色统一由 `prefers-color-scheme` 覆盖；`--sider-width` 不再以内联样式定义。
+- 清理：删除 12 个调色板变量与 6 个无用语义变量、`--primary-color`、9 个空 `<style>` 块；补齐 `fade-slide` 过渡并收敛 `a` 的过渡属性。
+- 文档：README 增加「样式（CSS）」章节；本文件补充变量映射表与体积对比。
+
 ## 改造完成总结
 
 > 第二轮「工程化优化」见上文步骤 8–12。

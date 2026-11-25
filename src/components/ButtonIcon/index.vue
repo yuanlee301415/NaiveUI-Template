@@ -38,5 +38,3 @@ withDefaults(
     {{ tooltipContent }}
   </n-tooltip>
 </template>
-
-<style scoped lang="less"></style>

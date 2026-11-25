@@ -22,5 +22,3 @@ defineOptions({ name: 'LayoutIndex' })
     </div>
   </n-layout>
 </template>
-
-<style scoped lang="less"></style>

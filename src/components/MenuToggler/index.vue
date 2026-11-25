@@ -33,5 +33,3 @@ const config = computed(() => CONFIG[String(props.collapsed) as 'true' | 'false'
     <SvgIcon :icon="config.icon" />
   </button-icon>
 </template>
-
-<style scoped lang="less"></style>

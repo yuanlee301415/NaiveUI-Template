@@ -35,5 +35,3 @@ const symbolId = computed(() => {
     <i v-if="icon" :class="icon" v-bind="bindAttrs" />
   </template>
 </template>
-
-<style scoped lang="less"></style>

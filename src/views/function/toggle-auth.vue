@@ -67,5 +67,3 @@ async function handleToggleAccount({ login }: Account): Promise<void> {
     </n-card>
   </n-flex>
 </template>
-
-<style scoped lang="less"></style>

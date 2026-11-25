@@ -1,42 +1,15 @@
 /**
  * 设计令牌（Design Tokens）
- * - 命名：--{类别}-{语义}，调色板使用 --vt-c-* 前缀
- * - 暗色由 prefers-color-scheme 覆盖，与 NaiveUI 的 useOsTheme 行为保持一致
+ * - 命名约定：--{类别}-{语义}（颜色 / 布局 / 滚动条 / 动效）
+ * - 只保留被实际引用的令牌；暗色由 prefers-color-scheme 覆盖，与 NaiveUI 的 useOsTheme 行为一致
+ * - 注意：`--base-color` 等 `--n-*` 变量由 NaiveUI 组件（如 `n-el`）提供，不在本文件定义
  */
 :root {
   color-scheme: light dark;
 
-  /* 调色板 */
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-
-  /* 语义色 */
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  /* 表面颜色 */
+  --color-background: #ffffff;
+  --color-background-mute: #f2f2f2;
 
   /* 布局尺寸 */
   --sider-width: 250px;
@@ -54,14 +27,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-background: #181818;
+    --color-background-mute: #282828;
+    --scrollbar-thumb-color: rgba(235, 235, 235, 0.28);
   }
 }

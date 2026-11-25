@@ -2,7 +2,7 @@
  * 基础样式
  * - 仅放置全局元素 / 根节点样式，组件样式保留在各自 SFC 中
  */
-html {
+:root {
   font-size: 14px;
   line-height: 1.5;
   scrollbar-width: thin;
@@ -11,12 +11,12 @@ html {
 
 html,
 body {
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
-  height: 100vh;
-  height: 100dvh;
+  height: 100%;
 }
 
 a {

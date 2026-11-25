@@ -41,6 +41,18 @@
 - `unplugins.ts`：自动导入与组件自动注册；
 - `rollup-plugin-visualizer` 仅在 `pnpm analyze` 时启用。
 
+## 样式（CSS）
+
+- 全局样式位于根目录 `styles/`（组件样式保留在各自 SFC 的 `<style scoped>` 中）：
+  - `index.css`：唯一入口，顺序为 reset → `tokens.css` → `base.css` → `transitions.css`；`src/main.ts` 先引入它，再引入 `virtual:uno.css`（工具类位于自定义样式之后，便于覆盖）；
+  - `tokens.css`：设计令牌，命名约定 `--{类别}-{语义}`（颜色 / 布局 / 滚动条 / 动效），**只保留被引用的令牌**；暗色由 `@media (prefers-color-scheme: dark)` 覆盖，与 NaiveUI `useOsTheme` 行为一致；
+  - `base.css`：`html` 字号/行高/滚动条、`html/body/#app` 高度（`100vh` + `100dvh`）、`a` 颜色过渡；
+  - `transitions.css`：路由切换过渡 `fade-slide`（`<transition name="fade-slide" mode="out-in">`）。
+- 常用令牌：`--color-background`、`--color-background-mute`、`--sider-width`、`--sider-collapsed-width`、`--layout-header-height`、`--layout-content-padding`、`--transition-duration` / `--transition-timing`。
+- `--base-color` 等 `--n-*` 变量由 NaiveUI 组件（如 `n-el`）提供，不属于本地令牌。
+- 主题色 `primary`（`#646cff`）在 `uno.config.ts` 的 `theme.colors` 中定义，装载动画使用 `text-primary` / `bg-primary`。
+- Prettier 仅格式化 `src/`，`styles/` 按 `.editorconfig`（2 空格、LF）人工维护。
+
 ## 脚本
 
 | 脚本 | 说明 |

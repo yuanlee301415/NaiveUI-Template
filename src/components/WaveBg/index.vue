@@ -49,5 +49,3 @@ const darkColor = ref('#646cff')
     </div>
   </div>
 </template>
-
-<style scoped></style>
