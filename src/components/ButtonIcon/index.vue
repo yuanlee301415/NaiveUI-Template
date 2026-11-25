@@ -15,8 +15,11 @@ withDefaults(
     buttonClass?: string
   }>(),
   {
+    icon: '',
     tooltipPlacement: 'bottom',
+    tooltipContent: '',
     zIndex: 99,
+    buttonClass: '',
   },
 )
 </script>

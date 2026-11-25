@@ -44,7 +44,7 @@ function onUpdateGender(value: string | number | null): void {
 
 <template>
   <n-card :bordered="false" size="small">
-    <n-form :model="model" ref="formRef" label-placement="left" label-width="80">
+    <n-form ref="formRef" :model="model" label-placement="left" label-width="80">
       <n-grid responsive="screen" item-responsive>
         <n-form-item-gi span="24 sm:12 m:6" path="login" :label="User.LOGIN_LABEL">
           <n-input v-model:value="model.login" clearable />

@@ -5,6 +5,8 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "types": ["node"],
     "noEmit": true,
     "resolveJsonModule": true,

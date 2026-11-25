@@ -61,7 +61,7 @@ defineExpose({
 </script>
 
 <template>
-  <n-form :model="model" :rules="rules" ref="formRef">
+  <n-form ref="formRef" :model="model" :rules="rules">
     <n-form-item v-if="operationType === OperationType.Edit" path="login" :label="User.LOGIN_LABEL">
       <n-input v-model:value="model.login" :placeholder="loginNameMessage.requiredMessage" disabled />
     </n-form-item>

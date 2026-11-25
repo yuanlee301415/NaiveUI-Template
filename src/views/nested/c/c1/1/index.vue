@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineOptions({ name: 'NestedC1-1' })
+defineOptions({ name: 'NestedC11' })
 </script>
 
 <template>

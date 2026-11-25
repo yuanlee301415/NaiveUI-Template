@@ -23,6 +23,13 @@ export default withVueTs(
   },
 
   {
+    name: 'app/linter-options',
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
+  },
+
+  {
     name: 'app/node-globals',
     files: ['vite.config.ts', 'uno.config.ts', 'eslint.config.js', 'build/**/*'],
     languageOptions: {
@@ -33,7 +40,7 @@ export default withVueTs(
   },
 
   js.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommended,
   skipFormatting,
 )

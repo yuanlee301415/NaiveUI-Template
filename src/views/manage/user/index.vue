@@ -255,7 +255,7 @@ function onUpdateSorter(sorter: DataTableSortState | DataTableSortState[] | null
       trap-focus
       @positive-click="handleSubmit"
     >
-      <UserFrom :user="modalForm.user" :operation-type="modalForm.operationType" ref="userFormRef" />
+      <UserFrom ref="userFormRef" :user="modalForm.user" :operation-type="modalForm.operationType" />
     </n-modal>
   </n-flex>
 </template>

@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { HOME_ROUTE_NAME } from '@/router/constants'
 
-defineOptions({ name: 'Exception_404' })
+defineOptions({ name: 'ExceptionPage404' })
 
 const router = useRouter()
 </script>

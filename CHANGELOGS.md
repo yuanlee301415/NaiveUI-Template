@@ -262,6 +262,29 @@
 | `pnpm lint:check` | 退出码 0，0 警告 |
 | `pnpm-lock.yaml` | 无变化（未增删依赖、无版本漂移） |
 
+## 步骤 9：TypeScript / ESLint 规范强化（2026-11-25）
+
+### 变更
+
+- `tsconfig.app.json`、`tsconfig.node.json`：开启 `noUnusedLocals`、`noUnusedParameters`。
+  - 已用 `vue-tsc/tsc --noUnusedLocals --noUnusedParameters` 预检：两个项目均为 0 报错，故本次无需改动源码，仅作为后续回归护栏。
+- `eslint.config.js`
+  - 新增 `linterOptions.reportUnusedDisableDirectives: 'error'`（禁止残留无效的 `eslint-disable`）。
+  - `pluginVue.configs['flat/essential']` → `flat/recommended`。先以临时配置只读评估：全仓 `src`+`build`+根配置共 **0 error / 10 warn**，故采纳并修复全部 10 处：
+    - `src/components/ButtonIcon/index.vue`：`icon` / `tooltipContent` / `buttonClass` 三个可选 props 补默认值（空字符串，渲染行为不变）；
+    - 组件名改为 PascalCase：`Exception_403/404` → `ExceptionPage403/404`，`NestedC1-1/2` → `NestedC11/12`（仅 `defineOptions` 组件名，路由 `name` 未变）；
+    - 3 处模板属性顺序（`ref` 前置）：`UserForm.vue`、`UserSearch.vue`、`views/manage/user/index.vue`。
+- Prettier 配置不变（范围仍仅 `src/`）。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm lint:check` | 退出码 0，0 error / 0 warning |
+| `pnpm lint`（修复态） | 无残留可修复项 |
+| `pnpm type-check` | 0 错误（`noUnused*` 已开启） |
+| `pnpm format:check` | 通过 |
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
