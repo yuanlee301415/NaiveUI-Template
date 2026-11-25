@@ -21,8 +21,8 @@ export function useCountdown(duration = 0) {
   let timer = null
 
   function update() {
-    seconds.value = remainingSeconds % 60 | 0
-    minutes.value = (remainingSeconds / 60) % 60 | 0
+    seconds.value = (remainingSeconds % 60) | 0
+    minutes.value = ((remainingSeconds / 60) % 60) | 0
     hours.value = (remainingSeconds / 60 / 60) | 0
 
     if (remainingSeconds <= 0) {

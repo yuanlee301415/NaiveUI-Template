@@ -1,4 +1,5 @@
-onlyBuiltDependencies:
-  - esbuild
-  - less
-  - simple-git-hooks
+# pnpm 12：仅允许可信依赖执行安装脚本
+allowBuilds:
+  esbuild: true
+  less: true
+  simple-git-hooks: true

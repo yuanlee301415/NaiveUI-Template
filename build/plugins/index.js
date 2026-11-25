@@ -2,7 +2,6 @@ import { cwd } from 'node:process'
 import { resolve } from 'node:path'
 
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
 import UnoCSS from 'unocss/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -15,8 +14,6 @@ export function setupVitePlugins({ mode, version, buildTime, viteEnv }) {
 
   return [
     vue(),
-
-    vueDevTools(),
 
     UnoCSS(),
 

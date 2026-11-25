@@ -1,6 +1,6 @@
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/dist/vite.js'
-import { NaiveUiResolver } from 'unplugin-vue-components/dist/resolvers.js'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 export function setupUnplugins() {
   return [
@@ -8,18 +8,13 @@ export function setupUnplugins() {
       imports: [
         'vue',
         {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-            'useNotification',
-            'useLoadingBar'
-          ]
-        }
-      ]
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+        },
+      ],
     }),
 
     Components({
-      resolvers: [NaiveUiResolver()]
-    })
+      resolvers: [NaiveUiResolver()],
+    }),
   ]
 }
