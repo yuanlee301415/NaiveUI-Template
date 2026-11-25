@@ -1,6 +1,6 @@
 {
   "name": "naive-ui-template",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vue3/TypeScript/NaiveUI/UnoCSS Template",
   "type": "module",
   "private": true,
