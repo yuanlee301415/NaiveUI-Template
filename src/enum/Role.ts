@@ -2,15 +2,20 @@
  * 角色
  * */
 
-export type RoleType = 'SUPER' | 'ADMIN' | 'USER'
+const SUPER = 'SUPER'
+const ADMIN = 'ADMIN'
+const USER = 'USER'
+
+export type RoleType = typeof SUPER | typeof ADMIN | typeof USER
 
 interface RoleEnum {
   /** 超级管理员 */
-  readonly Super: 'SUPER'
+  readonly Super: typeof SUPER
   /** 管理员 */
-  readonly Admin: 'ADMIN'
+  readonly Admin: typeof ADMIN
   /** 用户 */
-  readonly User: 'USER'
+  readonly User: typeof USER
+
   [Symbol.iterator](): IterableIterator<RoleType>
 }
 
@@ -18,11 +23,11 @@ interface RoleEnum {
  * 角色 Enum
  */
 export const Role: RoleEnum = {
-  Super: 'SUPER',
+  Super: SUPER,
 
-  Admin: 'ADMIN',
+  Admin: ADMIN,
 
-  User: 'USER',
+  User: USER,
 
   *[Symbol.iterator]() {
     yield this.User
