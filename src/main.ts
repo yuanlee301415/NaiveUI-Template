@@ -7,8 +7,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { setupRouter } from './router'
 import { setupNaiveDiscreteApi, setupLoading } from './plugins'
-import { setupStore } from '@/stores/index'
-import { setupDirectives } from '@/directives/index'
+import { setupStore } from '@/stores'
+import { setupDirectives } from '@/directives'
 
 void bootstrap()
 

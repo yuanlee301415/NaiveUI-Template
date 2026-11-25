@@ -1,25 +1,28 @@
-<script setup lang="ts">
-import { useAuthStore, useRouteStore } from '@/stores/index'
+<script lang="ts">
 import { Role } from '@/enum'
 import { removeAuthToken } from '@/utils/authToken'
-import { usePermission } from '@/hooks/index'
-
-defineOptions({ name: 'ToggleAuth' })
+import { usePermission } from '@/hooks'
 
 interface Account {
   login: string
   name: string
 }
 
-const authStore = useAuthStore()
-const routeStore = useRouteStore()
-const { hasPermission } = usePermission()
-
 const ACCOUNTS: Account[] = [
   { login: 'super', name: '超级管理员' },
   { login: 'admin', name: '管理员' },
   { login: 'user', name: '普通用户' },
 ]
+</script>
+
+<script setup lang="ts">
+import { useAuthStore, useRouteStore } from '@/stores'
+
+defineOptions({ name: 'ToggleAuth' })
+
+const authStore = useAuthStore()
+const routeStore = useRouteStore()
+const { hasPermission } = usePermission()
 
 /**
  * 切换帐号

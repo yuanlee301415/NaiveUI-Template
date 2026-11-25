@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { Menu } from '@/models/index'
 import type { RoleType } from '@/enum'
+import { Menu } from '@/models'
 
 /**
  * 路由权限判断

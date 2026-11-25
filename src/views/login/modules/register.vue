@@ -1,16 +1,7 @@
-<script setup lang="ts">
-import { reactive, computed, useTemplateRef } from 'vue'
-import { useRouter } from 'vue-router'
+<script lang="ts">
 import type { FormInst, FormRules } from 'naive-ui'
-import { getCaptchaApi } from '@/api/rights'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants'
-import { useFormRules, useCountdown } from '@/hooks/index'
 import { noSideSpace } from '@/utils/naiveUI'
-
-// eslint-disable-next-line vue/multi-word-component-names
-defineOptions({ name: 'Register' })
-
-const router = useRouter()
 
 interface RegisterForm {
   phone: string
@@ -19,7 +10,18 @@ interface RegisterForm {
   confirmPassword: string
   email: string
 }
+</script>
 
+<script setup lang="ts">
+import { reactive, computed, useTemplateRef } from 'vue'
+import { useRouter } from 'vue-router'
+import { getCaptchaApi } from '@/api/rights'
+import { useFormRules, useCountdown } from '@/hooks'
+
+// eslint-disable-next-line vue/multi-word-component-names
+defineOptions({ name: 'Register' })
+
+const router = useRouter()
 const formData = reactive<RegisterForm>({
   phone: '',
   code: [],
@@ -31,6 +33,7 @@ const formData = reactive<RegisterForm>({
 const { createPhoneRules, createCodeFourRules, createPasswordRules, createConfirmPasswordRules, createEmailRules, createRuleMessage } = useFormRules()
 const { phoneMessage, passwordMessage, confirmPasswordMessage, emailMessage } = createRuleMessage()
 const { seconds, countdown, isCounting } = useCountdown(5000)
+const formRef = useTemplateRef<FormInst>('formRef')
 
 const rules = computed<FormRules>(() => {
   return {
@@ -41,8 +44,6 @@ const rules = computed<FormRules>(() => {
     email: createEmailRules({ required: false }),
   }
 })
-
-const formRef = useTemplateRef<FormInst>('formRef')
 
 async function handleGetCaptcha(): Promise<void> {
   await formRef.value?.validate(undefined, (rule) => rule.key === 'phone')
@@ -79,23 +80,11 @@ async function handleSubmit(): Promise<void> {
       </n-form-item>
 
       <n-form-item label="密码" path="password">
-        <n-input
-          v-model:value="formData.password"
-          :allow-input="noSideSpace"
-          :placeholder="passwordMessage.requiredMessage"
-          type="password"
-          maxlength="20"
-        />
+        <n-input v-model:value="formData.password" :allow-input="noSideSpace" :placeholder="passwordMessage.requiredMessage" type="password" maxlength="20" />
       </n-form-item>
 
       <n-form-item label="确认密码" path="confirmPassword">
-        <n-input
-          v-model:value="formData.confirmPassword"
-          :allow-input="noSideSpace"
-          :placeholder="confirmPasswordMessage.requiredMessage"
-          type="password"
-          maxlength="20"
-        />
+        <n-input v-model:value="formData.confirmPassword" :allow-input="noSideSpace" :placeholder="confirmPasswordMessage.requiredMessage" type="password" maxlength="20" />
       </n-form-item>
 
       <n-form-item label="邮箱" path="email">

@@ -2,11 +2,13 @@
 用户搜索
 -->
 
-<script setup lang="ts">
+<script lang="ts">
 import type { SelectOption } from 'naive-ui'
-import { User, UserParams } from '@/models/index'
-import { UsingStatus, Gender } from '@/enum/index'
+import { User, UserParams } from '@/models'
+import { UsingStatus, Gender } from '@/enum'
+</script>
 
+<script setup lang="ts">
 defineOptions({ name: 'UserSearch' })
 
 withDefaults(

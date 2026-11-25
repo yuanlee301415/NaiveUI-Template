@@ -1,20 +1,22 @@
 <!--
 用户管理
 -->
+<script lang="ts">
+import type { DataTableColumns, DataTableRowKey, DataTableSortState } from 'naive-ui'
+import type { OperationTypeValue } from '@/enum'
+import type { UserFormExpose } from './UserForm.vue'
+import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user'
+import { User, UserParams, DataTablePaginationBasicConfig, DataTableSorter } from '@/models'
+import { OperationType } from '@/enum'
+import { createColumns, rowKey } from './shared'
+</script>
 
 <script setup lang="ts">
 import { ref, reactive, shallowRef, useTemplateRef } from 'vue'
 import { NFlex } from 'naive-ui'
-import type { DataTableColumns, DataTableRowKey, DataTableSortState } from 'naive-ui'
-import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user'
-import { User, UserParams, DataTablePaginationBasicConfig, DataTableSorter } from '@/models/index'
-import { OperationType } from '@/enum/index'
-import type { OperationTypeValue } from '@/enum/index'
 import TableHeaderOperation from '@/components/TableHeaderOperation/index.vue'
-import { createColumns, rowKey } from './shared'
 import UserSearch from './UserSearch.vue'
 import UserFrom from './UserForm.vue'
-import type { UserFormExpose } from './UserForm.vue'
 
 defineOptions({ name: 'ManageUser' })
 

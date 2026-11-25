@@ -1,13 +1,8 @@
-<script setup lang="ts">
-import { reactive, ref, useTemplateRef } from 'vue'
-import { useRouter } from 'vue-router'
+<script lang="ts">
 import type { FormInst, FormRules } from 'naive-ui'
-import { useAuthStore, useRouteStore } from '@/stores/index'
-import { useFormRules } from '@/hooks/index'
+import { useAuthStore, useRouteStore } from '@/stores'
 import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants'
 import { noSideSpace } from '@/utils/naiveUI'
-
-defineOptions({ name: 'PasswordLogin' })
 
 interface Account {
   login: string
@@ -19,6 +14,14 @@ const ACCOUNTS: Account[] = [
   { login: 'admin', name: '管理员' },
   { login: 'user', name: '普通用户' },
 ]
+</script>
+
+<script setup lang="ts">
+import { reactive, ref, useTemplateRef } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFormRules } from '@/hooks'
+
+defineOptions({ name: 'PasswordLogin' })
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -81,13 +84,7 @@ function handleAccountLogin({ login }: Account): void {
       </n-form-item>
 
       <n-form-item label="密码" path="password">
-        <n-input
-          v-model:value="formData.password"
-          :allow-input="noSideSpace"
-          :placeholder="passwordMessage.requiredMessage"
-          type="password"
-          maxlength="20"
-        />
+        <n-input v-model:value="formData.password" :allow-input="noSideSpace" :placeholder="passwordMessage.requiredMessage" type="password" maxlength="20" />
       </n-form-item>
 
       <n-flex :size="[0, 30]">

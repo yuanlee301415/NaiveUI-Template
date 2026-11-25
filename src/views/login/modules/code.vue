@@ -1,13 +1,17 @@
+<script lang="ts">
+import type { FormInst, FormRules } from 'naive-ui'
+import type { CaptchaResult } from '@/api/rights'
+import { getCaptchaApi } from '@/api/rights'
+import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants'
+import { noSideSpace } from '@/utils/naiveUI'
+</script>
+
 <script setup lang="ts">
 import { reactive, ref, useTemplateRef } from 'vue'
 import { useRouter } from 'vue-router'
-import type { FormInst, FormRules } from 'naive-ui'
-import { useRouteStore, useAuthStore } from '@/stores/index'
-import { getCaptchaApi } from '@/api/rights'
-import type { CaptchaResult } from '@/api/rights'
-import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants'
-import { useFormRules, useCountdown } from '@/hooks/index'
-import { noSideSpace } from '@/utils/naiveUI'
+
+import { useRouteStore, useAuthStore } from '@/stores'
+import { useFormRules, useCountdown } from '@/hooks'
 
 defineOptions({ name: 'CodeLogin' })
 

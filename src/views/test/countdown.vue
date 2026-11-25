@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCountdown } from '@/hooks/index'
+import { useCountdown } from '@/hooks'
 
 defineOptions({ name: 'TestCountdown' })
 

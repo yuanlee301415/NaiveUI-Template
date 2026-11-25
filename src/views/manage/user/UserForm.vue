@@ -3,6 +3,12 @@
 -->
 
 <script lang="ts">
+import type { FormInst, FormRules } from 'naive-ui'
+import type { OperationTypeValue } from '@/enum'
+import { User } from '@/models'
+import { Gender, UsingStatus, OperationType } from '@/enum'
+import { createUserApi, updateUserApi } from '@/api/user'
+
 /** UserForm 通过 `defineExpose` 暴露给父组件的方法 */
 export interface UserFormExpose {
   /** 校验并提交表单 */
@@ -12,23 +18,17 @@ export interface UserFormExpose {
 
 <script setup lang="ts">
 import { reactive, useTemplateRef } from 'vue'
-import type { FormInst, FormRules } from 'naive-ui'
-import { User } from '@/models/index'
-import { Gender, UsingStatus, OperationType } from '@/enum/index'
-import type { OperationTypeValue } from '@/enum/index'
-import { createUserApi, updateUserApi } from '@/api/user'
-import { useFormRules } from '@/hooks/index'
+import { useFormRules } from '@/hooks'
 
 defineOptions({ name: 'UserForm' })
-
-const { createNickNameRules, createPhoneRules, createEmailRules, createRuleMessage } = useFormRules()
-const { loginNameMessage, nickNameMessage, phoneMessage, emailMessage } = createRuleMessage()
 
 const { user, operationType } = defineProps<{
   user: User | null
   operationType: OperationTypeValue
 }>()
 
+const { createNickNameRules, createPhoneRules, createEmailRules, createRuleMessage } = useFormRules()
+const { loginNameMessage, nickNameMessage, phoneMessage, emailMessage } = createRuleMessage()
 const model = reactive(
   new User({
     id: user?.id,

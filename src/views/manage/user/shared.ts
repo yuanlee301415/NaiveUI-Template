@@ -1,8 +1,8 @@
+import type { DataTableColumns } from 'naive-ui'
 import { h } from 'vue'
 import { NButton, NFlex, NTag, NPopconfirm } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
-import { User } from '@/models/index'
-import { Gender, UsingStatus } from '@/enum/index'
+import { User } from '@/models'
+import { Gender, UsingStatus } from '@/enum'
 
 export interface CreateColumnsOptions {
   /** 点击“编辑”按钮回调 */
@@ -27,16 +27,14 @@ export function createColumns({ handleEdit, handleDelete }: CreateColumnsOptions
       key: 'gender',
       width: 80,
       sorter: true,
-      render: ({ gender }) =>
-        gender === null ? null : h(NTag, { type: Gender.Male === gender ? 'success' : 'info' }, { default: () => Gender[gender] }),
+      render: ({ gender }) => (gender === null ? null : h(NTag, { type: Gender.Male === gender ? 'success' : 'info' }, { default: () => Gender[gender] })),
     },
     {
       title: User.STATUS_LABEL,
       key: 'status',
       width: 80,
       sorter: true,
-      render: ({ status }) =>
-        status === null ? null : h(NTag, { type: UsingStatus.Enabled === status ? 'success' : 'error' }, { default: () => UsingStatus[status] }),
+      render: ({ status }) => (status === null ? null : h(NTag, { type: UsingStatus.Enabled === status ? 'success' : 'error' }, { default: () => UsingStatus[status] })),
     },
     {
       title: User.CREATE_TIME_LABEL,

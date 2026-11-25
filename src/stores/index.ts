@@ -1,6 +1,6 @@
 import { createPinia } from 'pinia'
 import type { App } from 'vue'
-import { resetSetupStore } from './plugins/index'
+import { resetSetupStore } from './plugins'
 
 export * from './modules'
 
