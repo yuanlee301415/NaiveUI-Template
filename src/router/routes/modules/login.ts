@@ -1,6 +1,7 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { LOGIN_ROUTE_NAME, LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants'
 
-export const loginRoutes = {
+export const loginRoutes: RouteRecordRaw = {
   path: '/login',
   component: () => import('@/views/login/index.vue'),
   name: LOGIN_ROUTE_NAME,

@@ -7,21 +7,23 @@ DataTable 表头操作
 <script setup lang="ts">
 defineOptions({ name: 'TableHeaderOperation' })
 
-defineProps({
-  // 是否禁用“批量删除”
-  disabledDelete: {
-    type: Boolean,
+withDefaults(
+  defineProps<{
+    // 是否禁用“批量删除”
+    disabledDelete?: boolean
+    loading?: boolean
+  }>(),
+  {
+    disabledDelete: false,
+    loading: false,
   },
+)
 
-  loading: {
-    type: Boolean,
-  },
-})
-
-/**
- * @type {EmitFn<('add'|'batchDelete'|'refresh')[]>}
- */
-const emit = defineEmits(['add', 'batchDelete', 'refresh'])
+const emit = defineEmits<{
+  add: []
+  batchDelete: []
+  refresh: []
+}>()
 </script>
 
 <template>

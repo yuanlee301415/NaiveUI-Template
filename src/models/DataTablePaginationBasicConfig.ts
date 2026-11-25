@@ -2,7 +2,7 @@
  * Naive DataTable 组件分页基础配置
  * */
 
-export type PaginationSuffix = (info: { itemCount: number }) => string
+export type PaginationSuffix = (info: { itemCount: number | undefined }) => string
 
 /**
  * DataTablePaginationBasicConfig Model
@@ -50,6 +50,6 @@ export class DataTablePaginationBasicConfig {
     this.itemCount = itemCount
     this.showSizePicker = showSizePicker
     this.showQuickJumper = showQuickJumper
-    this.suffix = suffix ?? (({ itemCount }) => `共 ${itemCount} 条记录`)
+    this.suffix = suffix ?? (({ itemCount }) => `共 ${itemCount ?? 0} 条记录`)
   }
 }

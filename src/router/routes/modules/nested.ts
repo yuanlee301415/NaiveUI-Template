@@ -1,6 +1,7 @@
-import Layout from '@/layout/index.vue'
+import type { RouteRecordRaw } from 'vue-router'
+import { Layout } from '@/router/constants'
 
-export const nestedRoutes = {
+export const nestedRoutes: RouteRecordRaw = {
   path: '/nested',
   name: 'Nested',
   component: Layout,

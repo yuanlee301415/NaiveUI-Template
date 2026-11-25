@@ -98,8 +98,51 @@
 - `pnpm lint` 退出码 0（修复 `formRules` 中 `&&` 表达式语句告警）。
 - `pnpm type-check` 暂为 152 个错误（预期）：hooks / stores / router / SFC 尚未类型化，步骤 3、4 处理。
 
+## 步骤 3–4：hooks / stores / router 与全部 Vue SFC 类型化（2026-11-25）
+
+> 说明：步骤 3 与步骤 4 在同一次改造中连续完成（类型检查需要两者一起收敛），合并为一次提交。
+
+### hooks
+
+- `countdown`：`timer` 使用 `ReturnType<typeof setTimeout>`，所有函数标注返回类型。
+- `formRules`：基于 naive-ui `FormItemRule` 定义选项接口（`BaseRuleOptions / PatternRuleOptions / ConfirmPasswordRuleOptions / RuleMessages`），规则返回 `FormItemRule[]`，validator 参数收窄（验证码为 `string[]`）。
+- `permission`：`RoleType[]` 收窄，`roles` 空值保护。
+- `svgIcon` / `svgIconRender`：`Component` 类型参数，导出 `SvgIconVNodeConfig / SvgIconVNodeFactory`。
+
+### stores
+
+- `setupStore(app: App)`、`resetSetupStore(context: PiniaPluginContext)`。
+- `auth`：`AuthUser` 响应式用户 + `LoginPayload`，setup 返回类型显式声明（避免 `useAuthStore` 自引用造成的循环推断）。
+- `route`：`RouteRecordRaw[]`、`Ref<Menu[]>`，动态路由添加/重置与 `redirectFormLogin` 查询参数收窄。
+- `shared`：`hasPermission/filterAsyncRoutes/genMenus` 基于 `RouteRecordRaw` 与 `Menu` 类型，保留原有过滤行为（叶子节点 `children === undefined`）。
+
+### router
+
+- `router/index`、`constants`、`guard/*`、`routes/*` 全部标注 `Router / RouteRecordRaw` 类型；`RouteMeta` 来自 `types/router.d.ts` 的声明合并。
+- 权限守卫：`router.push({ ...to, replace: true })` 断言为 `RouteLocationRaw`，角色列表空值兜底。
+
+### Vue SFC（41 个）
+
+- 统一 `<script setup lang="ts">`，全部组件完成类型化：
+  - props/emits 使用类型式宏（`withDefaults(defineProps<...>())`、`defineEmits<{...}>()`）；`UserSearch` 使用 `defineModel<UserParams>('params')`。
+  - 模板引用统一 `useTemplateRef<FormInst>()` / `useTemplateRef<{ submit(): Promise<void> }>()`。
+  - `User` 表单/搜索/列表：`User | null`、`OperationTypeValue`、`DataTableColumns<User>`、`DataTableRowState`、`DataTableRowKey[]`、`PaginationConfig`。
+  - 布局：`MenuOption[]`（Sider）、`DropdownOption[]`（Header）、Breadcrumb 下拉项映射为 `DropdownOption[]`（修复原下拉项缺少 `label` 导致文字为空的问题）。
+  - 简单页面仅补充 `lang="ts"` 与必要类型。
+
+### 顺带修复（类型化过程中暴露）
+
+- Breadcrumb 下拉菜单补充 `label` 与图标渲染。
+- 权限指令 / `usePermission` 在 `roles` 为 `null` 时不再抛错。
+- `DataTablePaginationBasicConfig.suffix` 对齐 naive-ui 的 `RenderPrefix` 参数（`itemCount: number | undefined`）。
+- 表单校验 `validate(null, filter)` 改为类型安全的 `validate(undefined, filter)`。
+
+### 验证
+
+- `pnpm type-check`：**0 错误**（solution 构建同时检查 app 与 node 配置）。
+- `pnpm lint`：退出码 0。
+- `pnpm build`：成功。
+
 ## 后续步骤
 
-- 步骤 3：hooks / stores / router 类型化，`type-check` 收敛到仅剩 SFC。
-- 步骤 4：41 个 Vue SFC 类型化，`pnpm type-check` 全绿。
-- 步骤 5：最终验证（lint/build/dev/json-server 冒烟）、README 更新、`build` 接入 `vue-tsc --build`。
+- 步骤 5：最终验证（dev / json-server 冒烟）、README 更新、`build` 接入 `vue-tsc --build`。

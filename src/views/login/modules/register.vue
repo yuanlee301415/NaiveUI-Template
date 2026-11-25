@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref, computed } from 'vue'
+import { reactive, computed, useTemplateRef } from 'vue'
 import { useRouter } from 'vue-router'
+import type { FormInst, FormRules } from 'naive-ui'
 import { getCaptchaApi } from '@/api/rights'
 import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants'
 import { useFormRules, useCountdown } from '@/hooks/index'
@@ -11,7 +12,15 @@ defineOptions({ name: 'Register' })
 
 const router = useRouter()
 
-const formData = reactive({
+interface RegisterForm {
+  phone: string
+  code: string[]
+  password: string
+  confirmPassword: string
+  email: string
+}
+
+const formData = reactive<RegisterForm>({
   phone: '',
   code: [],
   password: '',
@@ -23,7 +32,7 @@ const { createPhoneRules, createCodeFourRules, createPasswordRules, createConfir
 const { phoneMessage, passwordMessage, confirmPasswordMessage, emailMessage } = createRuleMessage()
 const { seconds, countdown, isCounting } = useCountdown(5000)
 
-const rules = computed(() => {
+const rules = computed<FormRules>(() => {
   return {
     phone: createPhoneRules({ key: 'phone' }),
     code: createCodeFourRules(),
@@ -33,20 +42,19 @@ const rules = computed(() => {
   }
 })
 
-const formRef = ref(null)
+const formRef = useTemplateRef<FormInst>('formRef')
 
-async function handleGetCaptcha() {
-  await formRef.value?.validate(null, (rule) => rule.key === 'phone')
+async function handleGetCaptcha(): Promise<void> {
+  await formRef.value?.validate(undefined, (rule) => rule.key === 'phone')
   countdown()
   const captcha = await getCaptchaApi(formData.phone)
   formData.code = captcha.code.split('')
 }
 
-async function handleSubmit() {
-  console.log(formData)
+async function handleSubmit(): Promise<void> {
   await formRef.value?.validate()
   window.$message.success('注册成功')
-  router.push({ name: LOGIN_CODE_ROUTE_NAME })
+  void router.push({ name: LOGIN_CODE_ROUTE_NAME })
 }
 </script>
 
@@ -65,7 +73,7 @@ async function handleSubmit() {
         <n-input-otp v-model:value="formData.code" :length="4" />
 
         <div class="w-150px ml-4">
-          <n-button v-if="isCounting" class="w-full" disabled>{{ seconds }}秒后重新获取 </n-button>
+          <n-button v-if="isCounting" class="w-full" disabled>{{ seconds }}秒后重新获取</n-button>
           <n-button v-else class="w-full" @click="handleGetCaptcha">获取验证码</n-button>
         </div>
       </n-form-item>

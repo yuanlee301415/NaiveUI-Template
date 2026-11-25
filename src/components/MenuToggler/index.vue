@@ -4,32 +4,28 @@ import ButtonIcon from '@/components/ButtonIcon/index.vue'
 
 defineOptions({ name: 'MenuToggler' })
 
-const CONFIG = new Map([
-  [
-    true,
-    {
-      icon: 'i-line-md:menu-fold-right',
-      tip: '展开菜单',
-    },
-  ],
-
-  [
-    false,
-    {
-      icon: 'i-line-md:menu-fold-left',
-      tip: '折叠菜单',
-    },
-  ],
-])
-
-const { collapsed } = defineProps({
-  collapsed: {
-    type: Boolean,
-    default: false,
+const CONFIG = {
+  true: {
+    icon: 'i-line-md:menu-fold-right',
+    tip: '展开菜单',
   },
-})
 
-const config = computed(() => CONFIG.get(collapsed))
+  false: {
+    icon: 'i-line-md:menu-fold-left',
+    tip: '折叠菜单',
+  },
+} as const
+
+const props = withDefaults(
+  defineProps<{
+    collapsed?: boolean
+  }>(),
+  {
+    collapsed: false,
+  },
+)
+
+const config = computed(() => CONFIG[String(props.collapsed) as 'true' | 'false'])
 </script>
 
 <template>

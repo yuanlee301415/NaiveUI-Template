@@ -1,42 +1,26 @@
+import type { RouteRecordNormalized } from 'vue-router'
+
 /**
  * 面包屑 Model
  */
 export class Breadcrumb {
-  /**
-   * 路由 `name`
-   * @type {string}
-   */
-  key
+  /** 路由 `name` */
+  key?: string | symbol
 
-  /**
-   * 路由 `path`
-   * @type {string}
-   */
-  path
+  /** 路由 `path` */
+  path: string
 
-  /**
-   * 路由 `title`
-   * @type {string}
-   */
-  title
+  /** 路由 `title` */
+  title: string
 
-  /**
-   * 路由 `icon`
-   * @type {string}
-   */
-  icon
+  /** 路由 `icon` */
+  icon?: string
 
-  /**
-   * 下拉菜单
-   * @type {Breadcrumb[] | null}
-   */
-  children = null
+  /** 下拉菜单 */
+  children: Breadcrumb[] | null = null
 
-  /**
-   * @param {Breadcrumb} _
-   */
-  constructor(_) {
-    const { key, path, title, icon } = { ..._ }
+  constructor(_: Partial<Breadcrumb> = {}) {
+    const { key, path = '', title = '', icon } = _
     this.key = key
     this.path = path
     this.title = title
@@ -45,23 +29,21 @@ export class Breadcrumb {
 
   /**
    * 生成面包屑数据
-   * @param {RouteLocation[]} routes
-   * @return {Breadcrumb[]}
    */
-  static genBreadcrumbsByRoutes(routes) {
-    const genBreadcrumbs = (routes, ret = []) => {
+  static genBreadcrumbsByRoutes(routes: readonly RouteRecordNormalized[]): Breadcrumb[] {
+    const genBreadcrumbs = (routes: readonly RouteRecordNormalized[], ret: Breadcrumb[] = []): Breadcrumb[] => {
       for (const route of routes) {
         if (!route.meta?.title) continue
 
-        const item = new this({
-          key: route.name,
+        const item = new Breadcrumb({
+          key: route.name ?? undefined,
           path: route.path,
           title: route.meta.title,
           icon: route.meta.icon,
         })
 
         if (route.children?.length) {
-          const children = genBreadcrumbs(route.children)
+          const children = genBreadcrumbs(route.children as unknown as readonly RouteRecordNormalized[])
           if (children.length) {
             item.children = children
           }

@@ -3,11 +3,13 @@
 -->
 
 <script setup lang="ts">
-import { ref, reactive, shallowRef } from 'vue'
+import { ref, reactive, shallowRef, useTemplateRef } from 'vue'
 import { NFlex } from 'naive-ui'
+import type { DataTableColumns, DataTableRowKey, DataTableSortState } from 'naive-ui'
 import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user'
 import { User, UserParams, DataTablePaginationBasicConfig, DataTableSorter } from '@/models/index'
 import { OperationType } from '@/enum/index'
+import type { OperationTypeValue } from '@/enum/index'
 import TableHeaderOperation from '@/components/TableHeaderOperation/index.vue'
 import { createColumns, rowKey } from './shared'
 import UserSearch from './UserSearch.vue'
@@ -17,53 +19,55 @@ defineOptions({ name: 'ManageUser' })
 
 /**
  * 用户列表
- * @type {ShallowRef<User[]>}
  */
-const users = shallowRef([])
+const users = shallowRef<User[]>([])
 
 /**
  * 表格列配置
- * @type {DataTableColumns<User>}
  */
-const columns = createColumns({ handleEdit, handleDelete })
+const columns: DataTableColumns<User> = createColumns({ handleEdit, handleDelete })
 
 /**
  * 用户表单
- * @type {Ref<HTMLFormElement | null>}
  */
-const userFormRef = ref()
+const userFormRef = useTemplateRef<{ submit(): Promise<void> }>('userFormRef')
 
 /**
  * 选中列 Key 列表
- * @type {Ref<User.id[]>}
  */
-const checkedRowKeys = ref([])
+const checkedRowKeys = ref<DataTableRowKey[]>([])
 
 /**
  * 搜索
- * @type {{loading: boolean, params: User.UserParams, sorter: DataTableSorter}}
  */
-const search = reactive({
+const search = reactive<{
+  loading: boolean
+  params: UserParams
+  sorter: DataTableSorter | null
+}>({
   loading: false,
 
   /**
    * 查询参数
-   * @type {User.UserParams}
    */
   params: new UserParams(),
 
   /**
    * 排序
-   * @type {DataTableSorter}
    */
   sorter: null,
 })
 
 /**
  * 弹窗表单
- * @type {{visible: boolean, operationType: OperationType, loading: boolean, title: string, user: User}}
  */
-const modalForm = reactive({
+const modalForm = reactive<{
+  visible: boolean
+  loading: boolean
+  operationType: OperationTypeValue
+  user: User | null
+  title: string
+}>({
   // 是否显示
   visible: false,
 
@@ -75,7 +79,6 @@ const modalForm = reactive({
 
   /**
    * 当前选择行数据
-   * @type {User}
    */
   user: null,
 
@@ -85,27 +88,31 @@ const modalForm = reactive({
   },
 })
 
+interface PaginationConfig extends DataTablePaginationBasicConfig {
+  onUpdatePage(page: number): void
+  onUpdatePageSize(pageSize: number): void
+}
+
 /**
  * 分页配置
- * @type {DataTablePaginationBasicConfig & {onUpdatePage(): void, onUpdatePageSize(): void}}
  */
-const pagination = reactive({
+const pagination = reactive<PaginationConfig>({
   ...new DataTablePaginationBasicConfig(),
-  onUpdatePage(page) {
+  onUpdatePage(page: number) {
     pagination.page = page
-    getUsers()
+    void getUsers()
   },
-  onUpdatePageSize(pageSize) {
+  onUpdatePageSize(pageSize: number) {
     pagination.pageSize = pageSize
     pagination.page = 1
-    getUsers()
+    void getUsers()
   },
 })
 
-getUsers()
+void getUsers()
 
 // 获取用户
-async function getUsers() {
+async function getUsers(): Promise<void> {
   search.loading = true
   try {
     const { data, pages, items } = await getUsersApi({
@@ -114,7 +121,7 @@ async function getUsers() {
       size: pagination.pageSize,
       sort: search.sorter?.sortString,
     })
-    users.value = User.from(data)
+    users.value = User.from(data) ?? []
     pagination.pageCount = pages
     pagination.itemCount = items
   } finally {
@@ -124,9 +131,8 @@ async function getUsers() {
 
 /**
  * 编辑用户
- * @param {User} user
  */
-function handleEdit(user) {
+function handleEdit(user: User): void {
   modalForm.operationType = OperationType.Edit
   modalForm.user = user
   modalForm.visible = true
@@ -134,47 +140,46 @@ function handleEdit(user) {
 
 /**
  * 删除用户
- * @param {User} user
  */
-async function handleDelete(user) {
+async function handleDelete(user: User): Promise<void> {
   await deleteUserApi(user.id)
   window.$message.success('删除用户成功！')
   void getUsers()
 }
 
 // 搜索
-function onSearch() {
+function onSearch(): void {
   pagination.page = 1
-  getUsers()
+  void getUsers()
 }
 
 // 重置搜索条件
-function onReset() {
+function onReset(): void {
   search.params = new UserParams()
 }
 
 // 打开新增弹窗
-function onAdd() {
+function onAdd(): void {
   modalForm.operationType = OperationType.Add
   modalForm.user = new User()
   modalForm.visible = true
 }
 
 // 批量删除
-async function onBatchDelete() {
-  await batchDeleteUserApi(checkedRowKeys.value)
+async function onBatchDelete(): Promise<void> {
+  await batchDeleteUserApi(checkedRowKeys.value.map(String))
   window.$message.success('批量删除用户成功！')
   checkedRowKeys.value = []
   void getUsers()
 }
 
 // 刷新列表
-function onRefresh() {
-  getUsers()
+function onRefresh(): void {
+  void getUsers()
 }
 
 // 提交表单
-async function handleSubmit() {
+async function handleSubmit(): Promise<void> {
   modalForm.loading = true
   try {
     await userFormRef.value?.submit()
@@ -186,19 +191,21 @@ async function handleSubmit() {
 
 /**
  * 选择表格行
- * @param {User.id[]} keys
  */
-function onCheckedRowKeys(keys) {
+function onCheckedRowKeys(keys: DataTableRowKey[]): void {
   checkedRowKeys.value = keys
 }
 
 /**
  * 排序
- * @param {DataTableSortState} sorter
  */
-function onUpdateSorter(sorter) {
-  search.sorter = new DataTableSorter(sorter)
-  getUsers()
+function onUpdateSorter(sorter: DataTableSortState | DataTableSortState[] | null): void {
+  const current = Array.isArray(sorter) ? sorter[0] : sorter
+  search.sorter = new DataTableSorter({
+    columnKey: current?.columnKey !== undefined && current?.columnKey !== null ? String(current.columnKey) : null,
+    order: current?.order ?? null,
+  })
+  void getUsers()
 }
 </script>
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, useTemplateRef } from 'vue'
 import { useRouter } from 'vue-router'
+import type { FormInst, FormRules } from 'naive-ui'
 import { useAuthStore, useRouteStore } from '@/stores/index'
 import { useFormRules } from '@/hooks/index'
 import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants'
@@ -8,7 +9,12 @@ import { noSideSpace } from '@/utils/naiveUI'
 
 defineOptions({ name: 'PasswordLogin' })
 
-const ACCOUNTS = [
+interface Account {
+  login: string
+  name: string
+}
+
+const ACCOUNTS: Account[] = [
   { login: 'super', name: '超级管理员' },
   { login: 'admin', name: '管理员' },
   { login: 'user', name: '普通用户' },
@@ -20,21 +26,21 @@ const routeStore = useRouteStore()
 const { createLoginNameRules, createPasswordRules, createRuleMessage } = useFormRules()
 const { loginNameMessage, passwordMessage } = createRuleMessage()
 
-const rules = {
+const rules: FormRules = {
   login: createLoginNameRules(),
   password: createPasswordRules(),
 }
 
-const formData = reactive({
+const formData = reactive<{ login: string; password: string }>({
   login: 'admin',
   password: '123456',
 })
 
 const loading = ref(false)
 
-const formRef = ref(null)
+const formRef = useTemplateRef<FormInst>('formRef')
 
-async function handleSubmit() {
+async function handleSubmit(): Promise<void> {
   await formRef.value?.validate()
   loading.value = true
   try {
@@ -49,18 +55,17 @@ async function handleSubmit() {
   }
 }
 
-function handleGoto(name) {
+function handleGoto(name: string): void {
   router.push({ name })
 }
 
 /**
  * 快捷登录
- * @param {string} login
  */
-function handleAccountLogin({ login }) {
+function handleAccountLogin({ login }: Account): void {
   formData.login = login
   formData.password = '123456'
-  handleSubmit()
+  void handleSubmit()
 }
 </script>
 

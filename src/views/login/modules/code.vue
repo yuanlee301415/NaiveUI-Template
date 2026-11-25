@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, useTemplateRef } from 'vue'
 import { useRouter } from 'vue-router'
+import type { FormInst, FormRules } from 'naive-ui'
 import { useRouteStore, useAuthStore } from '@/stores/index'
 import { getCaptchaApi } from '@/api/rights'
+import type { CaptchaResult } from '@/api/rights'
 import { LOGIN_PASSWORD_ROUTE_NAME } from '@/router/constants'
 import { useFormRules, useCountdown } from '@/hooks/index'
 import { noSideSpace } from '@/utils/naiveUI'
@@ -16,34 +18,34 @@ const { createPhoneRules, createCodeFourRules, createRuleMessage } = useFormRule
 const { phoneMessage } = createRuleMessage()
 const { seconds, countdown, isCounting } = useCountdown(5000)
 
-const rules = {
+const rules: FormRules = {
   phone: createPhoneRules({ key: 'phone' }),
   code: createCodeFourRules(),
 }
 
-const formData = reactive({
+const formData = reactive<{ phone: string; code: string[] }>({
   phone: '',
   code: [],
 })
 
 const loading = ref(false)
 
-const formRef = ref(null)
+const formRef = useTemplateRef<FormInst>('formRef')
 
-let captcha = null
+let captcha: CaptchaResult | null = null
 
-async function handleGetCaptcha() {
-  await formRef.value?.validate(null, (rule) => rule.key === 'phone')
+async function handleGetCaptcha(): Promise<void> {
+  await formRef.value?.validate(undefined, (rule) => rule.key === 'phone')
   countdown()
   captcha = await getCaptchaApi(formData.phone)
   formData.code = captcha.code.split('')
 }
 
-async function handleSubmit() {
+async function handleSubmit(): Promise<void> {
   await formRef.value?.validate()
   loading.value = true
   try {
-    await authStore.login({ login: captcha.name })
+    await authStore.login({ login: captcha?.name ?? '' })
     window.$notification.success({ content: '欢迎回来！', title: '登录成功', duration: 3000 })
     routeStore.redirectFormLogin()
   } catch (e) {

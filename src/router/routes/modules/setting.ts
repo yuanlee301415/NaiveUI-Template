@@ -1,7 +1,8 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constants'
 import { Role } from '@/enum'
 
-export const settingRoutes = {
+export const settingRoutes: RouteRecordRaw = {
   path: '/setting',
   name: 'Setting',
   meta: {

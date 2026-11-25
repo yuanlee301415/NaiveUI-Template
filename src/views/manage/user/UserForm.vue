@@ -3,9 +3,11 @@
 -->
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, useTemplateRef } from 'vue'
+import type { FormInst, FormRules } from 'naive-ui'
 import { User } from '@/models/index'
 import { Gender, UsingStatus, OperationType } from '@/enum/index'
+import type { OperationTypeValue } from '@/enum/index'
 import { createUserApi, updateUserApi } from '@/api/user'
 import { useFormRules } from '@/hooks/index'
 
@@ -14,50 +16,33 @@ defineOptions({ name: 'UserForm' })
 const { createNickNameRules, createPhoneRules, createEmailRules, createRuleMessage } = useFormRules()
 const { loginNameMessage, nickNameMessage, phoneMessage, emailMessage } = createRuleMessage()
 
-const { user, operationType } = defineProps({
-  /**
-   * @type {User}
-   */
-  user: {
-    type: User,
-  },
+const { user, operationType } = defineProps<{
+  user: User | null
+  operationType: OperationTypeValue
+}>()
 
-  /**
-   * @type {OperationType}
-   */
-  operationType: {
-    type: String,
-  },
-})
-
-/**
- * @type {User}
- */
 const model = reactive(
   new User({
-    id: user.id,
-    login: user.login,
-    name: user.name,
-    phone: user.phone,
-    email: user.email,
-    gender: user.gender,
-    status: user.status,
+    id: user?.id,
+    login: user?.login,
+    name: user?.name,
+    phone: user?.phone,
+    email: user?.email,
+    gender: user?.gender,
+    status: user?.status,
   }),
 )
 
-/**
- * @type {Ref<HTMLFormElement | null>}
- */
-const formRef = ref()
+const formRef = useTemplateRef<FormInst>('formRef')
 
-const rules = {
+const rules: FormRules = {
   name: createNickNameRules(),
   phone: createPhoneRules(),
   email: createEmailRules(),
 }
 
 // 提交表单
-async function submit() {
+async function submit(): Promise<void> {
   await formRef.value?.validate()
   switch (operationType) {
     case OperationType.Add:

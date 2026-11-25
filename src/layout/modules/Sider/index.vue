@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import type { MenuOption } from 'naive-ui'
 import { useSvgIcon } from '@/hooks/index'
 import { router } from '@/router/index'
 import { useRouteStore, useAppStore } from '@/stores/index'
+import type { Menu } from '@/models/index'
 
 defineOptions({ name: 'LayoutSider' })
 
@@ -13,12 +15,12 @@ const { SvgIconVNode } = useSvgIcon()
 const appStore = useAppStore()
 
 // 生成菜单选项
-function genMenuOptions(menus, options = []) {
+function genMenuOptions(menus: Menu[], options: MenuOption[] = []): MenuOption[] {
   for (const _ of menus) {
-    const option = {
+    const option: MenuOption = {
       key: _.path,
       label: _.title,
-      icon: _.icon && SvgIconVNode({ icon: _.icon }),
+      icon: _.icon ? SvgIconVNode({ icon: _.icon }) : undefined,
     }
     if (_.children?.length) {
       option.children = genMenuOptions(_.children)
@@ -34,7 +36,7 @@ const menuOptions = computed(() => genMenuOptions(routeStore.menus))
 // 当前选中菜单
 const activeKey = computed(() => route.path)
 
-function handleClickMenu(path) {
+function handleClickMenu(path: string): void {
   router.push({ path })
 }
 </script>

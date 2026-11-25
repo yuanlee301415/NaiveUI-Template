@@ -1,15 +1,20 @@
 import { h } from 'vue'
 import { NButton, NFlex, NTag, NPopconfirm } from 'naive-ui'
+import type { DataTableColumns } from 'naive-ui'
 import { User } from '@/models/index'
 import { Gender, UsingStatus } from '@/enum/index'
 
+export interface CreateColumnsOptions {
+  /** 点击“编辑”按钮回调 */
+  handleEdit: (user: User) => void
+  /** 点击“删除”按钮回调 */
+  handleDelete: (user: User) => void | Promise<void>
+}
+
 /**
  * 生成表格列配置
- * @param {Function} handleEdit 点击“编辑”按钮回调
- * @param {Function} handleDelete 点击“删除”按钮回调
- * @return {DataTableColumns<User>}
  */
-export function createColumns({ handleEdit, handleDelete }) {
+export function createColumns({ handleEdit, handleDelete }: CreateColumnsOptions): DataTableColumns<User> {
   return [
     { type: 'selection', width: 50 },
     { title: 'ID', key: 'id', width: 60 },
@@ -64,7 +69,9 @@ export function createColumns({ handleEdit, handleDelete }) {
               h(
                 NPopconfirm,
                 {
-                  onPositiveClick: () => handleDelete(row),
+                  onPositiveClick: () => {
+                    void handleDelete(row)
+                  },
                 },
                 {
                   default: () => '确认删除？',
@@ -90,9 +97,7 @@ export function createColumns({ handleEdit, handleDelete }) {
 
 /**
  * 生成表格行 Key
- * @param {User} row
- * @return {User.id}
  */
-export function rowKey(row) {
+export function rowKey(row: User): string {
   return row.id
 }

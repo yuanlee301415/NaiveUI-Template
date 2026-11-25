@@ -2,20 +2,18 @@
  * 用户权限
  * */
 
+import type { RouteLocationRaw, Router } from 'vue-router'
 import { useAuthStore, useRouteStore } from '@/stores/index'
 import { LOGIN_ROUTE_NAME } from '@/router/constants'
 import { basicRoutes } from '@/router/routes/basic'
 import { getAuthToken } from '@/utils/authToken'
 
-export function createPermissionGuard(router) {
+export function createPermissionGuard(router: Router): void {
   const routeStore = useRouteStore()
 
   router.beforeEach(async (to) => {
-    // console.log('permission>to:\n', JSON.stringify({ path: to.path, name: to.name, meta: to.meta, params: to.params }, null, 2))
-
     // 页面无权限限制
     if (basicRoutes.some((_) => to.path.startsWith(_.path))) {
-      // console.warn('页面无权限限制:', to.path)
       return true
     }
 
@@ -24,23 +22,20 @@ export function createPermissionGuard(router) {
 
     // 未登录
     if (!token) {
-      // console.warn('未登录')
       return { name: LOGIN_ROUTE_NAME, query: { redirect: to.path } }
     }
 
     if (authStore.user.name) {
-      // console.warn('已授权')
       return true
     }
 
-    // console.warn('未授权')
+    // 未授权
     try {
       await authStore.getAuthUser()
-      routeStore.addDynamicRoutes(authStore.user.roles)
-      return { ...to, replace: true }
+      routeStore.addDynamicRoutes(authStore.user.roles ?? [])
+      return { ...to, replace: true } as RouteLocationRaw
     } catch (e) {
       console.error('[router.beforeEach]::\n', e)
-      // await authStore.logout()
       return false
     }
   })

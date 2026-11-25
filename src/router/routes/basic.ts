@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { loginRoutes } from '@/router/routes/modules/login'
 import { exceptionRoutes } from '@/router/routes/modules/exception'
 
@@ -5,4 +6,4 @@ import { exceptionRoutes } from '@/router/routes/modules/exception'
  * 应用基础路由
  * - 无权限限制
  * */
-export const basicRoutes = [loginRoutes, exceptionRoutes]
+export const basicRoutes: RouteRecordRaw[] = [loginRoutes, exceptionRoutes]

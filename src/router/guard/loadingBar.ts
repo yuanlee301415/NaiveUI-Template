@@ -2,7 +2,9 @@
  * 页面加载进度条
  * */
 
-export function createLoadingBarGuard(router) {
+import type { Router } from 'vue-router'
+
+export function createLoadingBarGuard(router: Router): void {
   router.beforeEach(() => {
     window.$loading.start()
   })

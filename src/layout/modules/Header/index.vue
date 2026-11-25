@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import type { DropdownOption } from 'naive-ui'
 import { useAuthStore, useAppStore } from '@/stores/index'
 import { LOGIN_ROUTE_NAME } from '@/router/constants'
 import SvgIcon from '@/components/SvgIcon/index.vue'
@@ -12,13 +13,14 @@ defineOptions({ name: 'LayoutHeader' })
 
 const KEYS = {
   LOGOUT: 'logout',
-}
+} as const
+
 const authStore = useAuthStore()
 const router = useRouter()
 const { SvgIconVNode } = useSvgIcon()
 const appStore = useAppStore()
 
-const options = [
+const options: DropdownOption[] = [
   {
     label: '退出登录',
     key: KEYS.LOGOUT,
@@ -26,20 +28,19 @@ const options = [
   },
 ]
 
-function logout() {
+function logout(): void {
   window.$dialog.info({
     title: '提示',
     content: '确定退出登录吗？',
     positiveText: '确认',
     negativeText: '取消',
     onPositiveClick() {
-      authStore.logout()
+      void authStore.logout()
     },
   })
 }
 
-function handleSelect(key) {
-  console.log(key)
+function handleSelect(key: string | number): void {
   switch (key) {
     case KEYS.LOGOUT:
       logout()

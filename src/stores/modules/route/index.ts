@@ -4,49 +4,58 @@
 
 import { defineStore } from 'pinia'
 import { useRoute } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import type { Ref } from 'vue'
 import { ref } from 'vue'
 
 import { router } from '@/router'
 import { StoreId } from '@/enum/index'
+import type { RoleType } from '@/enum/index'
 import { dynamicRoutes, staticRoutes } from '@/router/routes'
 import { HOME_ROUTE_NAME, LOGIN_ROUTE_NAME } from '@/router/constants'
 import { filterAsyncRoutes, genMenus } from '../../shared'
+import type { Menu } from '@/models/index'
 
 /**
  * 添加的动态路由
- * @type {RouteLocation[]}
  */
-let addRoutes = []
+let addRoutes: RouteRecordRaw[] = []
 
 /**
  * 添加的动态路由记录
- * @type {Function[]}
  */
-const removeRouteFns = []
+const removeRouteFns: (() => void)[] = []
 
-export const useRouteStore = defineStore(StoreId.Route, () => {
+interface RouteStoreSetup {
+  menus: Ref<Menu[]>
+  toLogin(): void
+  redirectFormLogin(): void
+  addDynamicRoutes(roles: RoleType[]): void
+  resetRoutes(): void
+}
+
+export const useRouteStore = defineStore(StoreId.Route, (): RouteStoreSetup => {
   const route = useRoute()
 
   /**
    * 菜单列表
-   * @type {Menu[]}
    */
-  const menus = ref([])
+  const menus = ref<Menu[]>([])
 
   getMenus()
 
-  function toLogin() {
+  function toLogin(): void {
     router.push({ name: LOGIN_ROUTE_NAME, query: { redirect: route.path } })
   }
 
-  function toHome() {
+  function toHome(): void {
     router.push({ name: HOME_ROUTE_NAME })
   }
 
-  function redirectFormLogin() {
+  function redirectFormLogin(): void {
     const { redirect } = route.query
     if (redirect) {
-      router.push(redirect)
+      router.push(String(redirect))
     } else {
       toHome()
     }
@@ -54,20 +63,18 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
 
   /**
    * 添加动态路由
-   * @param {Role[]} roles 用户角色列表
+   * @param roles 用户角色列表
    */
-  function addDynamicRoutes(roles) {
+  function addDynamicRoutes(roles: RoleType[]): void {
     addRoutes = filterAsyncRoutes(roles, dynamicRoutes)
-    // console.log('addDynamicRoutes>addRoutes:', addRoutes)
     addRoutes.forEach((route) => {
       removeRouteFns.push(router.addRoute(route))
     })
     getMenus()
-    // console.log('addDynamicRoutes>routes:', router.getRoutes())
   }
 
   // 清空添加的动态路由
-  function resetRoutes() {
+  function resetRoutes(): void {
     while (removeRouteFns.length) {
       removeRouteFns.pop()?.()
     }
@@ -76,14 +83,13 @@ export const useRouteStore = defineStore(StoreId.Route, () => {
   /**
    * 获取菜单列表
    */
-  function getMenus() {
+  function getMenus(): void {
     menus.value = genMenus([...staticRoutes, ...addRoutes])
   }
 
   return {
     menus,
     toLogin,
-    // toHome,
     redirectFormLogin,
     addDynamicRoutes,
     resetRoutes,

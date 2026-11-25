@@ -3,27 +3,43 @@
 -->
 
 <script setup lang="ts">
-import { User } from '@/models'
+import type { SelectOption } from 'naive-ui'
+import { User, UserParams } from '@/models/index'
 import { UsingStatus, Gender } from '@/enum/index'
 
 defineOptions({ name: 'UserSearch' })
 
-defineProps({
-  loading: Boolean,
-})
+withDefaults(
+  defineProps<{
+    loading?: boolean
+  }>(),
+  {
+    loading: false,
+  },
+)
 
-/**
- * @type {UserParams}
- */
-const model = defineModel('params', { required: true })
+const model = defineModel<UserParams>('params', { required: true })
 
 /**
  * 事件
  * - search: 搜索
  * - reset: 重置搜索条件
- * @type {EmitFn<('search' | 'reset')[]>}
  */
-const emit = defineEmits(['search', 'reset'])
+const emit = defineEmits<{
+  search: []
+  reset: []
+}>()
+
+const statusOptions: SelectOption[] = [...UsingStatus].map(({ value, label }) => ({ value, label }))
+const genderOptions: SelectOption[] = [...Gender].map(({ value, label }) => ({ value, label }))
+
+function onUpdateStatus(value: string | number | null): void {
+  model.value.status = value === null ? null : (Number(value) as UserParams['status'])
+}
+
+function onUpdateGender(value: string | number | null): void {
+  model.value.gender = value === null ? null : (Number(value) as UserParams['gender'])
+}
 </script>
 
 <template>
@@ -47,11 +63,11 @@ const emit = defineEmits(['search', 'reset'])
         </n-form-item-gi>
 
         <n-form-item-gi span="24 sm:12 m:6" path="status" :label="User.STATUS_LABEL">
-          <n-select v-model:value="model.status" :options="[...UsingStatus]" clearable />
+          <n-select :value="model.status" :options="statusOptions" clearable @update:value="onUpdateStatus" />
         </n-form-item-gi>
 
         <n-form-item-gi span="24 sm:12 m:6" path="gender" :label="User.GENDER_LABEL">
-          <n-select v-model:value="model.gender" :options="[...Gender]" clearable />
+          <n-select :value="model.gender" :options="genderOptions" clearable @update:value="onUpdateGender" />
         </n-form-item-gi>
 
         <n-form-item-gi span="24 sm:12 m:12">

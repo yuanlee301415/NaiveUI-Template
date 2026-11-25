@@ -1,6 +1,7 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Layout, NOT_FOUND_PAGE } from '@/router/constants'
 
-export const exceptionRoutes = {
+export const exceptionRoutes: RouteRecordRaw = {
   path: '/exception',
   name: 'Exception',
   meta: {

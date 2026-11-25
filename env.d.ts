@@ -1,5 +1,4 @@
 /// <reference types="vite/client" />
-/// <reference types="vite-plugin-svg-icons/client" />
 
 interface ImportMetaEnv {
   /** 应用标题 */
@@ -29,3 +28,6 @@ declare const __APP_VERSION__: string
 declare const __APP_BUILD_TIME__: string
 
 declare module 'virtual:uno.css'
+
+// vite-plugin-svg-icons 的虚拟模块（该包未通过 exports 暴露 client.d.ts，这里直接声明）
+declare module 'virtual:svg-icons-register'

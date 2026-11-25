@@ -3,41 +3,79 @@
  * */
 
 import { toValue } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
+import type { FormItemRule } from 'naive-ui'
 import { PHONE_REG, EMAIL_REG, CODE_FOUR_REG, PWD_REG, LOGIN_NAME_REG, USER_NAME_REG } from '@/constants/reg'
 
-const phoneMessage = {
+export interface RuleMessagePair {
+  requiredMessage: string
+  patternMessage: string
+}
+
+const phoneMessage: RuleMessagePair = {
   requiredMessage: '请输入手机号',
   patternMessage: '手机号格式错误',
 }
 
-const codeFourMessage = {
+const codeFourMessage: RuleMessagePair = {
   requiredMessage: '请输入验证码',
   patternMessage: '验证码格式错误，4位数字',
 }
 
-const loginNameMessage = {
+const loginNameMessage: RuleMessagePair = {
   requiredMessage: '请输入用户名',
   patternMessage: '用户名格式错误，3-20位字符，包含小写字母、数字',
 }
 
-const nickNameMessage = {
+const nickNameMessage: RuleMessagePair = {
   requiredMessage: '请输入昵称',
   patternMessage: '昵称格式错误，4-16位字符，包含汉字、大小写字母、数字、中划线、下划线',
 }
 
-const passwordMessage = {
+const passwordMessage: RuleMessagePair = {
   requiredMessage: '请输入密码',
   patternMessage: '密码格式错误，6-18位字符，包含大小写字母、数字、下划线',
 }
 
-const confirmPasswordMessage = {
+const confirmPasswordMessage: RuleMessagePair = {
   requiredMessage: '请再次输入密码',
   patternMessage: '再次密码不一致',
 }
 
-const emailMessage = {
+const emailMessage: RuleMessagePair = {
   requiredMessage: '请输入邮箱地址',
   patternMessage: '邮箱格式错误',
+}
+
+export interface BaseRuleOptions {
+  /** 是否必填 */
+  required?: boolean
+  /** 必填提示信息 */
+  requiredMessage?: string
+  /** 字段 Key（用于按字段校验） */
+  key?: string
+}
+
+export interface PatternRuleOptions extends BaseRuleOptions {
+  /** 格式提示信息 */
+  patternMessage?: string
+  /** 触发方式 */
+  trigger?: string
+}
+
+export interface ConfirmPasswordRuleOptions extends PatternRuleOptions {
+  /** 需要比对的原密码 */
+  password?: MaybeRefOrGetter<string>
+}
+
+export interface RuleMessages {
+  phoneMessage: RuleMessagePair
+  codeFourMessage: RuleMessagePair
+  loginNameMessage: RuleMessagePair
+  nickNameMessage: RuleMessagePair
+  passwordMessage: RuleMessagePair
+  confirmPasswordMessage: RuleMessagePair
+  emailMessage: RuleMessagePair
 }
 
 export function useFormRules() {
@@ -48,8 +86,8 @@ export function useFormRules() {
     patternMessage = phoneMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createPatternRule({ pattern: PHONE_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createPatternRule({ pattern: PHONE_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
@@ -61,8 +99,8 @@ export function useFormRules() {
     patternMessage = codeFourMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createCodePatternRule({ pattern: CODE_FOUR_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createCodePatternRule({ pattern: CODE_FOUR_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createCodeRequiredRule({ required, requiredMessage, key }))
     return rules
   }
@@ -74,8 +112,8 @@ export function useFormRules() {
     patternMessage = loginNameMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createPatternRule({ pattern: LOGIN_NAME_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createPatternRule({ pattern: LOGIN_NAME_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
@@ -87,8 +125,8 @@ export function useFormRules() {
     patternMessage = passwordMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createPatternRule({ pattern: PWD_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createPatternRule({ pattern: PWD_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
@@ -100,8 +138,8 @@ export function useFormRules() {
     patternMessage = emailMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createPatternRule({ pattern: EMAIL_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createPatternRule({ pattern: EMAIL_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
@@ -114,12 +152,11 @@ export function useFormRules() {
     trigger = 'input',
     key,
     password,
-  } = {}) {
-    const rules = [
+  }: ConfirmPasswordRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [
       {
-        asyncValidator(rule, value) {
+        asyncValidator: async (rule, value: string) => {
           if (value && value !== toValue(password)) return Promise.reject(rule.message)
-          return Promise.resolve()
         },
         message: patternMessage,
         trigger,
@@ -137,20 +174,16 @@ export function useFormRules() {
     patternMessage = nickNameMessage.patternMessage,
     trigger = 'change',
     key,
-  } = {}) {
-    const rules = [createPatternRule({ pattern: USER_NAME_REG, patternMessage, trigger, key })]
+  }: PatternRuleOptions = {}): FormItemRule[] {
+    const rules: FormItemRule[] = [createPatternRule({ pattern: USER_NAME_REG, patternMessage, trigger, key })]
     if (required) rules.unshift(createRequiredRule({ required, requiredMessage, key }))
     return rules
   }
 
   /**
    * 必填
-   * @param {boolean} required 是否必填
-   * @param {string} requiredMessage 提示信息
-   * @param {string} key 字段 Key
-   * @return {{message, required, key}}
    */
-  function createRequiredRule({ required, requiredMessage, key }) {
+  function createRequiredRule({ required, requiredMessage, key }: { required: boolean; requiredMessage: string; key?: string }): FormItemRule {
     return {
       message: requiredMessage,
       required,
@@ -160,13 +193,18 @@ export function useFormRules() {
 
   /**
    * 格式
-   * @param {RegExp} pattern 正则
-   * @param {string} patternMessage 提示信息
-   * @param {string} trigger 触发方式
-   * @param {string} key 字段 Key
-   * @return {{pattern, trigger, message, key}}
    */
-  function createPatternRule({ pattern, patternMessage, trigger, key }) {
+  function createPatternRule({
+    pattern,
+    patternMessage,
+    trigger,
+    key,
+  }: {
+    pattern: RegExp
+    patternMessage: string
+    trigger: string
+    key?: string
+  }): FormItemRule {
     return {
       message: patternMessage,
       pattern,
@@ -177,17 +215,13 @@ export function useFormRules() {
 
   /**
    * 验证码 必填
-   * @param {boolean} required 是否必填
-   * @param {string} requiredMessage 提示信息
-   * @param {string} key 字段 Key
-   * @return {{validator, required, key}}
    */
-  function createCodeRequiredRule({ required, requiredMessage, key }) {
+  function createCodeRequiredRule({ required, requiredMessage, key }: { required: boolean; requiredMessage: string; key?: string }): FormItemRule {
     return {
       message: requiredMessage,
       required,
       key,
-      validator(_, value) {
+      validator: (_rule, value: string[] | null) => {
         if (value === null || value === void 0) return false
         return value.filter(Boolean).length !== 0
       },
@@ -196,18 +230,23 @@ export function useFormRules() {
 
   /**
    * 验证码 格式
-   * @param {RegExp} pattern 正则
-   * @param {string} patternMessage 提示信息
-   * @param {string} trigger 触发方式
-   * @param {string} key 字段 Key
-   * @return {{validator, trigger, message, key}}
    */
-  function createCodePatternRule({ pattern, patternMessage, trigger, key }) {
+  function createCodePatternRule({
+    pattern,
+    patternMessage,
+    trigger,
+    key,
+  }: {
+    pattern: RegExp
+    patternMessage: string
+    trigger: string
+    key?: string
+  }): FormItemRule {
     return {
       message: patternMessage,
       trigger,
       key,
-      validator(_, value) {
+      validator: (_rule, value: string[]) => {
         if (value.filter(Boolean).length === 0) return true
         return pattern.test(value.join(''))
       },
@@ -215,7 +254,7 @@ export function useFormRules() {
   }
 
   // 提示信息
-  function createRuleMessage() {
+  function createRuleMessage(): RuleMessages {
     return {
       phoneMessage: { ...phoneMessage },
       codeFourMessage: { ...codeFourMessage },

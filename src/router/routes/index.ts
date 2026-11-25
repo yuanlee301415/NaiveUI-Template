@@ -1,3 +1,4 @@
+import type { RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/home/index.vue'
 import { Layout, HOME_ROUTE_NAME, NOT_FOUND_ROUTE_NAME, NOT_FOUND_PAGE } from '@/router/constants'
 import { Role } from '@/enum'
@@ -13,7 +14,7 @@ import { naiveRoutes } from '@/router/routes/modules/naive'
  * 静态路由
  * - 所有角色公共路由
  * */
-export const staticRoutes = [
+export const staticRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'HomeRoot',
@@ -55,7 +56,7 @@ export const staticRoutes = [
  * 动态路由
  * - 有权限限制，根据用户角色动态添加
  * */
-export const dynamicRoutes = [
+export const dynamicRoutes: RouteRecordRaw[] = [
   functionRoutes,
 
   {

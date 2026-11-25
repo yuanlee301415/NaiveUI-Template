@@ -10,11 +10,22 @@ import { useRouteStore } from '@/stores/index'
 import { AuthUser } from '@/models/AuthUser'
 import { getAuthToken, setAuthToken, removeAuthToken } from '@/utils/authToken'
 
-export const useAuthStore = defineStore(StoreId.Auth, () => {
+export interface LoginPayload {
+  login: string
+}
+
+interface AuthStoreSetup {
+  user: AuthUser
+  login(payload: LoginPayload): Promise<void>
+  logout(): Promise<void>
+  getAuthUser(): Promise<AuthUser>
+  resetStore(): void
+}
+
+export const useAuthStore = defineStore(StoreId.Auth, (): AuthStoreSetup => {
   const user = reactive(
     new AuthUser({
       id: '',
-      login: '',
       name: '',
       roles: null,
     }),
@@ -23,26 +34,26 @@ export const useAuthStore = defineStore(StoreId.Auth, () => {
   const authStore = useAuthStore()
   const routeStore = useRouteStore()
 
-  async function login({ login }) {
+  async function login({ login }: LoginPayload): Promise<void> {
     const res = await loginApi(login)
     setAuthToken(res.token)
     routeStore.resetRoutes()
   }
 
-  async function logout() {
+  async function logout(): Promise<void> {
     removeAuthToken()
     resetStore()
     routeStore.toLogin()
   }
 
-  async function getAuthUser() {
+  async function getAuthUser(): Promise<AuthUser> {
     const token = getAuthToken()
     Object.assign(user, new AuthUser(await getAuthUserApi(token)))
     console.log('getAuthUser>user:', user)
     return user
   }
 
-  function resetStore() {
+  function resetStore(): void {
     authStore.$reset()
   }
 

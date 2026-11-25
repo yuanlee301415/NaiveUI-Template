@@ -1,7 +1,8 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constants'
 import { Role } from '@/enum'
 
-export const functionRoutes = {
+export const functionRoutes: RouteRecordRaw = {
   path: '/function',
   name: 'Function',
   meta: {

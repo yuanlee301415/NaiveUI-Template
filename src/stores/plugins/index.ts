@@ -1,11 +1,12 @@
 /*
  * 重置 State 插件
  * */
+import type { PiniaPluginContext } from 'pinia'
 import { StoreId } from '@/enum/index'
 import { cloneJson } from '@/utils/cloneJson'
 
-export function resetSetupStore(context) {
-  const ids = Object.values(StoreId)
+export function resetSetupStore(context: PiniaPluginContext): void {
+  const ids: string[] = Object.values(StoreId)
 
   if (!ids.includes(context.store.$id)) return
 

@@ -1,53 +1,55 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Menu } from '@/models/index'
+import type { RoleType } from '@/enum'
 
 /**
  * 路由权限判断
  * - 路由没有配置 `roles` 字段，则表示此路由无权限限制
  * - 如果用户角色存在路由 `roles`，则表示有权限访问，否则无权限
- * @param {Role[]} roles 用户角色
- * @param {RouteLocation} route 路由
- * @return {boolean} 是否有权限
+ * @param roles 用户角色
+ * @param route 路由
+ * @return 是否有权限
  */
-export function hasPermission(roles, route) {
-  if (!route.meta?.roles) return true
-  return route.meta.roles.some((_) => roles.includes(_))
+export function hasPermission(roles: RoleType[], route: RouteRecordRaw): boolean {
+  const requiredRoles = route.meta?.roles
+  if (!requiredRoles) return true
+  return requiredRoles.some((_) => roles.includes(_))
 }
 
 /**
  * 过滤路由
- * @param {Role[]} roles 用户角色
- * @param {RouteLocation[]} routes 路由列表
- * @return {RouteLocation[]} 路由列表
+ * @param roles 用户角色
+ * @param routes 路由列表
+ * @return 路由列表
  */
-export function filterAsyncRoutes(roles, routes) {
-  function _(routes) {
-    const ret = []
-    if (!routes) return
+export function filterAsyncRoutes(roles: RoleType[], routes: RouteRecordRaw[]): RouteRecordRaw[] {
+  function filter(routes?: RouteRecordRaw[]): RouteRecordRaw[] | undefined {
+    const ret: RouteRecordRaw[] = []
+    if (!routes) return undefined
     for (const route of routes) {
-      const temp = { ...route, children: null }
       if (hasPermission(roles, route)) {
-        temp.children = _(route.children)
-        ret.push(temp)
+        const temp = { ...route, children: filter(route.children) }
+        ret.push(temp as RouteRecordRaw)
       }
     }
     return ret
   }
 
-  return _(routes)
+  return filter(routes) ?? []
 }
 
 /**
  * 生成菜单
- * @param {RouteLocation[]} routes 路由列表
- * @param {string} [path]
- * @param {number} [depth] 嵌套深度
- * @param {Menu[]} [result] 缓存的中间结果
- * @return {Menu[]} 菜单列表
+ * @param routes 路由列表
+ * @param path 父级路径
+ * @param depth 嵌套深度
+ * @param result 缓存的中间结果
+ * @return 菜单列表
  */
-export function genMenus(routes, path = '', depth = 1, result = []) {
+export function genMenus(routes: RouteRecordRaw[], path = '', depth = 1, result: Menu[] = []): Menu[] {
   for (const route of routes) {
     // 没有 `title`
-    if (!route?.meta?.title) continue
+    if (!route.meta?.title) continue
 
     // 子路由全部无权限
     if (route.children?.length === 0) continue

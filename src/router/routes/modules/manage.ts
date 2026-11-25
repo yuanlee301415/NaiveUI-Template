@@ -1,7 +1,8 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constants'
 import { Role } from '@/enum'
 
-export const manageRoutes = {
+export const manageRoutes: RouteRecordRaw = {
   path: '/manage',
   name: 'Manage',
   meta: {

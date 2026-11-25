@@ -1,6 +1,7 @@
+import type { RouteRecordRaw } from 'vue-router'
 import { Layout } from '@/router/constants'
 
-export const testRoutes = {
+export const testRoutes: RouteRecordRaw = {
   path: '/test',
   name: 'Test',
   meta: {
