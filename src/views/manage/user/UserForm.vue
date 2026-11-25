@@ -2,6 +2,14 @@
 用户表单
 -->
 
+<script lang="ts">
+/** UserForm 通过 `defineExpose` 暴露给父组件的方法 */
+export interface UserFormExpose {
+  /** 校验并提交表单 */
+  submit(): Promise<void>
+}
+</script>
+
 <script setup lang="ts">
 import { reactive, useTemplateRef } from 'vue'
 import type { FormInst, FormRules } from 'naive-ui'
@@ -55,7 +63,7 @@ async function submit(): Promise<void> {
   window.$message.success(operationType + '用户成功！')
 }
 
-defineExpose({
+defineExpose<UserFormExpose>({
   submit,
 })
 </script>

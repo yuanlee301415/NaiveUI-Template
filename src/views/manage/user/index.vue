@@ -14,6 +14,7 @@ import TableHeaderOperation from '@/components/TableHeaderOperation/index.vue'
 import { createColumns, rowKey } from './shared'
 import UserSearch from './UserSearch.vue'
 import UserFrom from './UserForm.vue'
+import type { UserFormExpose } from './UserForm.vue'
 
 defineOptions({ name: 'ManageUser' })
 
@@ -30,7 +31,7 @@ const columns: DataTableColumns<User> = createColumns({ handleEdit, handleDelete
 /**
  * 用户表单
  */
-const userFormRef = useTemplateRef<{ submit(): Promise<void> }>('userFormRef')
+const userFormRef = useTemplateRef<UserFormExpose>('userFormRef')
 
 /**
  * 选中列 Key 列表
@@ -215,13 +216,7 @@ function onUpdateSorter(sorter: DataTableSortState | DataTableSortState[] | null
 
     <n-card title="用户管理" segmented class="flex-1 overflow-hidden">
       <template #header-extra>
-        <TableHeaderOperation
-          :loading="search.loading"
-          :disabled-delete="!checkedRowKeys.length"
-          @add="onAdd"
-          @batch-delete="onBatchDelete"
-          @refresh="onRefresh"
-        />
+        <TableHeaderOperation :loading="search.loading" :disabled-delete="!checkedRowKeys.length" @add="onAdd" @batch-delete="onBatchDelete" @refresh="onRefresh" />
       </template>
       <n-data-table
         :columns="columns"

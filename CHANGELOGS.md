@@ -514,6 +514,31 @@
 - 403/404 视觉不变：插画仍为 500×500（原 `text-500px` 的 svg 1em 尺寸），仅由内联 `<svg>` 改为 `<img>`。
 - 后续如需进一步压缩首屏，可考虑把 `avatar.svg` 也移出 sprite（当前仅 2.8KB gzip，暂不处理）。
 
+## 类型收口：步骤 16
+
+> 第四轮第三项（计划中的 B2）。范围：把 `UserForm` 的暴露契约收敛为具名类型并让父组件复用；仅类型层改动，无运行时变化。
+
+### 变更
+
+- `src/views/manage/user/UserForm.vue`
+  - 新增独立 `<script lang="ts">` 块，导出 `UserFormExpose`（`submit(): Promise<void>`）；
+  - `defineExpose({ submit })` → `defineExpose<UserFormExpose>({ submit })`，实现与接口不一致时在编译期报错。
+  - 未选择在 `<script setup>` 内直接 `export interface`：本仓库 `@vue/compiler-sfc@3.5.46` 虽允许类型导出，但 `@vue/language-core@3.3.14` 会把 `<script setup>` 内容包进 `__VLS_setup = (async () => { … })()`，模块级具名类型不可靠；独立 `<script>` 块是 SFC 标准模块导出。
+- `src/views/manage/user/index.vue`
+  - 新增 `import type { UserFormExpose } from './UserForm.vue'`（`verbatimModuleSyntax: true` 下必须用 `import type`）；
+  - `useTemplateRef<{ submit(): Promise<void> }>('userFormRef')` → `useTemplateRef<UserFormExpose>('userFormRef')`，去掉与组件重复的暴露契约。
+- `README.md`：编码约定新增「组件暴露类型」一条（独立 `<script>` 导出 + `defineExpose<T>` + 父组件 `useTemplateRef<T>`）。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm check` | lint:check 0 问题、type-check 0 错误、8 文件 / 37 用例通过 |
+| 反向验证 | 临时把调用改为 `userFormRef.value?.notExist()` → `error TS2339: Property 'notExist' does not exist on type 'UserFormExpose'`；还原后 0 错误，证明父组件确实使用了导出的类型 |
+| `pnpm exec eslint src/views/manage/user --max-warnings 0` | 退出码 0（`vue/no-export-in-script-setup` 未误报独立脚本块） |
+| `pnpm exec vite build` | 成功（约 5.7s）；产物中 `UserFormExpose` 出现 **0** 次（类型导入/导出已被擦除，无运行时开销） |
+| Prettier | 本次新增行无格式问题；`index.vue` 仍存在与本次无关的既有格式差异（printWidth 250 下多行标签可合并），未顺带重排 |
+
 ## 改造完成总结
 
 > 第二轮「工程化优化」见上文步骤 8–12。

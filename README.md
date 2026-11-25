@@ -26,6 +26,7 @@
   - `auto-imports.d.ts`、`components.d.ts`：由 `unplugin-auto-import` / `unplugin-vue-components` 生成，**不入库**（见 `.gitignore`）。缺失时执行 `pnpm types:gen`；`pnpm type-check` 会自动先生成。
 - `jsconfig.json` 保留，仅用于纯 JS 编辑器提示；VS Code 在根目录存在 `tsconfig.json` 时以 TS 配置为准。
 - 编码约定：`<script setup lang="ts">`；props/emits/model 使用类型式宏；模板引用使用 `useTemplateRef<T>()`；避免 `any`。
+- 组件暴露类型：子组件用独立 `<script lang="ts">` 块 `export interface XxxExpose`，并在 `defineExpose<XxxExpose>` 中约束；父组件 `import type { XxxExpose } from './Xxx.vue'` 后以 `useTemplateRef<XxxExpose>()` 复用，避免手写重复的暴露契约。
 
 ## 构建插件
 - `html.ts`：以 Vite `transformIndexHtml` 注入 `<meta name="release">`（不再压缩 HTML）；
