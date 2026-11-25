@@ -6,6 +6,7 @@ export const testRoutes: RouteRecordRaw = {
   name: 'Test',
   meta: {
     title: 'Test',
+    icon: 'i-mdi:ab-testing',
   },
   component: Layout,
   children: [

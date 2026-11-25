@@ -25,6 +25,7 @@ export default defineConfig({
     'i-mdi:home-outline',
     'i-mdi:account-outline',
     'i-mdi:information-slab-circle-outline',
+    'i-mdi:ab-testing',
     'i-mdi:alpha-n-box-outline',
     'i-mdi:reorder-horizontal',
     'i-mdi:timer-sand-complete',
