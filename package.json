@@ -15,10 +15,11 @@
     "build": "vite build",
     "preview": "vite build && vite preview",
     "preview:dist": "vite preview",
+    "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/",
+    "format": "prettier --write src/",
     "server": "npx json-server server/db.json5 --port 3001",
-    "ver": "node build/scripts/update-internal-version.js",
+    "ver": "tsx build/scripts/update-internal-version.ts",
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
@@ -66,7 +67,7 @@
   "lint-staged": {
     "*.{vue,js,ts,mts,tsx}": [
       "eslint . --fix --cache",
-      "prettier --write --experimental-cli src/"
+      "prettier --write src/"
     ]
   },
   "simple-git-hooks": {

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Header from './modules/Header/index.vue'
 import Sider from './modules/Sider/index.vue'
 

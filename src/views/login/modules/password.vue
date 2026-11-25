@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore, useRouteStore } from '@/stores/index.js'
-import { useFormRules } from '@/hooks/index.js'
-import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants.js'
-import { noSideSpace } from '@/utils/naiveUI.js'
+import { useAuthStore, useRouteStore } from '@/stores/index'
+import { useFormRules } from '@/hooks/index'
+import { LOGIN_CODE_ROUTE_NAME, LOGIN_REGISTER_ROUTE_NAME } from '@/router/constants'
+import { noSideSpace } from '@/utils/naiveUI'
 
 defineOptions({ name: 'PasswordLogin' })
 

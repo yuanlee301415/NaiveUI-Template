@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineOptions({ name: 'NestedC1-1' })
 </script>
 

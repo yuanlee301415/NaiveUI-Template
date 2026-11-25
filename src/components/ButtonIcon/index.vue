@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { twMerge } from 'tailwind-merge'
 
 defineOptions({ name: 'ButtonIcon', inheritAttrs: false })

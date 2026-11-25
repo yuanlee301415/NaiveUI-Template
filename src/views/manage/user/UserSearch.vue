@@ -2,9 +2,9 @@
 用户搜索
 -->
 
-<script setup>
+<script setup lang="ts">
 import { User } from '@/models'
-import { UsingStatus, Gender } from '@/enum/index.js'
+import { UsingStatus, Gender } from '@/enum/index'
 
 defineOptions({ name: 'UserSearch' })
 

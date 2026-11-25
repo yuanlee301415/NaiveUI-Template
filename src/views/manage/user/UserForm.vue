@@ -2,12 +2,12 @@
 用户表单
 -->
 
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { User } from '@/models/index.js'
-import { Gender, UsingStatus, OperationType } from '@/enum/index.js'
-import { createUserApi, updateUserApi } from '@/api/user.js'
-import { useFormRules } from '@/hooks/index.js'
+import { User } from '@/models/index'
+import { Gender, UsingStatus, OperationType } from '@/enum/index'
+import { createUserApi, updateUserApi } from '@/api/user'
+import { useFormRules } from '@/hooks/index'
 
 defineOptions({ name: 'UserForm' })
 

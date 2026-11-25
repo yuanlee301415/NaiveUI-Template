@@ -1,5 +1,5 @@
-<script setup>
-import { useAuthStore } from '@/stores/index.js'
+<script setup lang="ts">
+import { useAuthStore } from '@/stores/index'
 
 defineOptions({ name: 'UserIndex' })
 

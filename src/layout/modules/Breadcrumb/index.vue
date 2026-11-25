@@ -1,10 +1,10 @@
 <!--
 面包屑 组件
 -->
-<script setup>
+<script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
-import { Breadcrumb } from './shared.js'
+import { Breadcrumb } from './shared'
 
 defineOptions({ name: 'LayoutBreadcrumb' })
 

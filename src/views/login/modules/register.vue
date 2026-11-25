@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { getCaptchaApi } from '@/api/rights.js'
-import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants.js'
-import { useFormRules, useCountdown } from '@/hooks/index.js'
-import { noSideSpace } from '@/utils/naiveUI.js'
+import { getCaptchaApi } from '@/api/rights'
+import { LOGIN_PASSWORD_ROUTE_NAME, LOGIN_CODE_ROUTE_NAME } from '@/router/constants'
+import { useFormRules, useCountdown } from '@/hooks/index'
+import { noSideSpace } from '@/utils/naiveUI'
 
 // eslint-disable-next-line vue/multi-word-component-names
 defineOptions({ name: 'Register' })

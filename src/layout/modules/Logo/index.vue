@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineOptions({ name: 'LayoutLogo' })
 
 const NAME = import.meta.env.VITE_APP_TITLE

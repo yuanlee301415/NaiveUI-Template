@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { HOME_ROUTE_NAME } from '@/router/constants.js'
+import { HOME_ROUTE_NAME } from '@/router/constants'
 
 defineOptions({ name: 'Exception_404' })
 

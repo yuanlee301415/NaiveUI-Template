@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { useAuthStore, useAppStore } from '@/stores/index.js'
-import { LOGIN_ROUTE_NAME } from '@/router/constants.js'
+import { useAuthStore, useAppStore } from '@/stores/index'
+import { LOGIN_ROUTE_NAME } from '@/router/constants'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { useSvgIcon } from '@/hooks/index.js'
+import { useSvgIcon } from '@/hooks/index'
 import Logo from '../Logo/index.vue'
 import MenuToggler from '@/components/MenuToggler/index.vue'
 import Breadcrumb from '../Breadcrumb/index.vue'

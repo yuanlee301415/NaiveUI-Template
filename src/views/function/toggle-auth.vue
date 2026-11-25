@@ -1,8 +1,8 @@
-<script setup>
-import { useAuthStore, useRouteStore } from '@/stores/index.js'
+<script setup lang="ts">
+import { useAuthStore, useRouteStore } from '@/stores/index'
 import { Role } from '@/enum'
-import { removeAuthToken } from '@/utils/authToken.js'
-import { usePermission } from '@/hooks/index.js'
+import { removeAuthToken } from '@/utils/authToken'
+import { usePermission } from '@/hooks/index'
 
 defineOptions({ name: 'ToggleAuth' })
 

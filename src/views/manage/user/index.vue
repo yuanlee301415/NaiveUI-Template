@@ -2,14 +2,14 @@
 用户管理
 -->
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, shallowRef } from 'vue'
 import { NFlex } from 'naive-ui'
-import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user.js'
-import { User, DataTablePaginationBasicConfig, DataTableSorter } from '@/models/index.js'
-import { OperationType } from '@/enum/index.js'
+import { getUsersApi, deleteUserApi, batchDeleteUserApi } from '@/api/user'
+import { User, UserParams, DataTablePaginationBasicConfig, DataTableSorter } from '@/models/index'
+import { OperationType } from '@/enum/index'
 import TableHeaderOperation from '@/components/TableHeaderOperation/index.vue'
-import { createColumns, rowKey } from './shared.js'
+import { createColumns, rowKey } from './shared'
 import UserSearch from './UserSearch.vue'
 import UserFrom from './UserForm.vue'
 
@@ -50,7 +50,7 @@ const search = reactive({
    * 查询参数
    * @type {User.UserParams}
    */
-  params: new User.UserParams(),
+  params: new UserParams(),
 
   /**
    * 排序
@@ -150,7 +150,7 @@ function onSearch() {
 
 // 重置搜索条件
 function onReset() {
-  search.params = new User.UserParams()
+  search.params = new UserParams()
 }
 
 // 打开新增弹窗

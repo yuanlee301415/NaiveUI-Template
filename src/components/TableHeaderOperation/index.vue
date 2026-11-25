@@ -4,7 +4,7 @@ DataTable 表头操作
 - 批量删除
 - 刷新
 -->
-<script setup>
+<script setup lang="ts">
 defineOptions({ name: 'TableHeaderOperation' })
 
 defineProps({

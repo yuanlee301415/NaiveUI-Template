@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import ButtonIcon from '@/components/ButtonIcon/index.vue'
 

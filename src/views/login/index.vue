@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import WaveBg from '@/components/WaveBg/index.vue'
 
 defineOptions({ name: 'LoginIndex' })
