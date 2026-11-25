@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { HOME_ROUTE_NAME } from '@/router/constants'
+import notFoundUrl from '@/assets/images/not-found.svg?url'
 
 defineOptions({ name: 'ExceptionPage404' })
 
@@ -9,10 +10,11 @@ const router = useRouter()
 
 <template>
   <n-layout style="height: 100%">
-    <n-el tag="div" style="color: var(--base-color)" class="size-full flex-center">
+    <n-el tag="div" class="size-full flex-center">
       <n-result title="404" description="资源不存在">
         <template #icon>
-          <SvgIcon local-icon="not-found" class="text-500px" />
+          <!-- 插画体积较大，作为独立资源按需加载，不进入首屏 SVG sprite -->
+          <img :src="notFoundUrl" alt="资源不存在" class="w-500px h-500px" />
         </template>
         <template #footer>
           <n-flex justify="center" :size="20">

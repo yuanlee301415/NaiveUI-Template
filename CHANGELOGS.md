@@ -482,6 +482,38 @@
 - 清理：删除 12 个调色板变量与 6 个无用语义变量、`--primary-color`、9 个空 `<style>` 块；补齐 `fade-slide` 过渡并收敛 `a` 的过渡属性。
 - 文档：README 增加「样式（CSS）」章节；本文件补充变量映射表与体积对比。
 
+## 首屏体积优化：步骤 15
+
+> 第四轮改造的第一项。范围：把仅用于异常页的大体积插画移出首屏内联 SVG sprite；不改路由、组件结构与视觉效果。
+
+### 问题
+
+`svgIcons.ts` 会把 `src/assets/svg-icons/` 下的**全部** SVG 以字符串形式内联进入口 chunk，并在每次页面加载时注入 `<body>`。由于 403/404 插画（`no-permission.svg` 51.4KB、`not-found.svg` 33.6KB）也放在该目录，全部页面都要为两张只在异常页出现的图付首屏体积。
+
+### 变更
+
+- `src/assets/svg-icons/no-permission.svg`、`not-found.svg` → `src/assets/images/`（`git mv`）；
+- `src/views/exception/403.vue`、`404.vue`：改用 `import xxxUrl from '@/assets/images/xxx.svg?url'` + `<img :src="xxxUrl" :alt="…" class="w-500px h-500px" />`，图片随 403/404 路由 chunk 按需加载；
+- `src/views/user/index.vue`：新增 `<SvgIcon local-icon="avatar" />` 示例，避免 sprite 中唯一保留的小图标无人使用（`avatar.svg` 6.4KB 仍在 sprite 中）；
+- `README.md`「构建插件」：明确「`src/assets/svg-icons/` 只放小图标；大图放 `src/assets/images/` 并以 `?url` 引入」，避免后续又把插画放回 sprite。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| 入口 chunk | `169.13KB raw / 60.86KB gzip` → **`84.09KB raw / 32.42KB gzip`**（净减 85.04KB raw、28.44KB gzip，约 −47%）；入口内 sprite 仅剩 `avatar` |
+| 异常页插画 | 新增 `dist/assets/svg/no-permission.*.svg`（51.43KB / 16.75KB gzip）、`dist/assets/svg/not-found.*.svg`（33.61KB / 11.46KB gzip），仅访问 403/404 时请求；`dist/index.html` 未预加载它们 |
+| `build` | 成功；构建内部耗时 7.68s → 5.21s（sprite 内联体积减少带来的副作用） |
+| `type-check` | 0 错误（`?url` 由 `vite/client` 类型提供） |
+| `lint` / `prettier --check src/` | ESLint 0 问题；本次改动文件符合 Prettier |
+| 单元测试 | 8 文件 / 37 用例全部通过 |
+| `vite preview` 冒烟 | `/`、`/403`、`/404`、两张 SVG 资源、入口 JS 均 200；`image/svg+xml` 正常 |
+
+### 备注
+
+- 403/404 视觉不变：插画仍为 500×500（原 `text-500px` 的 svg 1em 尺寸），仅由内联 `<svg>` 改为 `<img>`。
+- 后续如需进一步压缩首屏，可考虑把 `avatar.svg` 也移出 sprite（当前仅 2.8KB gzip，暂不处理）。
+
 ## 改造完成总结
 
 > 第二轮「工程化优化」见上文步骤 8–12。

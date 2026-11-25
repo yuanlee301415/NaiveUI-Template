@@ -31,6 +31,7 @@
 - `html.ts`：以 Vite `transformIndexHtml` 注入 `<meta name="release">`（不再压缩 HTML）；
 - `svgIcons.ts`：本地 SVG sprite，仍通过 `virtual:svg-icons-register` 注入，`<SvgIcon local-icon="avatar" />` 用法不变；
   - 图标目录：`src/assets/svg-icons/`，symbol id 规则为 `icon-local-<name>`（子目录为 `icon-local-<dir>-<name>`）；
+  - **只放小图标**：sprite 会被打包进入口 chunk（首屏体积），体积较大的插画请放 `src/assets/images/`，按需 `import xxxUrl from '@/assets/images/xxx.svg?url'` 后以 `<img>` 渲染（如 403/404 页），避免拖累首屏；
 - `release.ts`：构建后生成 `dist/release`；
 - `unplugins.ts`：自动导入与组件自动注册；
 - `rollup-plugin-visualizer` 仅在 `pnpm analyze` 时启用。
