@@ -6,9 +6,9 @@ import type { PluginOption } from 'vite'
 import UnoCSS from 'unocss/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { html } from './html'
-import { setupUnplugins } from './unplugins'
-import { releasePlugin } from './release'
+import { html } from './html.ts'
+import { setupUnplugins } from './unplugins.ts'
+import { releasePlugin } from './release.ts'
 
 export interface SetupVitePluginsOptions {
   mode: string

@@ -4,6 +4,14 @@
 
 This template should help get you started developing with Vue 3 + TypeScript in Vite.
 
+## 技术栈
+
+- Vue 3.5 + TypeScript 6
+- Vite 8（Rolldown + Oxc）
+- Vue Router 5、Pinia 4（Pinia 4 需配套安装 `@vue/devtools-api`）
+- NaiveUI 2.45、UnoCSS 66
+- ESLint 10（`withVueTs`）、Prettier 3
+
 ## Requirements
 
 - Node.js `^22.13.0 || >=24`（pnpm 12）

@@ -167,8 +167,42 @@
 | `pnpm server`（json-server） | `/users?_page&_per_page&_sort` 分页/排序、`/login/*`、`/authUser/*`、`/captcha/*` 接口正常 |
 | `prettier --check src/` | 通过 |
 
+## 步骤 6：升级 Vite 8 / vue-router 5 / pinia 4（2026-11-25）
+
+> 本机 Node 已切换至 v24.20.0，满足 Vite 8 的运行要求。
+
+### 依赖变更
+
+- `vite` `^7.3.8` → `^8.3.8`（基于 Rolldown + Oxc；默认浏览器 target 更新、CSS 默认使用 Lightning CSS 压缩）。
+- `vue-router` `^4.6.5` → `^5.5.1`：按官方迁移文档，不使用文件式路由时 v4 → v5 无破坏性变更，本次未改动业务代码。
+- `pinia` `^3.0.4` → `^4.1.0`：v4 为 ESM-only，官方要求手动安装运行时 peer `@vue/devtools-api`。
+- 新增 dependencies：`@vue/devtools-api ^8.2.1`（pinia 4 的 peer；与已移除的 `vite-plugin-vue-devtools` 插件无关）。
+- 移除 `@rollup/plugin-terser`，新增 devDependency `terser ^5.51.4`（Vite 8 通过 `build.minify: 'terser'` 使用，保持原有“移除 `console.*`、保留 `console.debug/error`”的行为）。
+- Vite 8 自身 engines 为 `^20.19.0 || >=22.12.0`；项目 engines 保持 `^22.13.0 || >=24`。
+
+### 构建配置适配（Vite 8 / Rolldown）
+
+- `build.rollupOptions` → `build.rolldownOptions`（后者在 Vite 8 中已属 deprecated 别名）。
+- object 形式的 `output.manualChunks` 在 Vite 8/Rolldown 中已移除 → 改用 `output.codeSplitting.groups`（`vue`、`naive-ui` 两个分组，`priority: 10`），产物仍为独立分包。
+- Rollup 插件链中的 terser 移除 → 改为 Vite 原生 `build.minify: 'terser'` + `build.terserOptions.compress`（`drop_debugger` + `pure_funcs`）。
+- 为兼容 Vite 未来的 native config loader：`vite.config.ts` / `build/plugins/index.ts` 内部 import 补充显式 `.ts` 扩展名，`package.json` 导入使用 `with { type: 'json' }`。
+
+### 验证（全部通过）
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm type-check` | 0 错误（Vite 8 配置类型 + vue-router 5 / pinia 4 类型均通过） |
+| `pnpm lint` | 退出码 0 |
+| `pnpm build:only` | 成功（约 6.3s）；`vue` / `naive-ui` 独立 chunk、HTML 注入 release/title、CSS 命名正常、`console.log` 已被移除 |
+| `pnpm dev`（Vite 8.3.8） | 监听 3000；99 个 `src` 模块全部转换 200；`/`、`/login/password`、`/manage/user` 均 200 |
+| `pnpm server`（json-server） | `/users` 分页/排序、`/login/*`、`/authUser/*`、`/captcha/*` 正常 |
+
+### 备注
+
+- 未引入 E2E/单元测试框架；浏览器端交互（登录、权限切换、用户 CRUD）建议手动点检一次。项目已通过「dev 全模块编译 + 生产构建 + Mock API」三重冒烟。
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
-- 依赖升级到当前主流版本；移除 `vite-plugin-vue-devtools` 与 devtools 相关依赖；ESLint 使用 `withVueTs`。
+- 依赖升级到当前主流版本：Vite 8.3（Rolldown）、Vue Router 5.5、Pinia 4.1、Vue 3.5、TypeScript 6、ESLint 10；移除 `vite-plugin-vue-devtools`，ESLint 使用 `withVueTs`。
 - `jsconfig.json` 按要求保留；自动导入声明与全局类型集中在 `types/`、`env.d.ts`。

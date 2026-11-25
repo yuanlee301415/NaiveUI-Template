@@ -2,10 +2,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { cwd } from 'node:process'
 
 import { defineConfig, loadEnv } from 'vite'
-import type { PluginOption } from 'vite'
-import terser from '@rollup/plugin-terser'
-import { setupVitePlugins } from './build/plugins/index'
-import pkg from './package.json'
+import { setupVitePlugins } from './build/plugins/index.ts'
+import pkg from './package.json' with { type: 'json' }
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -16,6 +14,11 @@ export default defineConfig(({ mode }) => {
   const { VITE_PORT, VITE_INTERNAL_VERSION, VITE_BASE_API, VITE_PROXY } = env
   const __APP_VERSION__ = [pkg.version, VITE_INTERNAL_VERSION].join('.')
   const __APP_BUILD_TIME__ = new Date().toISOString()
+
+  // 生产构建移除 console.*（保留 console.debug / console.error）
+  const pureFuncs = Object.keys(console)
+    .filter((key) => !['debug', 'error'].includes(key))
+    .map((key) => `console.${key}`)
 
   return {
     plugins: setupVitePlugins({ mode, version: __APP_VERSION__, buildTime: __APP_BUILD_TIME__, viteEnv: env }),
@@ -57,26 +60,34 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
-      rollupOptions: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_debugger: true,
+          pure_funcs: pureFuncs,
+        },
+      },
+      rolldownOptions: {
         output: {
           chunkFileNames: 'assets/js/[name].[hash].js',
           entryFileNames: 'assets/js/[name].[hash].js',
           assetFileNames: 'assets/[ext]/[name].[hash].[ext]',
-          manualChunks: {
-            vue: ['vue', 'vue-router', 'pinia'],
-            'naive-ui': ['naive-ui'],
+          // Vite 8 使用 Rolldown，object 形式的 manualChunks 已移除，改用 codeSplitting
+          codeSplitting: {
+            groups: [
+              {
+                name: 'vue',
+                test: /node_modules[\\/](vue|vue-router|pinia|@vue)[\\/]/,
+                priority: 10,
+              },
+              {
+                name: 'naive-ui',
+                test: /node_modules[\\/]naive-ui[\\/]/,
+                priority: 10,
+              },
+            ],
           },
         },
-        plugins: [
-          terser({
-            compress: {
-              drop_debugger: true,
-              pure_funcs: Object.keys(console)
-                .filter((key) => !['debug', 'error'].includes(key))
-                .map((key) => `console.${key}`),
-            },
-          }) as PluginOption,
-        ],
       },
     },
   }
