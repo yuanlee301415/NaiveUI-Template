@@ -143,6 +143,32 @@
 - `pnpm lint`：退出码 0。
 - `pnpm build`：成功。
 
-## 后续步骤
+## 步骤 5：构建接入类型检查、文档与最终回归（2026-11-25）
 
-- 步骤 5：最终验证（dev / json-server 冒烟）、README 更新、`build` 接入 `vue-tsc --build`。
+### 变更
+
+- `package.json`：
+  - `build` 改为 `vue-tsc --build && vite build`（构建前强制类型检查）；
+  - 新增 `build:only: "vite build"`（仅构建，供 CI/快速调试使用）。
+- `README.md` 重写：
+  - 环境要求（Node `^22.13.0 || >=24`、pnpm 12+）；
+  - TypeScript 说明：tsconfig 三件套、`env.d.ts`、`types/` 生成物、`jsconfig.json` 定位、编码约定；
+  - 脚本说明（dev / build / type-check / lint / format / server / ver）。
+- 完整性检查：`pnpm exec prettier --check src/` 通过。
+
+### 最终验证（全部通过）
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm type-check` | 0 错误 |
+| `pnpm lint` | 退出码 0 |
+| `pnpm build`（含类型检查） | 成功，`dist/release`、`dist/report.html` 正常 |
+| `pnpm dev` | 启动正常；99 个 `src` 模块经 Vite 转换全部 200；`/`、`/login/password`、`/manage/user` 均 200 |
+| `pnpm server`（json-server） | `/users?_page&_per_page&_sort` 分页/排序、`/login/*`、`/authUser/*`、`/captcha/*` 接口正常 |
+| `prettier --check src/` | 通过 |
+
+## 改造完成总结
+
+- 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
+- 依赖升级到当前主流版本；移除 `vite-plugin-vue-devtools` 与 devtools 相关依赖；ESLint 使用 `withVueTs`。
+- `jsconfig.json` 按要求保留；自动导入声明与全局类型集中在 `types/`、`env.d.ts`。
