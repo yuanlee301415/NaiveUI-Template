@@ -4,6 +4,7 @@ import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
 import { withVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import vitest from '@vitest/eslint-plugin'
 
 export default withVueTs(
   {
@@ -31,11 +32,27 @@ export default withVueTs(
 
   {
     name: 'app/node-globals',
-    files: ['vite.config.ts', 'uno.config.ts', 'eslint.config.js', 'build/**/*'],
+    files: ['vite.config.ts', 'uno.config.ts', 'eslint.config.js', 'vitest.config.ts', 'build/**/*'],
     languageOptions: {
       globals: {
         ...globals.node,
       },
+    },
+  },
+
+  {
+    name: 'app/vitest',
+    files: ['**/__tests__/**'],
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
     },
   },
 

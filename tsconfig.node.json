@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/node24/tsconfig.json",
-  "include": ["vite.config.*", "uno.config.*", "eslint.config.*", "build/**/*"],
+  "include": ["vite.config.*", "uno.config.*", "eslint.config.*", "vitest.config.*", "build/**/*"],
+  "exclude": ["build/**/__tests__/*"],
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",

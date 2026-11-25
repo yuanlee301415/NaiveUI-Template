@@ -329,6 +329,35 @@
 - 入口 chunk 169.13KB raw / 60.87KB gzip（改动前约 168KB / 59KB，基本持平）：本地 SVG 插件未引入 `svgo` 优化，换取移除整条陈旧依赖链；如需再压体积可另行引入 SVG 优化步骤。
 - 构建总耗时约 5.2s（其中 terser 约占 4.9s），插件数量减少后 dev 启动不再有 svg 插件中间件开销。
 
+## 步骤 11：单元测试（不引入 CI）（2026-11-25）
+
+### 变更
+
+- 新增 devDependencies：`vitest ^5.1.1`（peer 支持 Vite 8）、`@vue/test-utils ^2.6.0`、`jsdom ^31.0.1`、`@vitest/eslint-plugin ^1.6.28`。
+- 新增 `vitest.config.ts`：独立配置（**不加载** UnoCSS / 自动导入 / 构建插件，保持秒级启动），`environment: 'jsdom'`、`@` 别名、`restoreMocks: true`、测试目录为 `src/**/__tests__/**/*.spec.ts` 与 `build/**/__tests__/**/*.spec.ts`、`env.VITE_ICON_LOCAL_PREFIX`。
+- 类型检查接入：新增 `tsconfig.vitest.json`（extends `tsconfig.app.json`，独立 `tsBuildInfoFile`，`types: ["node"]`），并在 `tsconfig.json` 增加引用；`tsconfig.node.json` 的 include 增加 `vitest.config.*`，同时排除 `build/**/__tests__/*`（避免测试文件被 node 项目重复检查）。
+- 脚本：新增 `test:unit: "vitest"`、`test:unit:run: "vitest run"`；`check` 改为 `pnpm lint:check && pnpm type-check && pnpm test:unit:run`。
+- `eslint.config.js`：新增 `app/vitest` 配置，对 `**/__tests__/**` 启用 `@vitest/eslint-plugin` 的 recommended 规则与 globals；`vitest.config.ts` 纳入 node globals 范围。
+- 新增 8 个 spec（37 个用例），只覆盖纯逻辑与构建工具，不依赖浏览器交互：
+  - `build/__tests__/svgIcons.spec.ts`：symbol id（根目录 / 子目录 / Windows 分隔符）、`renderSymbol`、`renderSprite`、`loadSymbols`（临时目录、忽略非 svg）、注册代码结构。
+  - `build/__tests__/html.spec.ts`：release meta 注入内容。
+  - `src/utils/__tests__/formatDate.spec.ts`、`src/utils/__tests__/authToken.spec.ts`（jsdom sessionStorage）。
+  - `src/models/__tests__/DataTableSorter.spec.ts`。
+  - `src/stores/__tests__/shared.spec.ts`（`hasPermission` / `filterAsyncRoutes` / `genMenus`）。
+  - `src/hooks/__tests__/formRules.spec.ts`（必填 / 格式 / 确认密码 validator / 提示信息副本）。
+  - `src/components/__tests__/SvgIcon.spec.ts`（`@vue/test-utils` 挂载）。
+- 按要求**不新增 CI**（无 `.github/`、无 GitHub Actions），质量门禁由 `pnpm check` 在本地执行。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm test:unit:run` | 8 个测试文件 / 37 个用例全部通过，耗时约 1.8s |
+| `pnpm type-check` | 0 错误（含 `tsconfig.vitest.json` 项目与测试文件） |
+| `pnpm check` | 通过（lint:check → type-check → test:unit:run） |
+| `pnpm lint:check` / `pnpm format:check` | 退出码 0 |
+| `pnpm build` | 成功（types:gen → vue-tsc → vite build） |
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
