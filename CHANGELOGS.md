@@ -226,6 +226,42 @@
 | `pnpm type-check` | 0 错误 |
 | `pnpm lint` | 退出码 0 |
 
+## 工程化优化：步骤 8–12
+
+> 第二轮改造。范围仅限工程化层面（包管理、规范、构建链、测试、文档），不修改应用运行逻辑；Prettier 仅作用于 `src/`；不引入 CI。
+
+## 步骤 8：包管理与脚本工程化（2026-11-25）
+
+### 变更
+
+- `package.json`
+  - 新增 `"packageManager": "pnpm@11.27.1"`（与本机 pnpm 版本一致，供 Corepack/pnpm 自动校验）。
+  - `engines` 增加 `"pnpm": ">=11"`。
+  - 脚本拆分为「修复态 / 检查态」：
+    - 新增 `lint:check: "eslint . --cache --max-warnings 0"`；
+    - 新增 `format:check: "prettier --check src/"`（**Prettier 范围保持仅 `src/`**，`format` 不变）；
+    - 新增 `check: "pnpm lint:check && pnpm type-check"`（步骤 11 再并入测试）；
+    - `server` 由 `npx json-server` 改为 `pnpm exec json-server`。
+  - `simple-git-hooks.pre-commit`：`npx lint-staged` → `pnpm exec lint-staged`。
+  - `lint-staged` 拆为两条，避免 Prettier 越界：
+    - `*.{vue,js,ts,mts,tsx}` → `eslint --fix --cache`（作用于暂存文件）；
+    - `src/**/*.{vue,js,css,less,json,ts,mts,tsx}` → `prettier --write`。
+- 新增 `.npmrc`：`engine-strict=true`，Node/pnpm 版本不满足 `engines` 时安装直接失败。
+
+### 说明
+
+- `packageManager` 固定为当前实际使用的 `pnpm@11.27.1`（此前 README 写的「pnpm 12+」不准确，README 在步骤 12 统一清理）。
+- `check` 暂只包含 lint 与类型检查，单元测试落地后（步骤 11）再追加 `test:unit:run`。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm install` | 成功（pnpm v11.27.1，`engine-strict` 生效） |
+| `pnpm format:check` | 通过（仅检查 `src/`） |
+| `pnpm lint:check` | 退出码 0，0 警告 |
+| `pnpm-lock.yaml` | 无变化（未增删依赖、无版本漂移） |
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。

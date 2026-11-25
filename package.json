@@ -4,11 +4,13 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.27.1",
   "repository": {
     "url": "https://github.com/yuanlee301415/NaiveUI-Template"
   },
   "engines": {
-    "node": "^22.13.0 || >=24"
+    "node": "^22.13.0 || >=24",
+    "pnpm": ">=11"
   },
   "scripts": {
     "dev": "vite",
@@ -19,8 +21,11 @@
     "preview:dist": "vite preview",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
+    "lint:check": "eslint . --cache --max-warnings 0",
     "format": "prettier --write src/",
-    "server": "npx json-server server/db.json5 --port 3001",
+    "format:check": "prettier --check src/",
+    "check": "pnpm lint:check && pnpm type-check",
+    "server": "pnpm exec json-server server/db.json5 --port 3001",
     "ver": "tsx build/scripts/update-internal-version.ts",
     "prepare": "simple-git-hooks"
   },
@@ -69,11 +74,13 @@
   },
   "lint-staged": {
     "*.{vue,js,ts,mts,tsx}": [
-      "eslint . --fix --cache",
-      "prettier --write src/"
+      "eslint --fix --cache"
+    ],
+    "src/**/*.{vue,js,css,less,json,ts,mts,tsx}": [
+      "prettier --write"
     ]
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "pnpm exec lint-staged"
   }
 }
