@@ -14,6 +14,8 @@ export default defineConfig(({ mode }) => {
   const { VITE_PORT, VITE_INTERNAL_VERSION, VITE_BASE_API, VITE_PROXY } = env
   const __APP_VERSION__ = [pkg.version, VITE_INTERNAL_VERSION].join('.')
   const __APP_BUILD_TIME__ = new Date().toISOString()
+  // `pnpm analyze` 使用 `--mode analyze`，仅此时生成 bundle 分析报告
+  const analyze = mode === 'analyze'
 
   // 生产构建移除 console.*（保留 console.debug / console.error）
   const pureFuncs = Object.keys(console)
@@ -21,7 +23,7 @@ export default defineConfig(({ mode }) => {
     .map((key) => `console.${key}`)
 
   return {
-    plugins: setupVitePlugins({ mode, version: __APP_VERSION__, buildTime: __APP_BUILD_TIME__, viteEnv: env }),
+    plugins: setupVitePlugins({ mode, version: __APP_VERSION__, buildTime: __APP_BUILD_TIME__, viteEnv: env, analyze }),
 
     resolve: {
       alias: {

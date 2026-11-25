@@ -201,6 +201,31 @@
 
 - 未引入 E2E/单元测试框架；浏览器端交互（登录、权限切换、用户 CRUD）建议手动点检一次。项目已通过「dev 全模块编译 + 生产构建 + Mock API」三重冒烟。
 
+## 步骤 7：新增按需生成 bundle 分析报告的脚本（2026-11-25）
+
+### 变更
+
+- `build/plugins/index.ts`：`SetupVitePluginsOptions` 新增 `analyze?: boolean`（默认 `false`）；`rollup-plugin-visualizer` 由「每次构建都启用」改为**仅在 analyze 模式下启用**（条件展开插件数组），报告路径仍为 `dist/report.html`。
+- `vite.config.ts`：`const analyze = mode === 'analyze'`，传入 `setupVitePlugins`。
+- `package.json`：新增脚本 `"analyze": "vite build --mode analyze"`（**跳过类型检查**，仅构建 + 出报告）。
+- `README.md`：脚本说明新增 `pnpm analyze`（含警告：该构建 `MODE=analyze` 且覆盖 `dist`；发布前需再执行 `pnpm build`）。
+- `types/auto-imports.d.ts`：随本次构建重新生成（内容格式归一，无功能变化）。
+
+### 行为
+
+- `pnpm dev` / `pnpm build` / `pnpm build:only` / `pnpm preview`：不再生成 `dist/report.html`。
+- `pnpm analyze`：正常生产构建 + 生成 `dist/report.html`；该次构建的 `import.meta.env.MODE`、`dist/release`、HTML release meta 均为 `analyze`。
+- 需要类型保障时单独执行 `pnpm type-check`。
+
+### 验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm analyze` | 退出码 0；`dist/report.html` 生成；输出中无 `vue-tsc`；`dist/release` 为 `MODE: analyze` |
+| `pnpm build:only` | 退出码 0；`dist/report.html` 不存在；`dist/release` 为 `MODE: production` |
+| `pnpm type-check` | 0 错误 |
+| `pnpm lint` | 退出码 0 |
+
 ## 改造完成总结
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。

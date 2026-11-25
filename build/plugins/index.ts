@@ -1,8 +1,8 @@
 import { cwd } from 'node:process'
 import { resolve } from 'node:path'
 
-import vue from '@vitejs/plugin-vue'
 import type { PluginOption } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -15,9 +15,11 @@ export interface SetupVitePluginsOptions {
   version: string
   buildTime: string
   viteEnv: Record<string, string>
+  /** 是否生成 bundle 分析报告（仅 `--mode analyze` 时开启） */
+  analyze?: boolean
 }
 
-export function setupVitePlugins({ mode, version, buildTime, viteEnv }: SetupVitePluginsOptions): PluginOption[] {
+export function setupVitePlugins({ mode, version, buildTime, viteEnv, analyze = false }: SetupVitePluginsOptions): PluginOption[] {
   const { VITE_ICON_LOCAL_PREFIX } = viteEnv
 
   return [
@@ -38,9 +40,14 @@ export function setupVitePlugins({ mode, version, buildTime, viteEnv }: SetupVit
 
     releasePlugin({ mode, version, buildTime }),
 
-    visualizer({
-      filename: 'dist/report.html',
-      title: `Bundle Analysis - ${new Date().toLocaleString()}`,
-    }),
+    // 仅在 analyze 模式下生成 bundle 分析报告
+    ...(analyze
+      ? [
+          visualizer({
+            filename: 'dist/report.html',
+            title: `Bundle Analysis - ${new Date().toLocaleString()}`,
+          }),
+        ]
+      : []),
   ]
 }

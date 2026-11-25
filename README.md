@@ -70,6 +70,16 @@ pnpm build
 pnpm type-check
 ```
 
+### Analyze Bundle (on demand)
+
+```sh
+pnpm analyze
+```
+
+- 等价于 `vite build --mode analyze`：**跳过类型检查**，仅构建并生成 `dist/report.html`（`rollup-plugin-visualizer`）。
+- 平时 `pnpm dev` / `pnpm build` / `pnpm build:only` 不再生成分析报告。
+- 该次构建的 `MODE` 为 `analyze`（`dist/release`、HTML release meta、`App.vue` 控制台输出均会体现），且会覆盖 `dist`；正式发布前请再执行一次 `pnpm build`。
+
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
