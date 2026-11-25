@@ -13,6 +13,9 @@ export interface FormatDateOptions {
 /**
  * 格式化时间
  * @param value 时间戳|日期字符串|日期对象
+ * @param isShort 是否使用短格式（只包含年月日）
+ * @param separator 年月日分隔符
+ * @param placeholder 无效数据时占位符
  * @returns 格式化后的字符串
  */
 export default function formatDate(

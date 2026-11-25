@@ -358,7 +358,53 @@
 | `pnpm lint:check` / `pnpm format:check` | 退出码 0 |
 | `pnpm build` | 成功（types:gen → vue-tsc → vite build） |
 
+## 步骤 12：README 清理与仓库卫生（2026-11-25）
+
+### `README.md` 清理
+
+- 重写为与当前工程一致的说明：
+  - 技术栈补充 Vitest 5 / jsdom；Pinia 4 的 `@vue/devtools-api` 说明改为「运行时 peer，与 devtools 插件无关」；
+  - Requirements 修正为 **pnpm 11+**（与本机 `pnpm@11.27.1`、`packageManager` 一致，替换原先不准确的「pnpm 12+」），并说明 `.npmrc` 的 `engine-strict`；
+  - TypeScript 小节改为三个 tsconfig 项目（app / node / vitest）的职责，补充 `noUnusedLocals/Parameters`；
+  - 说明 `types/auto-imports.d.ts`、`types/components.d.ts` **不入库**（仓库提交 `1eff965`），缺失时执行 `pnpm types:gen`，`type-check` 会自动生成；
+  - 新增「构建插件」小节：`build/plugins/` 的本地 HTML 注入与 SVG sprite 实现、release 插件、unplugins、visualizer 仅 analyze 时启用；
+  - 脚本一节改为完整表格（`dev` / `build` / `build:only` / `analyze` / `preview` / `preview:dist` / `types:gen` / `type-check` / `lint` / `lint:check` / `format` / `format:check` / `test:unit` / `test:unit:run` / `check` / `server` / `ver`）；
+  - 新增「检查与测试」：提交前钩子说明、`pnpm check` 门禁、8 个 spec / 37 个用例的覆盖范围、**未配置 CI** 的说明；
+  - 明确 **Prettier 仅作用于 `src/`**，ESLint 覆盖全仓（含 `build/` 与根配置）。
+- 删除与当前工程无关的「Recommended Browser Setup」小节。
+- 保留 `jsconfig.json` 说明、`pnpm analyze` 的覆盖 `dist` 警告、Change Log 链接。
+
+### 仓库卫生
+
+- 删除无任何引用的备份文件 `src/layout/index-bk.vue`。
+- `src/utils/formatDate.ts`：补充 `FormatDateOptions` 的 JSDoc `@param` 说明（无行为变化）。
+
+### 最终验证
+
+| 检查 | 结果 |
+| --- | --- |
+| `pnpm install` | 成功（`engine-strict` 生效） |
+| `pnpm format:check` | 通过（仅检查 `src/`） |
+| `pnpm lint:check` | 退出码 0，0 error / 0 warning |
+| `pnpm type-check` | 0 错误（app / node / vitest 三个项目） |
+| `pnpm test:unit:run` | 8 个测试文件 / 37 个用例全部通过 |
+| `pnpm check` | 通过 |
+| `pnpm build` | 成功；`dist/release` 为 `MODE: production`；`dist/index.html` 含 release meta |
+| `pnpm build:only` | 成功，无 500KB chunk 告警 |
+| `pnpm dev`（3100 端口冒烟） | `/`、`/login/password`、`/403`、`/404`、`/manage/user` 均 200 |
+| `pnpm analyze` | 成功，`dist/report.html` 生成 |
+
+## 工程化优化总结（步骤 8–12）
+
+- 包管理：`packageManager` 固定 pnpm 11.27.1、`engines.pnpm`、`.npmrc`（`engine-strict`）；检查态脚本（`lint:check` / `format:check` / `check`）与修复态脚本分离；`lint-staged` 仅对暂存文件生效，Prettier 范围限定 `src/`。
+- 规范：`noUnusedLocals/Parameters` 开启；ESLint 升级到 `flat/recommended` 并清零告警，新增 `reportUnusedDisableDirectives`、Vitest 测试规则。
+- 构建链：移除 `vite-plugin-html`、`vite-plugin-svg-icons` 两个停止维护的依赖（共减少 248 个包、lockfile 减少 2222 行），改为 `build/plugins/` 本地实现；`types:gen` 使「生成物不入库」后 `type-check` 仍可独立工作；消除 500KB chunk 告警。
+- 测试：Vitest + jsdom 独立配置，8 个 spec / 37 个用例，纳入 `type-check` 与 `pnpm check`；按需求不引入 CI。
+- 文档：README 与 CHANGELOGS 与现状对齐。
+
 ## 改造完成总结
+
+> 第二轮「工程化优化」见上文步骤 8–12。
 
 - 全量源码（57 个 `src/*.ts` + 41 个 SFC）与构建配置均为 TypeScript；`pnpm build`、`pnpm type-check` 全绿。
 - 依赖升级到当前主流版本：Vite 8.3（Rolldown）、Vue Router 5.5、Pinia 4.1、Vue 3.5、TypeScript 6、ESLint 10；移除 `vite-plugin-vue-devtools`，ESLint 使用 `withVueTs`。

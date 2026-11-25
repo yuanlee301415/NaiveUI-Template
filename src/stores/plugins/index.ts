@@ -2,7 +2,7 @@
  * 重置 State 插件
  * */
 import type { PiniaPluginContext } from 'pinia'
-import { StoreId } from '@/enum/index'
+import { StoreId } from '@/enum'
 import { cloneJson } from '@/utils/cloneJson'
 
 export function resetSetupStore(context: PiniaPluginContext): void {
