@@ -26,9 +26,9 @@ coverage
 *.sln
 *.sw?
 
-*.tsbuildinfo
-
 .eslintcache
+/types/auto-imports.d.ts
+/types/components.d.ts
 
 # Cypress
 /cypress/videos/
